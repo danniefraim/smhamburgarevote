@@ -1,0 +1,7082 @@
+{
+ "criteria": [
+  {
+   "key": "smak",
+   "label": "Smak/Arom",
+   "weight": 0.45
+  },
+  {
+   "key": "textur",
+   "label": "Textur/Mörhet",
+   "weight": 0.35
+  },
+  {
+   "key": "utseende",
+   "label": "Utseende/Visualitet",
+   "weight": 0.15
+  },
+  {
+   "key": "kreativitet",
+   "label": "Kreativitet",
+   "weight": 0.05
+  }
+ ],
+ "grenar": [
+  {
+   "name": "Freestyle",
+   "inTotal": true
+  },
+  {
+   "name": "Hemliga Lådan",
+   "inTotal": true
+  },
+  {
+   "name": "Tjockpuck",
+   "inTotal": true
+  },
+  {
+   "name": "Vegetarisk",
+   "inTotal": false
+  }
+ ],
+ "votes": [
+  {
+   "kortid": "3b238f51-a967-4cd8-8c03-b7b4e21c52de",
+   "lagkod": "VXUH",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "9afc389c-739e-45f6-a9e4-f00e10f3a02a",
+   "lagkod": "VXUH",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "a5c5e281-f298-44ef-a1bc-4b8474c61929",
+   "lagkod": "VXUH",
+   "judge": "Toby",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "67bef97f-0fa1-4d8a-b21e-c2b22c804acc",
+   "lagkod": "VXUH",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "19990233-09bd-4e61-80c7-8c6ff977cbac",
+   "lagkod": "VXUH",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 3,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 3
+   }
+  },
+  {
+   "kortid": "41c68dee-14bd-49b0-8dff-f5167d6e7fb6",
+   "lagkod": "VZXH",
+   "judge": "Selin",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 4,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "9cbfc078-c497-4250-9cec-c9f928549f14",
+   "lagkod": "VZXH",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "c1565f30-4b69-4b5b-a8d8-438d2d9b4617",
+   "lagkod": "VZXH",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "70467b04-cc03-4d4e-93b4-946b08f900a6",
+   "lagkod": "VZXH",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "28392b92-ddfe-40c4-abf7-8729a07d86fb",
+   "lagkod": "VZXH",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "9df9500c-4dbc-4508-b15a-9cb774a73610",
+   "lagkod": "VZXH",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 4,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "a09c5f03-fada-4022-a803-fc12830008d6",
+   "lagkod": "VZXH",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "7a55626c-b723-45f2-bb41-26ef2aeedb43",
+   "lagkod": "QFFI",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "c1ccb71f-76e0-4a09-90f7-82210856b3a8",
+   "lagkod": "QFFI",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "ef7e7f27-c087-461e-825a-3b7b45a9b5ab",
+   "lagkod": "QFFI",
+   "judge": "Selin",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "8debd7fd-1aa5-4b52-bdde-1b7e4bed5a69",
+   "lagkod": "QFFI",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "f1e218b3-f817-4d1d-b47f-bf84a66b8a43",
+   "lagkod": "QFFI",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 9,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "9a203377-3229-4a9e-841d-46598204fbf2",
+   "lagkod": "QFFI",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "d5969ed6-f9ca-4cb7-b5ab-02f65dc515e1",
+   "lagkod": "QFFI",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "e985846b-c9bc-49e4-b427-c775e743c5c7",
+   "lagkod": "VPOC",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "58df8e00-cc2c-4ab3-bbe7-7ed774c2f4bc",
+   "lagkod": "VPOC",
+   "judge": "Selin",
+   "scores": {
+    "smak": 5,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "a04139c7-a40d-4afb-8ee7-f6de3544ec24",
+   "lagkod": "VPOC",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "4c808fe7-a6ab-4812-90d3-737d67c9e3be",
+   "lagkod": "VPOC",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "0847332d-c606-40fa-965c-abfc01e92b5a",
+   "lagkod": "VPOC",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "62a8d3a5-66fc-4c48-bc83-ce35346305f4",
+   "lagkod": "VPOC",
+   "judge": "Toby",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 4,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "3be83b98-e718-4259-8869-5bcae2344c87",
+   "lagkod": "VPOC",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "f5e6054d-7f6e-41fa-b776-5224eafa3aa5",
+   "lagkod": "PRWU",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 6,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "72cdc457-f89e-4e4b-8702-4f49c349e34e",
+   "lagkod": "PRWU",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "bb505bd2-3f51-4f35-a074-3682d2bf693c",
+   "lagkod": "PRWU",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "79032089-5d1c-44ae-9399-49eefe9b23b7",
+   "lagkod": "PRWU",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "7e3e26c2-6a2e-4905-9960-e284dd05bc19",
+   "lagkod": "PRWU",
+   "judge": "Toby",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "d63346a5-d5e8-4424-80d6-e15353a91701",
+   "lagkod": "PRWU",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "42270f33-43e4-44e3-b54b-824236c46e07",
+   "lagkod": "PRWU",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "b7174bbb-20f8-48cf-b460-223eec397f75",
+   "lagkod": "PLRM",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "3a140891-adc2-4ffc-8b5f-7d18522a046a",
+   "lagkod": "PLRM",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "4d5eaf2c-7cc7-4a5e-a401-83b9749331a8",
+   "lagkod": "PLRM",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 3
+   }
+  },
+  {
+   "kortid": "2553032d-d3f5-4a0b-8e98-be3ce9954c29",
+   "lagkod": "PLRM",
+   "judge": "Toby",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "f2415649-fb6a-45f1-a122-ade830cc1575",
+   "lagkod": "PLRM",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "8185911a-2c4f-4dac-9a34-f8f5791f7eea",
+   "lagkod": "PLRM",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "c7d6b14a-b5ac-42ec-8733-95cd5f4d7ae9",
+   "lagkod": "PLRM",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "548a675e-a620-4c4b-8bd6-a961aabac000",
+   "lagkod": "PHSY",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 8,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "5c820e45-518f-45c5-9df6-e981a35dd347",
+   "lagkod": "PHSY",
+   "judge": "Selin",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "21df9139-6bd0-4323-a33c-66450d3c85c1",
+   "lagkod": "PHSY",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 9,
+    "textur": 9,
+    "utseende": 10,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "f31dfaac-02a9-44d8-bc2f-4cdc45b01ec3",
+   "lagkod": "PHSY",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 7,
+    "textur": 5,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "e190e88f-6f78-49a6-adee-b96369f5a89e",
+   "lagkod": "PHSY",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "de19380c-fddb-45ef-ae1c-6818d00e2e50",
+   "lagkod": "PHSY",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 8,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "006212da-01ca-4123-93e0-97002b9dc045",
+   "lagkod": "PHSY",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "827c0a82-1f2f-4ae4-a002-76a531cfe9ac",
+   "lagkod": "PHSY",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 7,
+    "textur": 4,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "52881624-3450-491c-b086-c8be87e4edda",
+   "lagkod": "OOXQ",
+   "judge": "Selin",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "226cb2b2-b5cb-4320-9b1f-2e80359299f9",
+   "lagkod": "OOXQ",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "56935ed6-13b8-4b26-8346-5cf09b449bc9",
+   "lagkod": "OOXQ",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 3,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "919ef1b3-9f7f-438d-8496-78948ac245c2",
+   "lagkod": "OOXQ",
+   "judge": "Linus",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 3
+   }
+  },
+  {
+   "kortid": "fb64aca2-502a-4566-b5f3-7a2509e40f55",
+   "lagkod": "OOXQ",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "3b11c751-77d6-45fb-ae16-8e1700241e96",
+   "lagkod": "OOXQ",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "fa44e123-7867-42d2-9556-f06fbd579a6d",
+   "lagkod": "OOXQ",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "153069ed-8ec0-43d2-aa7a-b2e6312afb9c",
+   "lagkod": "OFXW",
+   "judge": "Toby",
+   "scores": {
+    "smak": 7,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "9316dd11-3637-4b84-8e9c-bb1b1b8cdbce",
+   "lagkod": "OFXW",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 2,
+    "textur": 4,
+    "utseende": 9,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "53ad7531-0b7c-4151-867c-6116cadfccf0",
+   "lagkod": "OFXW",
+   "judge": "Selin",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 9,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "3fb92d48-1228-4563-8fd4-cb7c53387b3c",
+   "lagkod": "OFXW",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 8,
+    "textur": 9,
+    "utseende": 8,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "c081380e-31c7-40b5-b8c6-01c036290181",
+   "lagkod": "OFXW",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 8,
+    "textur": 9,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "d4d45472-46a2-438f-947f-0ca00b583798",
+   "lagkod": "OFXW",
+   "judge": "Linus",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "6f0edd8d-5d0e-49fd-88d1-ffbfaf7185e3",
+   "lagkod": "OTXN",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "cd76d2e8-d58b-4a44-b197-7e363bb1906d",
+   "lagkod": "OTXN",
+   "judge": "Toby",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "90b9d12b-a3e3-4d4a-ba0c-2eb901c46c2f",
+   "lagkod": "OTXN",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "9f432ddf-3557-4403-b944-267a352f267f",
+   "lagkod": "OTXN",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 5,
+    "textur": 7,
+    "utseende": 10,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "5d091e85-37b1-4337-8753-0acf9d9285cd",
+   "lagkod": "OTXN",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "ed167551-267d-407f-8310-7ceb9febab51",
+   "lagkod": "OTXN",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "caeded98-bb90-4b88-9049-363069bcc1c4",
+   "lagkod": "OTXN",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 5,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "bedeaab0-d847-4c14-bead-d0e82d7d4e60",
+   "lagkod": "NZVL",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "03eccad5-606e-4b11-a84b-48ebf536433c",
+   "lagkod": "NZVL",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 3,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "e23b3800-53b7-4575-8bc0-3019a3754773",
+   "lagkod": "NZVL",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "001c97e1-1487-47c4-804d-d72d466097d9",
+   "lagkod": "NZVL",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "4d88612d-9ed7-48bc-9da2-48f709747c3e",
+   "lagkod": "NZVL",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "4e197bdd-cd39-4853-82de-a1aba4f5c68d",
+   "lagkod": "NZVL",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "38cca29a-5bae-405c-8c15-a8567abeadb7",
+   "lagkod": "NZVL",
+   "judge": "Toby",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "48c5165f-2996-4b9b-a5a3-ea4dc067adc7",
+   "lagkod": "OLNS",
+   "judge": "Selin",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "afcdbe42-af52-4828-b6ae-e01cd74c2bdd",
+   "lagkod": "OLNS",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "af310b0c-4460-4b52-b22f-2690ed5ac6b1",
+   "lagkod": "OLNS",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "091392b0-9e39-42c1-8306-d90bc85e7ac1",
+   "lagkod": "OLNS",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "e7186ff7-ad42-483d-a625-24aadd72599d",
+   "lagkod": "OLNS",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "328c7b42-5af3-4595-bdb3-fc9879aab3ed",
+   "lagkod": "OLNS",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 8,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "98375c56-2145-44ae-812e-ba1de36fc6d0",
+   "lagkod": "OLNS",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "539f8a6b-6a50-4413-aa09-69c7b60f86d2",
+   "lagkod": "OLNS",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 6,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "ecf3d39d-60c6-47d2-8a57-4601599cf429",
+   "lagkod": "NDYM",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "63ed9fee-7a89-4503-a6cd-233b55881d83",
+   "lagkod": "NDYM",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "820ee66b-b0cf-41e4-9a51-c0688347664c",
+   "lagkod": "NDYM",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "dd33f59c-341e-40b3-8c18-e4f727c21825",
+   "lagkod": "NDYM",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 4,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "1d3af1e7-ca23-451f-a232-a4501e4f0b0f",
+   "lagkod": "NDYM",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "50c8014f-4036-4706-a1d4-677cd3943883",
+   "lagkod": "NDYM",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "e35d6b26-7f96-4da6-b270-55aa6675d3ac",
+   "lagkod": "NDYM",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "4607f01b-4e0a-4253-bf7a-6e584b44c0a7",
+   "lagkod": "MZZH",
+   "judge": "Selin",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "1758d614-2e84-480e-953c-c19845b042f1",
+   "lagkod": "MZZH",
+   "judge": "Toby",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "2467cf95-a7ce-4dc8-81f7-309eebf7ab0b",
+   "lagkod": "MZZH",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 8,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "990b40c1-d926-4e93-99ec-e98398b82d85",
+   "lagkod": "MZZH",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "68301509-b9b3-49dd-ac89-a40ebab682ff",
+   "lagkod": "MZZH",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "e217c7f5-9812-44f3-a675-25f32914a70a",
+   "lagkod": "MZZH",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "a70bb701-c267-4394-b76f-75cd52e81c40",
+   "lagkod": "MZZH",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "187f54c5-04ef-4f3a-b0f6-12f2f6159a20",
+   "lagkod": "NVYC",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "deed4876-e3c0-49d7-b535-297ab839c3df",
+   "lagkod": "NVYC",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "72a278fb-525d-4d2f-b44f-b2d758835893",
+   "lagkod": "NVYC",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "87362ffc-e1e2-404e-9924-0414c7c97c5b",
+   "lagkod": "NVYC",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "c67c5974-8d1b-46ac-9e39-128b311659d6",
+   "lagkod": "NVYC",
+   "judge": "Toby",
+   "scores": {
+    "smak": 9,
+    "textur": 9,
+    "utseende": 10,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "387f410c-4874-41c9-8b2c-9291912105a1",
+   "lagkod": "NVYC",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "b96b0b77-034b-4604-8a30-037eba771d90",
+   "lagkod": "MEIK",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 9,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "5259ee08-e014-488c-a5d3-217262f814df",
+   "lagkod": "NVYC",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "39c9fab9-441c-4330-a5f5-449e6d4357c1",
+   "lagkod": "MEIK",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "f4fb4ad8-9666-408f-b0c5-e16b057794eb",
+   "lagkod": "MEIK",
+   "judge": "Toby",
+   "scores": {
+    "smak": 3,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "572ca33f-6e19-4c13-bee3-13ab8481aae9",
+   "lagkod": "MEIK",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 8,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "0b44c5af-27b0-4e1e-a404-2800ac33d986",
+   "lagkod": "MEIK",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "364e50a2-82d0-4d5d-909d-4668089781e9",
+   "lagkod": "MEIK",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "280e8262-0d44-4257-89d3-b12c1a549da9",
+   "lagkod": "MEIK",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "7bc132d6-86c4-4ae6-99b5-593a8fea5cab",
+   "lagkod": "SODG",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 8,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "70c2393f-79f5-4298-8ab1-a0a6ba8a7684",
+   "lagkod": "SODG",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "11cc40c8-d463-4ebb-bc03-aecd93f39246",
+   "lagkod": "SODG",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 8,
+    "textur": 9,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "8d31bb27-1ad4-4316-a5db-364cb14c4005",
+   "lagkod": "SODG",
+   "judge": "Selin",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "f1a56af9-69be-4cab-a08e-63142548f5f2",
+   "lagkod": "SODG",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "0d4e8f86-565f-4c56-b415-d548edd67c15",
+   "lagkod": "SODG",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "b70ea7ed-c62b-4476-97c3-a274d50cad03",
+   "lagkod": "SODG",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "9c2fc8d5-cb19-4031-bd78-f662da7a8da8",
+   "lagkod": "SODG",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "9d6f3cc0-6025-4778-b38a-f7b11a3ea3d5",
+   "lagkod": "LYRJ",
+   "judge": "Selin",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "c4f9fbba-582d-4eb6-bd1f-829252b3132a",
+   "lagkod": "LYRJ",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "d667fb5d-ed27-405a-9453-044297fae0f6",
+   "lagkod": "LYRJ",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 9,
+    "textur": 9,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "4a8cfb22-75d6-47d0-8dc9-18fbbc135555",
+   "lagkod": "LYRJ",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "115e8c89-0acb-4c4b-a649-fee80da3c5fd",
+   "lagkod": "LYRJ",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "a738d997-f1a6-41fe-8a78-b6f636733ac4",
+   "lagkod": "LYRJ",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "0a129744-f65b-45f3-ba86-73c8c69e77dc",
+   "lagkod": "LYRJ",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "61463101-84dc-4ffe-be19-f86e787a49e8",
+   "lagkod": "MAMV",
+   "judge": "Selin",
+   "scores": {
+    "smak": 2,
+    "textur": 3,
+    "utseende": 2,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "08b15221-6cbf-48ca-ba55-bf27cc7d2633",
+   "lagkod": "MAMV",
+   "judge": "Toby",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "2fbaf2c3-3c8b-4778-8914-36c91e9994d8",
+   "lagkod": "MAMV",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "4b87110f-6bac-4cd9-a3bc-e90616a45dd0",
+   "lagkod": "MAMV",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "3fce2ec6-3a71-434f-a6bf-f1d37d4d39d3",
+   "lagkod": "MAMV",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "cf4ab4d1-1a28-4c00-9ef3-6ecad1d6ef62",
+   "lagkod": "MAMV",
+   "judge": "Linus",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "26a64d34-6df4-416a-9caf-4a787661e585",
+   "lagkod": "MAMV",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 3,
+    "textur": 3,
+    "utseende": 4,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "6260bddc-c764-4dc5-b486-90ffcdbc04db",
+   "lagkod": "LGHQ",
+   "judge": "Toby",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "f24c7d81-a49c-41b9-9f5f-ea75ea0028c2",
+   "lagkod": "LGHQ",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "b30f03bb-01bb-419e-8993-c9f0a4f42346",
+   "lagkod": "LGHQ",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 6,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "7a422b52-8413-4df3-b4a4-6788b5327011",
+   "lagkod": "LGHQ",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "a39512c1-474f-4fc9-929e-ca4fd3dd0be0",
+   "lagkod": "LGHQ",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "80154dae-dc19-439d-9eed-b197191d283d",
+   "lagkod": "KVVK",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "922f6a2a-72d1-468f-82af-90bb6d1f6ab0",
+   "lagkod": "LGHQ",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "d5f18c19-028a-4143-b69b-abf158b1bb52",
+   "lagkod": "LGHQ",
+   "judge": "Linus",
+   "scores": {
+    "smak": 4,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "ef58a248-438e-43de-92e2-4c53cb60a5c6",
+   "lagkod": "KVVK",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "1d4feb99-8907-4d75-ae6b-30416942be43",
+   "lagkod": "KVVK",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "47da4f7a-d728-462b-a908-cfbbcce3f3fc",
+   "lagkod": "KVVK",
+   "judge": "Toby",
+   "scores": {
+    "smak": 4,
+    "textur": 3,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "11ee35d2-0b2a-451b-82da-4258c9556157",
+   "lagkod": "KVVK",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "85354ef7-1542-4dbe-8b16-6c17cd8450f0",
+   "lagkod": "KVVK",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "afee9773-bd02-4eb5-8502-cf39807b495b",
+   "lagkod": "KVVK",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "20e18c68-2fca-46a2-9513-f654020e545a",
+   "lagkod": "ADPU",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "4df2b83f-f3c2-4c25-be09-f46379e8a10b",
+   "lagkod": "ADPU",
+   "judge": "Selin",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "98089666-5ce0-482d-a568-ac2ae936675b",
+   "lagkod": "ADPU",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "f45a2760-f059-499a-a72b-1b4fa10bdbdb",
+   "lagkod": "ADPU",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "45b063de-12d6-4348-a21f-094b12878a9e",
+   "lagkod": "ADPU",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "0eaab7d7-3ea7-4e21-bef5-f1a56aa8c0e1",
+   "lagkod": "JLUZ",
+   "judge": "Selin",
+   "scores": {
+    "smak": 5,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "285a4807-aa5e-4dc8-be56-efe789b3f323",
+   "lagkod": "ADPU",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 3,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "2f2fa6aa-39cd-4a3b-8e49-e58690ba7c18",
+   "lagkod": "ADPU",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "7d8abf5d-3ae2-4a62-907b-4ed9da416b62",
+   "lagkod": "ADPU",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "04c82819-c05c-41c4-8a03-34a92a15b042",
+   "lagkod": "JLUZ",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "ab6f0d84-6a6e-4805-b786-1b105eb6fec1",
+   "lagkod": "JLUZ",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 4,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "48cf7770-d165-44d4-be8d-debe54436ede",
+   "lagkod": "JLUZ",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "6ebbc0d5-d340-4be2-a627-bac515098f46",
+   "lagkod": "JLUZ",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "13d5d4ae-8954-43b6-a84c-03ed5225b324",
+   "lagkod": "JLUZ",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "fc247777-7418-433a-a5fc-37d7afbf2d56",
+   "lagkod": "JLUZ",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "8a5dcbf6-e864-4736-88bd-bffb90d5eff6",
+   "lagkod": "WMQK",
+   "judge": "Toby",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "4c92da7c-cc3b-41b1-a1c2-ebe6ceccace5",
+   "lagkod": "WMQK",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "f5e7a874-864b-43cd-ba30-7cd68ee47508",
+   "lagkod": "WMQK",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "a943faf9-4b4e-4eb4-9bce-45cd7aa1f636",
+   "lagkod": "WMQK",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 8,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "0193cb46-d32d-4414-b686-15af7d820197",
+   "lagkod": "WMQK",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "be558416-adc0-4e2c-91df-0da9d5ca36ae",
+   "lagkod": "WMQK",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "31e35172-045a-498b-91a9-2335217481d6",
+   "lagkod": "XFRO",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 5,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "f9fa46f9-6908-44fa-8129-d208da678075",
+   "lagkod": "XFRO",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "ae1fa3ee-b362-452b-beef-74e4154f0538",
+   "lagkod": "XFRO",
+   "judge": "Toby",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "41a794d0-8b90-4030-9b9f-2968afe91830",
+   "lagkod": "XFRO",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "400d8b45-b9c0-44b5-bd4e-5bea1476f480",
+   "lagkod": "XFRO",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 6,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "c4413fee-90b1-461e-88d4-dc61dc70ce01",
+   "lagkod": "XFRO",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "1ec45f63-e720-419c-8f46-5227da88f408",
+   "lagkod": "XIHD",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "fb66fc9e-9244-4470-b42e-28450d620a12",
+   "lagkod": "XIHD",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "f4972af0-c25e-49b7-83de-bf99578ef150",
+   "lagkod": "XFRO",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "15fd9d62-2ee5-4247-98a3-ac2f4a7144c8",
+   "lagkod": "XIHD",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "73d3e161-f0d1-408e-88c3-46c6971978e4",
+   "lagkod": "XIHD",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 3,
+    "textur": 2,
+    "utseende": 5,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "7dee921a-7563-4f39-b592-85290e7d8638",
+   "lagkod": "XIHD",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "b85b578e-c6cd-4417-9470-ddb319a7259b",
+   "lagkod": "XIHD",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 8,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "7b22a1da-f832-4fa6-84c9-4388b274ca07",
+   "lagkod": "WZPQ",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "200e81f0-80f6-45de-9e59-e963e1ad7495",
+   "lagkod": "WZPQ",
+   "judge": "Selin",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "a9f951f0-2850-4fea-a6e7-3cbe548bc0d3",
+   "lagkod": "WZPQ",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "7aeb3a93-d8d0-4ae2-b5c1-6ebaf9df2874",
+   "lagkod": "WZPQ",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "9fa5e8e2-3e57-492e-a273-948b7d18aa4e",
+   "lagkod": "XIHD",
+   "judge": "Toby",
+   "scores": {
+    "smak": 3,
+    "textur": 3,
+    "utseende": 5,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "24b21f89-34b4-4d16-81a2-7b383c7c2b06",
+   "lagkod": "WZPQ",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 3,
+    "textur": 5,
+    "utseende": 4,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "e5bb9ed9-9e33-48f3-b7d4-9acfafffbed2",
+   "lagkod": "WZPQ",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "cd1c05ca-2978-42af-bfc5-8b3b2b85ce30",
+   "lagkod": "WZPQ",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "9a53872d-e937-425b-a239-338582365852",
+   "lagkod": "XWNP",
+   "judge": "Selin",
+   "scores": {
+    "smak": 2,
+    "textur": 3,
+    "utseende": 4,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "26a09c08-c9e6-4f30-9d2e-93ff225fb3a3",
+   "lagkod": "XWNP",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "f5b298db-f333-4b0c-b1fb-20b0350fe5da",
+   "lagkod": "XWNP",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "9dd83d78-47ca-4947-99d5-0403e164f0df",
+   "lagkod": "XWNP",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "24495884-a6c8-4709-8084-8c4a79031e97",
+   "lagkod": "XWNP",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "6cc47a7c-e5ff-4933-84cb-b17d62281f4e",
+   "lagkod": "XWNP",
+   "judge": "Linus",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "000903ca-9f16-475f-bcaf-aa34c9a0ac4d",
+   "lagkod": "XWNP",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 3,
+    "textur": 3,
+    "utseende": 4,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "8214cf0e-2316-411b-88f3-bef84858638f",
+   "lagkod": "WHXP",
+   "judge": "Selin",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "6b987d9b-605e-4677-b1a4-65758b365f05",
+   "lagkod": "WHXP",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "171b1818-58fc-436f-b4f3-d4ce6ffdeea9",
+   "lagkod": "WHXP",
+   "judge": "Toby",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "1c9a32ed-a75a-4d5a-9201-ee84f36f14e5",
+   "lagkod": "WHXP",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "aa80f1e3-b569-4236-a8dd-6eba4ca773af",
+   "lagkod": "WHXP",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 4,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "e508e623-f887-455e-907e-7313835cf3d9",
+   "lagkod": "WHXP",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "7c45741e-237e-4d28-a00e-66572eae1e4c",
+   "lagkod": "WHXP",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "f77ceaab-21b7-4df4-b72a-d7c2ef9e171c",
+   "lagkod": "WVES",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "9a011837-065a-4c5b-8537-3cf1c41a58d3",
+   "lagkod": "WVES",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "270dd589-6164-4beb-bf5d-5f7485e7b018",
+   "lagkod": "WVES",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "5d7a93e4-0471-4ad5-a5f3-38c323f7a904",
+   "lagkod": "WVES",
+   "judge": "Toby",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 5,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "73eabf2e-63d4-4284-8396-771a47ac6758",
+   "lagkod": "WVES",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "decafdff-42cb-40f6-af14-b9daa40cf713",
+   "lagkod": "WVES",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "df1b6e56-2f51-447a-af16-0db590569844",
+   "lagkod": "WVES",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "adaedb73-ac99-4990-8500-da90deca89a5",
+   "lagkod": "VGEC",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "b4974411-9edd-4dec-9a19-56a369ec02d2",
+   "lagkod": "VGEC",
+   "judge": "Toby",
+   "scores": {
+    "smak": 2,
+    "textur": 2,
+    "utseende": 4,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "57f6977e-a204-4e8b-9112-d74283678ffe",
+   "lagkod": "VGEC",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "75f9cd1a-f50c-41c6-b46c-4f4f1707f093",
+   "lagkod": "VGEC",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "23155214-852f-44ce-aec4-f04c6d882da2",
+   "lagkod": "VGEC",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "3f5dbb6f-dd37-4516-8ed0-98cd5fca138c",
+   "lagkod": "VGEC",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "29e165e1-bc75-477a-a141-282045556369",
+   "lagkod": "VGEC",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "48950928-efd5-4d87-bae7-d555b979c212",
+   "lagkod": "WIUG",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "ef832738-ce4c-4686-9dca-3f2b7995c451",
+   "lagkod": "WIUG",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "94862095-df5d-4f8a-ae6d-4a5a0be542f6",
+   "lagkod": "WIUG",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "16a13ad7-d567-45c7-91f9-1329cf75ff77",
+   "lagkod": "WIUG",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 4,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "66a9eede-bb57-45d4-86ce-a5fc2faf43f1",
+   "lagkod": "WIUG",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "c7a96709-dcf0-4634-a4de-2081b393ad8d",
+   "lagkod": "WIUG",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "0144a787-e140-4661-aa99-b88c9898c288",
+   "lagkod": "WIUG",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "81a5de7f-c0e8-45b4-8f11-405ad44ed447",
+   "lagkod": "WIUG",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 4,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "ebe97e4b-1cb9-4198-a23b-1a4f388d6a01",
+   "lagkod": "WFJO",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 10,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "f7425ca5-8e60-4873-9ee7-8dabd4a73760",
+   "lagkod": "WFJO",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "568b6ef9-c200-435b-ad63-bcd8f0c84c4e",
+   "lagkod": "WFJO",
+   "judge": "Selin",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 9,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "5dbdbc22-510f-4d88-96b7-afc5e2dff36d",
+   "lagkod": "WFJO",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 9,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "fe323ca8-7f2a-4cf5-a0a8-2013197e357f",
+   "lagkod": "WFJO",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 4,
+    "textur": 3,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "40f550bf-c435-40f5-b751-bfe649953a6a",
+   "lagkod": "WFJO",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 9,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "49c7d668-ac49-48f9-a6b1-01dd3c03785f",
+   "lagkod": "WFJO",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "225ef1bd-160e-4051-9ea6-95a2501a5d2c",
+   "lagkod": "VEOI",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "4d458640-50d8-42a4-b209-85d92dfb6136",
+   "lagkod": "VEOI",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 2,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "ae6a4f97-26b2-4351-9558-b6547bca9e42",
+   "lagkod": "VEOI",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "1167bf49-0587-414a-888e-65ed9318cdce",
+   "lagkod": "VEOI",
+   "judge": "Toby",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "3e89b6a2-d735-49bc-9e53-d76efd4c0870",
+   "lagkod": "VEOI",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "5206fa20-2809-42ca-9ded-0dd99a12e781",
+   "lagkod": "VEOI",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "0316754d-b030-445a-9523-52623aafb7f1",
+   "lagkod": "VEOI",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "e76b85b1-05d5-4a9d-9d4b-36f6497dd564",
+   "lagkod": "VOBM",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "3faf93d6-12c4-44f0-a8df-69ee7a16ffaf",
+   "lagkod": "VOBM",
+   "judge": "Toby",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "947b1ce2-3409-4863-b16e-c5c257f5fbfc",
+   "lagkod": "VOBM",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "c957ebcb-bae8-46ca-ab95-424e93a212f5",
+   "lagkod": "VOBM",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "2d6ff2f9-f175-4307-afa5-451a839720ce",
+   "lagkod": "VOBM",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "98594536-e9b5-462b-8835-f6562c00f9de",
+   "lagkod": "UWFF",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "e867992f-de36-4092-ae49-6d84d3b030b1",
+   "lagkod": "VOBM",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "62cbcaf0-e976-4091-ad7a-e50d66062aa1",
+   "lagkod": "VOBM",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "2c5215f4-ef05-4c1d-8448-ea4eb4f85e1e",
+   "lagkod": "UWFF",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "d282ef09-2805-4bb4-b13b-a093e88ecd05",
+   "lagkod": "UWFF",
+   "judge": "Toby",
+   "scores": {
+    "smak": 3,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "a7ff2239-10e3-4cdb-83f4-75b39a140a12",
+   "lagkod": "UWFF",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "fba3e986-e574-48da-a8fd-34ae6c6bd6df",
+   "lagkod": "UWFF",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "8ac33368-0f0f-4473-8688-62470f5ca3e8",
+   "lagkod": "UWFF",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "865ef2ec-6b73-4d19-803f-22592280406c",
+   "lagkod": "UWFF",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 3,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "908259d1-4638-4edb-ba2a-4b30d394e585",
+   "lagkod": "VDUO",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "b81d6fa8-ce83-4431-899d-1007a7a5f46b",
+   "lagkod": "VDUO",
+   "judge": "Selin",
+   "scores": {
+    "smak": 2,
+    "textur": 2,
+    "utseende": 2,
+    "kreativitet": 2
+   }
+  },
+  {
+   "kortid": "9181300a-f1fd-431b-b099-5a2e79147cfc",
+   "lagkod": "VDUO",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 5,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "58748929-0ac2-4820-b319-4be2a8e80e6c",
+   "lagkod": "VDUO",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "e16b1f47-7750-44d6-8d58-eba2f8a3c69d",
+   "lagkod": "VDUO",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 5,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "7b1980ee-679b-4bab-972b-bbc69a712e7c",
+   "lagkod": "VDUO",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "819c21e1-1e5e-4f48-8a77-8e90d0b1eba2",
+   "lagkod": "VDUO",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "4281c972-fde1-4d66-a86e-68f2f290d25d",
+   "lagkod": "VDUO",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "ede1d7f4-d21a-478a-8930-3df563276422",
+   "lagkod": "VLLK",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "7ff5b4cf-195c-436c-aa56-6584dd66f21c",
+   "lagkod": "VLLK",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "93b6b630-9a36-47aa-a8bd-bc69d2d0ad0c",
+   "lagkod": "VLLK",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "3eff246e-6bec-4999-8060-926ed5d65359",
+   "lagkod": "VLLK",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "cb79d44b-6710-4b6a-b0b5-0f411f915ed2",
+   "lagkod": "VLLK",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "9bfeb703-495e-4985-892d-6ba2155c6375",
+   "lagkod": "VLLK",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "5c9d7715-8026-479e-b1ad-4cfd6a51df0f",
+   "lagkod": "VLLK",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "b573bef7-339b-4c4d-9035-d0e4ad8986ca",
+   "lagkod": "UAGD",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "1092b4f2-8525-47a5-bd39-4486f2a791e7",
+   "lagkod": "UAGD",
+   "judge": "Erik Edsberger",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "ffc51cb7-5abe-4a4e-aa98-6b4cfcaa844a",
+   "lagkod": "UAGD",
+   "judge": "Toby",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "7a8316bf-04e7-4875-b6d3-e0c33d91a49f",
+   "lagkod": "UAGD",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "d7e7c5de-d2de-46f3-9438-ecda83153b76",
+   "lagkod": "UAGD",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "4c70f7d9-d528-4c68-924b-0dd16c2fdd53",
+   "lagkod": "UAGD",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "81b665d7-26aa-45b8-8db1-952067fb6684",
+   "lagkod": "SSNC",
+   "judge": "Ida",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "27e719aa-f8ef-44bf-a72e-c8f4c05c1adf",
+   "lagkod": "UAGD",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "df869037-088b-4d6e-963f-8d428b38d94b",
+   "lagkod": "SSNC",
+   "judge": "Frida",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "97faae94-60c9-4bb3-9116-849b0368b7b9",
+   "lagkod": "SSNC",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 4,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "232c3ebf-0d96-4ec1-bcc5-9865bb55e7c5",
+   "lagkod": "SSNC",
+   "judge": "Karin",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "f712bef8-13b2-4327-ba3b-1135495503f5",
+   "lagkod": "SSNC",
+   "judge": "Thess",
+   "scores": {
+    "smak": 7,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "3b6dd153-a319-4079-9206-91abec95e855",
+   "lagkod": "TUWE",
+   "judge": "Toby",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 6,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "87a65404-00d7-4b23-8abd-7244abafa1bc",
+   "lagkod": "TUWE",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "c3de70ca-f623-4731-b2f5-706376c059bd",
+   "lagkod": "TUWE",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "90d66fe7-f3aa-4f22-ab3e-d5bfd663cd51",
+   "lagkod": "SSNC",
+   "judge": "Lisa",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "36df273e-c45f-42d7-a017-4ee28586cba3",
+   "lagkod": "TUWE",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 4,
+    "textur": 6,
+    "utseende": 4,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "680a85c1-0aa5-45a4-9e89-8f67f13b369b",
+   "lagkod": "TUWE",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "842814a6-41b1-453f-84a1-f2db8a6df559",
+   "lagkod": "TUWE",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "057308b9-a6f9-4cf1-ba0c-55cdec439ccf",
+   "lagkod": "TUWE",
+   "judge": "Linus",
+   "scores": {
+    "smak": 3,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "dddaf2c9-00e6-4649-b5f3-2893ff88565b",
+   "lagkod": "TZBL",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "0f8a9fb7-04ee-44af-8756-5533b9f23e0f",
+   "lagkod": "TZBL",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "7b608c7b-ebef-4d01-bd23-654f5583c2bd",
+   "lagkod": "TZBL",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 7,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "5a401441-5a16-43cf-856b-777c51e9f990",
+   "lagkod": "TZBL",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "227f750b-04e1-4bdb-a2b6-f26b37e4f162",
+   "lagkod": "TZBL",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 9,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "b01b269e-13f3-43a0-a0cd-3d01e0be3a3a",
+   "lagkod": "TZBL",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "d71866b2-3e51-4112-9160-6b69ea96f0b5",
+   "lagkod": "TZBL",
+   "judge": "Toby",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 9,
+    "kreativitet": 10
+   }
+  },
+  {
+   "kortid": "e4795ccd-43e2-4e3f-a6e0-c2715e9c2653",
+   "lagkod": "UGHG",
+   "judge": "Selin",
+   "scores": {
+    "smak": 2,
+    "textur": 2,
+    "utseende": 3,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "5a0234c9-3fa3-498b-9722-5bdeb68c6569",
+   "lagkod": "UGHG",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 5,
+    "textur": 3,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "f146f5cb-74b7-48db-87d9-572980b597fe",
+   "lagkod": "UGHG",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 6,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "a57e926e-f9c4-4c1b-839d-818cd7486540",
+   "lagkod": "UGHG",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "d472b40f-591a-4b80-9d83-1bcbd8482e58",
+   "lagkod": "UGHG",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 4,
+    "textur": 3,
+    "utseende": 4,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "c3c6c12e-a25b-4c2f-997e-b7d6fe29c65b",
+   "lagkod": "UGHG",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "59e56703-2853-4546-822c-a888416a247c",
+   "lagkod": "UGHG",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 2,
+    "textur": 2,
+    "utseende": 5,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "b4b66fad-fe55-4911-a3c8-b5dd76237d75",
+   "lagkod": "SQVL",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "0e340669-c0d0-4e25-9f86-b078b4719e53",
+   "lagkod": "SQVL",
+   "judge": "Ida",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "57c92f54-ec2e-4cab-a3bd-4fd52012a26a",
+   "lagkod": "SQVL",
+   "judge": "Frida",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "0c37f179-d69e-456c-90c0-a08d99ea9d19",
+   "lagkod": "SQVL",
+   "judge": "Lisa",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "607d8b3a-c117-4605-a242-77dba487eef3",
+   "lagkod": "SQVL",
+   "judge": "Thess",
+   "scores": {
+    "smak": 9,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "6045b547-9acf-421e-bca2-67a74c532e58",
+   "lagkod": "UESM",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "e2e42b9d-bef7-4f9f-ae0b-f69445da7fbb",
+   "lagkod": "UESM",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "b81de550-2e2f-4456-8e1f-7dd434afe199",
+   "lagkod": "UESM",
+   "judge": "Selin",
+   "scores": {
+    "smak": 3,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "98417810-43ca-474c-be63-251ee9a54758",
+   "lagkod": "UESM",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "3c527976-abd2-497f-939e-519b621049f0",
+   "lagkod": "UESM",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "35ef5620-6347-4eda-8f1a-36831adcb858",
+   "lagkod": "UESM",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "5d8370f9-29b9-4eb6-9339-2a0d84f288d9",
+   "lagkod": "SRKS",
+   "judge": "Ida",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "2f07b610-8771-47bb-bac8-57a42d43e5ed",
+   "lagkod": "SRKS",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "b3e558c3-200c-4b58-9f52-e9dc2e8e0004",
+   "lagkod": "TVPZ",
+   "judge": "Toby",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "4e189363-724c-4396-8f5b-36d82cf85018",
+   "lagkod": "TVPZ",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "1c9c55d8-ec99-4214-a915-fd69171c42da",
+   "lagkod": "SRKS",
+   "judge": "Frida",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "143b01b2-9ab4-46ad-8cf2-900f35320f74",
+   "lagkod": "SRKS",
+   "judge": "Thess",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 6,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "5fa20395-987d-43c4-aa59-3eb6b6844be2",
+   "lagkod": "SRKS",
+   "judge": "Lisa",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "b3a7bf7f-6a11-4ed9-b4b9-d359911a602a",
+   "lagkod": "TVPZ",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 8,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "d7b92761-d575-49f1-8d6a-05a9b0d43dab",
+   "lagkod": "TVPZ",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "16be1265-e3c7-429f-b6f7-5c64e95823bc",
+   "lagkod": "TVPZ",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 8,
+    "textur": 9,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "226001fe-24d1-4afe-83a1-255c82fe0fc0",
+   "lagkod": "TVPZ",
+   "judge": "Linus",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "bfdaf594-2170-4551-b99c-c557fe5d4dd6",
+   "lagkod": "TNCC",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "f8c80661-d5c1-4350-ada6-a961e3bc818d",
+   "lagkod": "RSAA",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "7d738fd4-332f-412f-aa7f-fe26eef5fc73",
+   "lagkod": "TNCC",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "1bfd5da7-4ea6-4c78-ac2f-e4bbbb7f5c19",
+   "lagkod": "RSAA",
+   "judge": "Frida",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "665feb3a-2f11-4129-aa56-ae35cd2cec25",
+   "lagkod": "RSAA",
+   "judge": "Lisa",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "fe8eb760-3a77-4606-a3da-08609abe4462",
+   "lagkod": "TNCC",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "46c614e2-4ac5-450c-af4b-fe29fc4f5d37",
+   "lagkod": "TNCC",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "09cd60ee-42d7-4040-b8c7-0fd12e0753b9",
+   "lagkod": "RSAA",
+   "judge": "Ida",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "c6a57189-900a-4c73-8ffe-2bef7471109b",
+   "lagkod": "TNCC",
+   "judge": "Toby",
+   "scores": {
+    "smak": 3,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "ee6e2dec-16fe-4c7e-91f0-e5db15c289fd",
+   "lagkod": "RSAA",
+   "judge": "Thess",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "75cc2383-a558-430e-8924-3157148d5267",
+   "lagkod": "TNCC",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 6,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "132a18d1-28f6-4038-a128-fb363b47a47f",
+   "lagkod": "TALO",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "f753105f-b597-40b8-8395-bd4f7943b7fb",
+   "lagkod": "TNCC",
+   "judge": "Linus",
+   "scores": {
+    "smak": 4,
+    "textur": 3,
+    "utseende": 4,
+    "kreativitet": 3
+   }
+  },
+  {
+   "kortid": "b82c87a1-3472-4413-b32a-7b78f7ca8eb6",
+   "lagkod": "QHWP",
+   "judge": "Ida",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "0483f1a0-c7a4-4a22-bf20-eb1e5d113236",
+   "lagkod": "QHWP",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "1b45fb75-902f-4c48-84da-4619361a17cf",
+   "lagkod": "QHWP",
+   "judge": "Karin",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "40379cc0-bdae-4a69-8c03-8298428b4415",
+   "lagkod": "TALO",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "9970f8a2-0058-47fd-83a6-5e3dbb872fc4",
+   "lagkod": "QHWP",
+   "judge": "Frida",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "4c4fac21-ab11-444c-886d-4547a355bab6",
+   "lagkod": "QHWP",
+   "judge": "Thess",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "4b2dec10-485d-4e3d-a7f1-b0cd539ae583",
+   "lagkod": "TALO",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 3,
+    "utseende": 4,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "6c9222d5-03dd-4525-8e89-f44f7734d745",
+   "lagkod": "TALO",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "9f1080c6-e734-45a3-a6db-ed19af8fcb8c",
+   "lagkod": "TALO",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 5,
+    "textur": 3,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "d3568832-c11a-4d17-b010-36ee3db9ea3d",
+   "lagkod": "QHWP",
+   "judge": "Lisa",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "af71d08f-e8c3-4e49-a2a2-c13036e4a959",
+   "lagkod": "TALO",
+   "judge": "Toby",
+   "scores": {
+    "smak": 4,
+    "textur": 3,
+    "utseende": 6,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "4e281f5d-f674-4a03-a11a-0f4dcaf97592",
+   "lagkod": "TIMX",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 4,
+    "utseende": 8,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "2367e2a8-f623-4128-9903-da7f2def71ed",
+   "lagkod": "TIMX",
+   "judge": "Selin",
+   "scores": {
+    "smak": 3,
+    "textur": 3,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "a0f02a2e-2afe-44d6-87c1-25ad13960049",
+   "lagkod": "TIMX",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "311d6244-32af-4d45-89e7-d13ee730c882",
+   "lagkod": "TIMX",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "2e75d41f-2129-455e-a245-dfff55298cb4",
+   "lagkod": "NRVV",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "2e9375ce-0555-4d9d-a4d8-a9168e572b70",
+   "lagkod": "NRVV",
+   "judge": "Ida",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "73bae3ca-cd18-4d70-b85c-54a563f00ee4",
+   "lagkod": "TIMX",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "cd1300a2-0392-4ea7-99e1-b034d7436f83",
+   "lagkod": "NRVV",
+   "judge": "Karin",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "fb5a8ef8-2be5-4336-9bd0-09654bae523c",
+   "lagkod": "TIMX",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 2,
+    "textur": 3,
+    "utseende": 3,
+    "kreativitet": 2
+   }
+  },
+  {
+   "kortid": "7848c798-3ffc-48ec-a754-5237abea6dc4",
+   "lagkod": "TIMX",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "fa64886b-f544-44f7-8553-524f389bc19e",
+   "lagkod": "NRVV",
+   "judge": "Thess",
+   "scores": {
+    "smak": 5,
+    "textur": 8,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "125817c6-5135-42b7-989c-594bce279da1",
+   "lagkod": "NRVV",
+   "judge": "Lisa",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "40d88e69-f79a-4b4b-a441-35db3bae42ed",
+   "lagkod": "TFOG",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 9,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "2322aa00-5aea-41df-aac6-ea8006900114",
+   "lagkod": "TFOG",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 3,
+    "textur": 3,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "f2939c14-0e36-41f9-bde6-2baa94372292",
+   "lagkod": "TFOG",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "2b3f00b1-9e0a-4ee3-ad17-1ffe5b8c7b9a",
+   "lagkod": "TFOG",
+   "judge": "Linus",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "f2ced85e-2e64-4c68-a886-f143773035a6",
+   "lagkod": "MJBG",
+   "judge": "Thess",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "1040ae6e-859b-4e22-9e39-62a1fe48548b",
+   "lagkod": "MJBG",
+   "judge": "Karin",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "070751f1-e306-455b-9d3a-d6e64acc20d9",
+   "lagkod": "TFOG",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 4,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "5d20fecf-1201-4f0f-94f1-1e5eb7d7101d",
+   "lagkod": "MJBG",
+   "judge": "Ida",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "6d8972ab-dfbf-4562-9bf4-8e5473a92bba",
+   "lagkod": "TLHU",
+   "judge": "Joachim Holst",
+   "scores": {
+    "smak": 5,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "39b8a90e-f41b-45bb-bdd5-b23f1881ddf2",
+   "lagkod": "TFOG",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 3,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "99bdda5d-b87d-4b5e-86a0-e349eb5bc2f6",
+   "lagkod": "TLHU",
+   "judge": "Toby",
+   "scores": {
+    "smak": 9,
+    "textur": 9,
+    "utseende": 9,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "ec9275b0-c8d1-48e3-9613-9a578389691a",
+   "lagkod": "TLHU",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "fdfbe0fb-4468-457f-bb55-0b4bf8ae453e",
+   "lagkod": "TLHU",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "46153498-8a3e-455c-9c2e-025c33f0ef40",
+   "lagkod": "MJBG",
+   "judge": "Lisa",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "da9c6c36-a1ce-4031-a620-f82b2083e48c",
+   "lagkod": "QIRL",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "8d282423-1d33-4f62-98e9-7bcf4b107f5f",
+   "lagkod": "TLHU",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "16ce1706-db2e-4517-b84c-ae5013c72049",
+   "lagkod": "QIRL",
+   "judge": "Karin",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 8,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "b81c319b-4498-4d10-bf7b-e382f1a5327b",
+   "lagkod": "TLHU",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "48e0259d-5d38-46bf-a30d-ac0bd7b32cda",
+   "lagkod": "QIRL",
+   "judge": "Ida",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "37572243-91a2-4c13-a2fc-ed00573bd804",
+   "lagkod": "QIRL",
+   "judge": "Lisa",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "1ae6970f-d498-424d-a2e8-149ce27f967a",
+   "lagkod": "RVJU",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "ac92f94b-2a45-4d8e-a0dc-5e5795e82119",
+   "lagkod": "RVJU",
+   "judge": "Karin",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 8,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "500b7466-a8b5-4cd1-aedd-7f1c754c3de9",
+   "lagkod": "RVJU",
+   "judge": "Ida",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "cbc365dc-a111-482c-922c-f3d24319e7d2",
+   "lagkod": "RVJU",
+   "judge": "Lisa",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "95b48b87-7d68-47e6-8f1b-39ed7965ddb0",
+   "lagkod": "NBNC",
+   "judge": "Ida",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "ad3dfc83-89d1-472d-9ce9-383408d3c5d3",
+   "lagkod": "NBNC",
+   "judge": "Frida",
+   "scores": {
+    "smak": 6,
+    "textur": 8,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "8d0b7673-3848-4bf4-971d-299a0336048f",
+   "lagkod": "NBNC",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "d1d5d69d-7690-4405-a0e7-c4c6f4f8aa89",
+   "lagkod": "NBNC",
+   "judge": "Karin",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "97c17c73-d8e3-4235-b29e-0de7a7fcf98c",
+   "lagkod": "LKMS",
+   "judge": "Frida",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "4af6d4fc-896d-4709-93d5-c6db283f0948",
+   "lagkod": "LKMS",
+   "judge": "Thess",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "8a88b677-37ff-4457-9917-835af31f6aca",
+   "lagkod": "LKMS",
+   "judge": "Karin",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "6d9aae52-1fea-4ee2-a9fb-27374441a247",
+   "lagkod": "LKMS",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "98892029-5ab3-4c38-9afb-9eb72aca8005",
+   "lagkod": "LKMS",
+   "judge": "Ida",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "e7598958-02d3-4b09-ae3a-d49278630fde",
+   "lagkod": "LKMS",
+   "judge": "Lisa",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "0140dab1-419f-427b-a782-ca5b1d0fe6d7",
+   "lagkod": "KXJU",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "c346ae28-a82c-4a42-acca-0a29dba5d614",
+   "lagkod": "KXJU",
+   "judge": "Frida",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "16acaff0-b582-432a-b940-28b97e388625",
+   "lagkod": "KXJU",
+   "judge": "Thess",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "a0e0debf-946f-4392-bfcd-aceee3404fee",
+   "lagkod": "KXJU",
+   "judge": "Ida",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "d1cbb58f-9a36-4109-8201-d2c2d71bd2a4",
+   "lagkod": "KXJU",
+   "judge": "Karin",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "afd77f28-90d0-4bb5-af1f-2e020cdbe936",
+   "lagkod": "KXJU",
+   "judge": "Lisa",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "585acb84-5b4b-4bd0-8d08-8afbf55d04fa",
+   "lagkod": "INBD",
+   "judge": "Ida",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "d10127c3-cf56-4fbd-a819-b192878350b3",
+   "lagkod": "INBD",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "cb3c368c-2c5a-452c-8c62-654a27886bb8",
+   "lagkod": "INBD",
+   "judge": "Karin",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "4698bfac-c787-49a9-8234-ba4bb84bfc79",
+   "lagkod": "INBD",
+   "judge": "Frida",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "70671089-009b-4064-aa3c-91ec4f9ce416",
+   "lagkod": "INBD",
+   "judge": "Thess",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "dff7b8ce-dcde-4b84-8b51-bd36fa5130e5",
+   "lagkod": "INBD",
+   "judge": "Lisa",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "61fb687c-4254-44da-8be6-4d1b17762601",
+   "lagkod": "JMPV",
+   "judge": "Karin",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "ac11e9d1-b4cb-41fb-bb97-8a5e41309a0a",
+   "lagkod": "JMPV",
+   "judge": "Thess",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "4ae2a54a-8879-4ef1-8c2c-4bc58018f5f9",
+   "lagkod": "JMPV",
+   "judge": "Lisa",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "76464588-23af-4484-9535-8b74974417ec",
+   "lagkod": "JMPV",
+   "judge": "Frida",
+   "scores": {
+    "smak": 10,
+    "textur": 10,
+    "utseende": 9,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "41b8491a-11b8-4eee-a7d7-27af5dff746e",
+   "lagkod": "HJRP",
+   "judge": "Toby",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 9,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "52604df9-0b12-42b9-9d80-068f9facb488",
+   "lagkod": "HJRP",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "a099b1c4-1856-4df1-88c2-d6aab7c7b9e0",
+   "lagkod": "HJRP",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "ea03a547-f18e-443c-9fd4-93413e4a650e",
+   "lagkod": "HJRP",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "295db09f-a669-4149-bba2-ab0e97f157a4",
+   "lagkod": "HJRP",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "b332e367-2326-4f7a-b953-b20fb3422b6c",
+   "lagkod": "HJRP",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "d7f7d9ba-83c6-4ea9-9791-8865e4c65064",
+   "lagkod": "QVOO",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "6f3c339e-1206-45c9-a88c-bcf68c2bb1d8",
+   "lagkod": "QVOO",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 8,
+    "textur": 9,
+    "utseende": 9,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "7ffbda0b-c37e-4031-8a4f-8ade1cbd3981",
+   "lagkod": "QVOO",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "b555046d-8d38-4f87-9a8b-f9ff12d0788b",
+   "lagkod": "QVOO",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "2877cd88-bbc6-42ef-9cdb-6398d58afbfd",
+   "lagkod": "QVOO",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "68ed0ccd-e1d9-4e13-b0fc-ab66b47b297e",
+   "lagkod": "QVOO",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "2b086070-5c24-4877-9c5e-dd4e60cc4564",
+   "lagkod": "RMBW",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "56477983-2678-4e71-bc7f-2d2e77e1b84f",
+   "lagkod": "RMBW",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "5942c00d-b61d-461a-aef0-484cd50fe3a4",
+   "lagkod": "RMBW",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "a3705040-0265-40a7-a9d3-980fcc89bd04",
+   "lagkod": "RMBW",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "cc046f6a-368e-45e4-a901-11d1b8c83e5a",
+   "lagkod": "RMBW",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "d25e5175-a75f-489f-8e03-d557551168f1",
+   "lagkod": "RMBW",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "cb14dbb8-9ac6-4095-a1fe-c79f8c0d8f1d",
+   "lagkod": "ICGA",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "564443c8-461f-4658-ba22-9a1e64503396",
+   "lagkod": "ICGA",
+   "judge": "Selin",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "949ebf35-af3c-46fe-a20c-3437988b823f",
+   "lagkod": "ICGA",
+   "judge": "Toby",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "df42664a-4085-4938-b3a4-49198c52a425",
+   "lagkod": "ICGA",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "04411bb3-2363-4c51-97a7-f285248474e2",
+   "lagkod": "ICGA",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "d35a66dd-dc0a-4910-b4f2-faa32ab61adb",
+   "lagkod": "ICGA",
+   "judge": "Linus",
+   "scores": {
+    "smak": 4,
+    "textur": 6,
+    "utseende": 5,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "a32f3518-2f66-4364-aff7-6534d44844df",
+   "lagkod": "MZWP",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "9fffe77e-b9f0-4ae6-9e24-0613678f63c7",
+   "lagkod": "MZWP",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "6ef467e9-d66c-4879-9633-b11ee4620dcb",
+   "lagkod": "MZWP",
+   "judge": "Toby",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "e5b29d06-e9d8-446d-895c-07d6b20fda8d",
+   "lagkod": "MZWP",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "754706d9-9009-4a97-b914-f67b717c03e8",
+   "lagkod": "MZWP",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "131e115e-b361-4de8-86c8-4f5d47e59ca1",
+   "lagkod": "JYKT",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "fb01faae-0340-499b-aa9a-c0f4c571576c",
+   "lagkod": "JYKT",
+   "judge": "Toby",
+   "scores": {
+    "smak": 7,
+    "textur": 9,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "b6a717b5-e6ad-4307-b917-b4bebf5d8e2c",
+   "lagkod": "JYKT",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "9c86d08f-6fcd-41bb-81cb-14f499bf3279",
+   "lagkod": "JYKT",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "9a2e3d77-0306-4d14-a986-7dade23df2b0",
+   "lagkod": "JYKT",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "62e09b47-da11-4049-b89b-6b2f7bdce4b4",
+   "lagkod": "MZWP",
+   "judge": "Linus",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "0acdd83a-02bb-4ceb-8072-92db11a0fd6b",
+   "lagkod": "FDNR",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "5441d1c9-8e8b-4baf-b069-c6a0949b0614",
+   "lagkod": "FDNR",
+   "judge": "Selin",
+   "scores": {
+    "smak": 3,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "e5f16d63-f6df-469f-a85b-233c70c3763d",
+   "lagkod": "JYKT",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "3b331df3-afc4-4336-a393-b4d22f01564c",
+   "lagkod": "FDNR",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "ea191be5-3d71-4602-b5e1-0a7db263c701",
+   "lagkod": "FDNR",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "92cfc593-ddc2-4574-9577-9b40c5d202ff",
+   "lagkod": "FDNR",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "3a420e16-d265-4f14-8706-087ffa34c387",
+   "lagkod": "MTMZ",
+   "judge": "Selin",
+   "scores": {
+    "smak": 3,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "6167553d-aa63-4e86-87b3-854dfca8f562",
+   "lagkod": "MTMZ",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 4,
+    "textur": 6,
+    "utseende": 9,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "018ebc61-6c57-4b2c-84af-145f22b39a12",
+   "lagkod": "MTMZ",
+   "judge": "Linus",
+   "scores": {
+    "smak": 3,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "206e99d7-7052-44fd-a9d0-d3a6f717545b",
+   "lagkod": "MTMZ",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 2,
+    "textur": 2,
+    "utseende": 8,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "e059d68e-9a26-4a80-be1e-49b2b3379358",
+   "lagkod": "MTMZ",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "cb66f8e2-1c27-41de-83f1-5d0cdbc06b52",
+   "lagkod": "MTMZ",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "0c96d88b-9dd9-4081-8ffd-92bf395699a5",
+   "lagkod": "DFLE",
+   "judge": "Toby",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "829128f5-4c41-4da5-b9b3-00a4b8568612",
+   "lagkod": "DFLE",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 6,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "2bd54a6f-a840-4f52-83b0-6763fbb8f62e",
+   "lagkod": "DFLE",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "a23da5b8-538b-4f68-8f6f-59704d7fb5f9",
+   "lagkod": "DFLE",
+   "judge": "Selin",
+   "scores": {
+    "smak": 3,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "023d6b22-db32-4f7f-84cd-e9f26e7a6c3e",
+   "lagkod": "DFLE",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "d7c3eb43-e1ca-4ae8-b63a-12a041f1a577",
+   "lagkod": "DFLE",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "4ba5813e-bc4a-4c2f-8294-5700a5d335ae",
+   "lagkod": "JUND",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "eb527c3b-76d3-4c3b-9a68-c7ed2c264d4a",
+   "lagkod": "JUND",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "928d5cb3-c53f-4ce6-843c-80b96b03dd09",
+   "lagkod": "JUND",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "be476556-81e3-49d3-ab34-39f569278788",
+   "lagkod": "JUND",
+   "judge": "Toby",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 4,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "45eac470-cb65-4949-809f-a3fb648dc44f",
+   "lagkod": "JBCU",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "83b57838-65ac-458a-a881-fa9d2992432f",
+   "lagkod": "JBCU",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "c180d73d-f84b-44b6-939a-9b124ce6efa4",
+   "lagkod": "JBCU",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "04f1315e-7e9f-4962-97f3-916e021ac03b",
+   "lagkod": "JBCU",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "db9824b5-6030-45f4-8e7f-c78dbd74e9f2",
+   "lagkod": "JUND",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 3,
+    "kreativitet": 3
+   }
+  },
+  {
+   "kortid": "785b82f4-08e2-4088-8a25-82bb7de636c8",
+   "lagkod": "JBCU",
+   "judge": "Toby",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "14e56ac7-c1a9-4837-b5c3-8f8716743184",
+   "lagkod": "JBCU",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "bbfb5044-a38e-442c-9564-80203bd3daae",
+   "lagkod": "JUND",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 3,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "d1968ef7-569c-42a7-a81b-d92643697ca8",
+   "lagkod": "MUAU",
+   "judge": "Selin",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 0,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "b1e00edd-07f8-4808-b4c0-b51175768fe2",
+   "lagkod": "MUAU",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 5,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "2928c893-8d3a-4523-a80d-bcbccd95dc82",
+   "lagkod": "MUAU",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "20ca04d1-ec61-4387-a882-2057021519df",
+   "lagkod": "MUAU",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "c9812bf2-aeaf-4697-8d3d-3e2c6d513d36",
+   "lagkod": "MUAU",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "33a52d61-d5d8-40ca-8074-f6365d0de7ff",
+   "lagkod": "MUAU",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "4f2a71c8-d745-49ef-b211-910d04d2ea42",
+   "lagkod": "KJDS",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "e8b61978-6894-4a20-8623-35635faac3fa",
+   "lagkod": "KJDS",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "aa9cc9e5-1856-47e4-879f-deddce5e5737",
+   "lagkod": "LBNV",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "24e5f249-23b0-4c7c-8929-ab4fd117df34",
+   "lagkod": "KJDS",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "794f6600-3aec-4749-a9b1-44b8f4adebf7",
+   "lagkod": "LBNV",
+   "judge": "Toby",
+   "scores": {
+    "smak": 9,
+    "textur": 8,
+    "utseende": 9,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "123c1dfc-4f50-4cb6-a476-84ecf13a5d88",
+   "lagkod": "KJDS",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "03da6a28-4a08-4d66-bad4-85176c8237be",
+   "lagkod": "KJDS",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 3,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "59f10c97-4d12-4cef-867f-98818af4cb31",
+   "lagkod": "LBNV",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 4,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "8b31cc59-9a34-4b20-99c9-f70833e25e23",
+   "lagkod": "KJDS",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "35c9235e-1570-49ec-b74d-21f912fad829",
+   "lagkod": "LBNV",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 9,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "2a348108-84fa-4e23-a8fe-06d82d4bb0ae",
+   "lagkod": "BUZL",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "fd1c145d-5f71-4b61-ab8b-1c14321f962d",
+   "lagkod": "BUZL",
+   "judge": "Toby",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "ad75732a-6910-433f-8ad8-d704644cd4a4",
+   "lagkod": "LBNV",
+   "judge": "Linus",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "0642fdb9-84b7-49b3-b87b-4fd96233db97",
+   "lagkod": "LBNV",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "b61340fd-c97a-49eb-b7ef-ffc98aa7b386",
+   "lagkod": "BUZL",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "0131f59c-5d96-4754-88c1-f115ee118c9f",
+   "lagkod": "BUZL",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "0d7e9704-ddc7-4128-a30f-173d9b2308bd",
+   "lagkod": "BUZL",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "c4bb5e6e-a9e5-4786-b6c4-fce146ed21fa",
+   "lagkod": "BUZL",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "eafdf48d-aff7-4630-8033-bb283a398513",
+   "lagkod": "KOMS",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "5da4d4ef-2495-43e3-9275-f3b83c7e9db9",
+   "lagkod": "KOMS",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "0ef33c2d-e965-46cd-b355-34fcbe9c65b2",
+   "lagkod": "KOMS",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "0cb98761-a9da-4abb-a8f4-9ae8ee46f6ad",
+   "lagkod": "KOMS",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "3fa50aae-3a64-4389-8777-4668c4cd067b",
+   "lagkod": "KOMS",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 8,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "b87aff30-2c7c-4e1c-a385-549066cc2198",
+   "lagkod": "KOMS",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "ff8167d7-76a7-42c4-95df-d3c5c3a86dc7",
+   "lagkod": "ILBG",
+   "judge": "Selin",
+   "scores": {
+    "smak": 3,
+    "textur": 2,
+    "utseende": 4,
+    "kreativitet": 4
+   }
+  },
+  {
+   "kortid": "20628ca1-bc45-42cd-946e-9160e57d1d99",
+   "lagkod": "ILBG",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 5,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "a46d82d6-2294-407e-84fd-4fcd670543d7",
+   "lagkod": "ILBG",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "ed67562b-4c27-453e-8384-e8ac6e6c171d",
+   "lagkod": "ILBG",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "b55d34e1-5796-46a7-b8ac-83d20b887fe8",
+   "lagkod": "ILBG",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "b8c42dd4-30e4-40c6-8d30-c979ed856bc3",
+   "lagkod": "ILBG",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "976f3d8f-0761-48e7-b6ce-a8d76ed0a386",
+   "lagkod": "FCVJ",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "f9720c53-1f9d-47df-94fc-be54ea9f0a4d",
+   "lagkod": "FCVJ",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "3abf6ffd-c32f-49d6-882b-8fe4a142da86",
+   "lagkod": "FCVJ",
+   "judge": "Selin",
+   "scores": {
+    "smak": 3,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 2
+   }
+  },
+  {
+   "kortid": "d781c58f-411c-4e60-a131-5de92de8ba32",
+   "lagkod": "FCVJ",
+   "judge": "Toby",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 5,
+    "kreativitet": 3
+   }
+  },
+  {
+   "kortid": "d307a10a-887b-4716-a85b-79b926aacf3e",
+   "lagkod": "FCVJ",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "3293564c-cef1-4e93-a999-e11b027b0c51",
+   "lagkod": "FCVJ",
+   "judge": "Linus",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "bb33d775-6d53-4500-8269-1d5e8ffa5333",
+   "lagkod": "RUGL",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 4,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "ad8c0620-f6e3-4286-a9f9-fdd1ac69fcbd",
+   "lagkod": "RUGL",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "e6c8afc7-f063-4f61-a8bd-b54cd30721b9",
+   "lagkod": "RUGL",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "a24559f9-115c-4695-8ceb-160fef6de7e6",
+   "lagkod": "RUGL",
+   "judge": "Toby",
+   "scores": {
+    "smak": 8,
+    "textur": 9,
+    "utseende": 9,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "cf8e3d7c-498c-4389-93b3-f95e626e694c",
+   "lagkod": "RUGL",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "bf0cc7d7-b104-48e4-868f-6744cd6eb1f6",
+   "lagkod": "ROSN",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "c2cfbc44-0558-4c0d-8003-0ef316daa897",
+   "lagkod": "ROSN",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "9107546f-5b22-42eb-ae4f-4d6c86a29fb1",
+   "lagkod": "ROSN",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "650066e5-094c-4776-8cad-b206369c9380",
+   "lagkod": "FDRP",
+   "judge": "Selin",
+   "scores": {
+    "smak": 3,
+    "textur": 3,
+    "utseende": 3,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "c24d6d8c-7c6a-410f-949d-045592fccc03",
+   "lagkod": "ROSN",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "50ef2fe9-77ea-4bda-a892-efc7b25d931b",
+   "lagkod": "ROSN",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "afc4002e-5bfa-41d3-9c27-288628957887",
+   "lagkod": "ROSN",
+   "judge": "Toby",
+   "scores": {
+    "smak": 6,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "a35ff2ec-2153-4771-82ab-381b8478578f",
+   "lagkod": "FDRP",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "83c69d09-e28b-484a-be14-c2d5bf05ab2f",
+   "lagkod": "FDRP",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "e4a19b8a-5b48-4cad-b678-5fc8bad0631b",
+   "lagkod": "FDRP",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "d0aa228e-67ce-4bfb-bf7a-a1ea45a680d2",
+   "lagkod": "FDRP",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 6,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "c8e193c9-ec28-4900-9c3f-23e2026fe374",
+   "lagkod": "FDRP",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 4,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "ca0be595-70b3-4ec8-9a28-3b9987dbc990",
+   "lagkod": "IIEK",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "7ce7883a-9102-4353-8769-8288935c0281",
+   "lagkod": "IIEK",
+   "judge": "Selin",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 5,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "a7784755-9c8e-4c5b-a40b-45c89fc8cc27",
+   "lagkod": "IIEK",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 7,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "e7209cf3-9c46-4082-b7cb-3f087f143b61",
+   "lagkod": "IIEK",
+   "judge": "Linus",
+   "scores": {
+    "smak": 7,
+    "textur": 7,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "90bf0c11-109d-45f8-b694-82a134a3688f",
+   "lagkod": "IIEK",
+   "judge": "Pierre",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "65e8e513-f3d1-4e4c-a4fc-76da4754e416",
+   "lagkod": "INTK",
+   "judge": "Selin",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 4,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "23a9261c-b327-41e0-9ce4-2c907d84c9f8",
+   "lagkod": "IIEK",
+   "judge": "Micke Gustavsson",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "bb9073db-2fff-4b68-b8e3-67ca5120d44b",
+   "lagkod": "INTK",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "28ed90cb-2711-4128-a6f0-6ad6f753df72",
+   "lagkod": "INTK",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "a4869288-22aa-4c97-bf84-82d6e1f0d760",
+   "lagkod": "INTK",
+   "judge": "Toby",
+   "scores": {
+    "smak": 9,
+    "textur": 9,
+    "utseende": 9,
+    "kreativitet": 9
+   }
+  },
+  {
+   "kortid": "a99f1201-ab49-4b99-9ae0-219256c809d7",
+   "lagkod": "INTK",
+   "judge": "Mikael Karlsson",
+   "scores": {
+    "smak": 8,
+    "textur": 7,
+    "utseende": 8,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "b5590090-9148-4d07-8fb9-18df58e4046e",
+   "lagkod": "IEQS",
+   "judge": "Johan Broström",
+   "scores": {
+    "smak": 7,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 7
+   }
+  },
+  {
+   "kortid": "dd0df79e-54c5-4f03-8599-4341019f79d1",
+   "lagkod": "IEQS",
+   "judge": "Stefan",
+   "scores": {
+    "smak": 5,
+    "textur": 6,
+    "utseende": 7,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "e19843d8-3614-4def-b33c-02c62b9f6bc6",
+   "lagkod": "IEQS",
+   "judge": "Kong Lee",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "3f282668-d7b8-4744-ac6c-30cef7fe4bb9",
+   "lagkod": "INTK",
+   "judge": "Linus",
+   "scores": {
+    "smak": 5,
+    "textur": 5,
+    "utseende": 7,
+    "kreativitet": 5
+   }
+  },
+  {
+   "kortid": "a4ec5af2-6890-4071-867f-d3dcd4d57647",
+   "lagkod": "IEQS",
+   "judge": "Niklas",
+   "scores": {
+    "smak": 4,
+    "textur": 4,
+    "utseende": 5,
+    "kreativitet": 6
+   }
+  },
+  {
+   "kortid": "06dcdebc-7f5c-47bf-ac67-1194262b4244",
+   "lagkod": "IEQS",
+   "judge": "Toby",
+   "scores": {
+    "smak": 8,
+    "textur": 8,
+    "utseende": 8,
+    "kreativitet": 8
+   }
+  },
+  {
+   "kortid": "d7dbceac-f06a-44da-b692-414f51f710d4",
+   "lagkod": "IEQS",
+   "judge": "Linus",
+   "scores": {
+    "smak": 6,
+    "textur": 6,
+    "utseende": 6,
+    "kreativitet": 6
+   }
+  }
+ ],
+ "contributions": [
+  {
+   "lagkod": "SQVL",
+   "team": "Ribburger",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "SSNC",
+   "team": "MPX bbq burgers",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "SRKS",
+   "team": "Återkommer Burger",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "RSAA",
+   "team": "Resturang Einar",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "QHWP",
+   "team": "Schlätta burgers",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "MJBG",
+   "team": "HBG Burger",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "LKMS",
+   "team": "Burn BBQ",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "RVJU",
+   "team": "Hungry Dane",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "QIRL",
+   "team": "Happy Days BBQ",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "NBNC",
+   "team": "Rusty Beard",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "KXJU",
+   "team": "New Homie bbq",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "JMPV",
+   "team": "Ölkompaniet",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "INBD",
+   "team": "Joes dinner",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "NRVV",
+   "team": "Kalles burgare",
+   "gren": "Vegetarisk"
+  },
+  {
+   "lagkod": "VPOC",
+   "team": "Ribburger",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "VZXH",
+   "team": "SIK BBQ",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "VXUH",
+   "team": "Piratkoket",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "PRWU",
+   "team": "Biggie Burgers",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "QFFI",
+   "team": "Smooth Hill",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "PHSY",
+   "team": "MPX bbq burgers",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "PLRM",
+   "team": "Anddersson BBQ",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "OFXW",
+   "team": "Återkommer Burger",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "OTXN",
+   "team": "Team Double Cheese",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "OOXQ",
+   "team": "Furulund",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "SODG",
+   "team": "Smoked by oak",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "NZVL",
+   "team": "Resturang Einar",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "NVYC",
+   "team": "Schlätta burgers",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "NDYM",
+   "team": "Öreburgers",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "OLNS",
+   "team": "HBG Burger",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "LYRJ",
+   "team": "Burn BBQ",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "MAMV",
+   "team": "Hungry Dane",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "MZZH",
+   "team": "Happy Days BBQ",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "LGHQ",
+   "team": "Rusty Beard",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "MEIK",
+   "team": "New Homie bbq",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "XFRO",
+   "team": "Ölkompaniet",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "KVVK",
+   "team": "Joes dinner",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "WMQK",
+   "team": "Maglas bbq",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "JLUZ",
+   "team": "Älvängs natur & kulturhus",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "ADPU",
+   "team": "Kalles burgare",
+   "gren": "Freestyle"
+  },
+  {
+   "lagkod": "DFLE",
+   "team": "Ribburger",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "RMBW",
+   "team": "SIK BBQ",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "HJRP",
+   "team": "Piratkoket",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "ICGA",
+   "team": "Biggie Burgers",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "QVOO",
+   "team": "Smooth Hill",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "JUND",
+   "team": "MPX bbq burgers",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "JYKT",
+   "team": "Anddersson BBQ",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "MZWP",
+   "team": "Återkommer Burger",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "MTMZ",
+   "team": "Team Double Cheese",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "FDNR",
+   "team": "Furulund",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "JBCU",
+   "team": "Smoked by oak",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "KJDS",
+   "team": "Resturang Einar",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "LBNV",
+   "team": "Schlätta burgers",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "BUZL",
+   "team": "Öreburgers",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "MUAU",
+   "team": "HBG Burger",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "KOMS",
+   "team": "Burn BBQ",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "RUGL",
+   "team": "Happy Days BBQ",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "ILBG",
+   "team": "Rusty Beard",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "FCVJ",
+   "team": "New Homie bbq",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "IEQS",
+   "team": "Ölkompaniet",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "INTK",
+   "team": "Joes dinner",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "IIEK",
+   "team": "Maglas bbq",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "ROSN",
+   "team": "Älvängs natur & kulturhus",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "FDRP",
+   "team": "Kalles burgare",
+   "gren": "Hemliga Lådan"
+  },
+  {
+   "lagkod": "XWNP",
+   "team": "Ribburger",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "WZPQ",
+   "team": "SIK BBQ",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "XIHD",
+   "team": "Piratkoket",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "VGEC",
+   "team": "Biggie Burgers",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "WVES",
+   "team": "Smooth Hill",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "WFJO",
+   "team": "MPX bbq burgers",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "WHXP",
+   "team": "Anddersson BBQ",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "WIUG",
+   "team": "Återkommer Burger",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "UWFF",
+   "team": "Team Double Cheese",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "VEOI",
+   "team": "Furulund",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "VOBM",
+   "team": "Smoked by oak",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "TUWE",
+   "team": "Resturang Einar",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "VDUO",
+   "team": "Schlätta burgers",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "VLLK",
+   "team": "Öreburgers",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "UAGD",
+   "team": "HBG Burger",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "UGHG",
+   "team": "Burn BBQ",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "TZBL",
+   "team": "Happy Days BBQ",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "TVPZ",
+   "team": "Rusty Beard",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "UESM",
+   "team": "New Homie bbq",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "TLHU",
+   "team": "Ölkompaniet",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "TFOG",
+   "team": "Joes dinner",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "TIMX",
+   "team": "Maglas bbq",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "TALO",
+   "team": "Älvängs natur & kulturhus",
+   "gren": "Tjockpuck"
+  },
+  {
+   "lagkod": "TNCC",
+   "team": "Kalles burgare",
+   "gren": "Tjockpuck"
+  }
+ ],
+ "avdrag": [
+  {
+   "lagkod": "SODG",
+   "pct": 0.15,
+   "reason": "Hårstrå i burgaren"
+  },
+  {
+   "lagkod": "UWFF",
+   "pct": 0.5,
+   "reason": "15 mm tjock"
+  },
+  {
+   "lagkod": "DFLE",
+   "pct": 0.05,
+   "reason": "2 minuter sena"
+  }
+ ],
+ "official": {
+  "Vegetarisk": [
+   {
+    "team": "Ribburger",
+    "score": 7.77
+   },
+   {
+    "team": "Ölkompaniet",
+    "score": 7.6875
+   },
+   {
+    "team": "Happy Days BBQ",
+    "score": 6.7625
+   },
+   {
+    "team": "Återkommer Burger",
+    "score": 6.68
+   },
+   {
+    "team": "New Homie bbq",
+    "score": 6.466666667
+   },
+   {
+    "team": "MPX bbq burgers",
+    "score": 6.358333333
+   },
+   {
+    "team": "Hungry Dane",
+    "score": 6.125
+   },
+   {
+    "team": "Schlätta burgers",
+    "score": 6.025
+   },
+   {
+    "team": "Rusty Beard",
+    "score": 5.9625
+   },
+   {
+    "team": "Resturang Einar",
+    "score": 5.92
+   },
+   {
+    "team": "Kalles burgare",
+    "score": 5.9
+   },
+   {
+    "team": "Burn BBQ",
+    "score": 5.825
+   },
+   {
+    "team": "HBG Burger",
+    "score": 5.7375
+   },
+   {
+    "team": "Joes dinner",
+    "score": 5.583333333
+   },
+   {
+    "team": "SIK BBQ",
+    "score": 0.0
+   },
+   {
+    "team": "Piratkoket",
+    "score": 0.0
+   },
+   {
+    "team": "Biggie Burgers",
+    "score": 0.0
+   },
+   {
+    "team": "Smooth Hill",
+    "score": 0.0
+   },
+   {
+    "team": "Anddersson BBQ",
+    "score": 0.0
+   },
+   {
+    "team": "Team Double Cheese",
+    "score": 0.0
+   },
+   {
+    "team": "Furulund",
+    "score": 0.0
+   },
+   {
+    "team": "Smoked by oak",
+    "score": 0.0
+   },
+   {
+    "team": "Öreburgers",
+    "score": 0.0
+   },
+   {
+    "team": "Maglas bbq",
+    "score": 0.0
+   },
+   {
+    "team": "Älvängs natur & kulturhus",
+    "score": 0.0
+   }
+  ],
+  "Freestyle": [
+   {
+    "team": "Smooth Hill",
+    "score": 6.971428571
+   },
+   {
+    "team": "Schlätta burgers",
+    "score": 6.971428571
+   },
+   {
+    "team": "Återkommer Burger",
+    "score": 6.933333333
+   },
+   {
+    "team": "Team Double Cheese",
+    "score": 6.907142857
+   },
+   {
+    "team": "MPX bbq burgers",
+    "score": 6.8875
+   },
+   {
+    "team": "Ölkompaniet",
+    "score": 6.535714286
+   },
+   {
+    "team": "Ribburger",
+    "score": 6.457142857
+   },
+   {
+    "team": "Biggie Burgers",
+    "score": 6.278571429
+   },
+   {
+    "team": "Kalles burgare",
+    "score": 6.24375
+   },
+   {
+    "team": "New Homie bbq",
+    "score": 6.171428571
+   },
+   {
+    "team": "Happy Days BBQ",
+    "score": 5.985714286
+   },
+   {
+    "team": "Anddersson BBQ",
+    "score": 5.914285714
+   },
+   {
+    "team": "Rusty Beard",
+    "score": 5.885714286
+   },
+   {
+    "team": "Älvängs natur & kulturhus",
+    "score": 5.878571429
+   },
+   {
+    "team": "SIK BBQ",
+    "score": 5.835714286
+   },
+   {
+    "team": "Resturang Einar",
+    "score": 5.807142857
+   },
+   {
+    "team": "Burn BBQ",
+    "score": 5.75
+   },
+   {
+    "team": "HBG Burger",
+    "score": 5.74375
+   },
+   {
+    "team": "Piratkoket",
+    "score": 5.64
+   },
+   {
+    "team": "Smoked by oak",
+    "score": 5.5090625
+   },
+   {
+    "team": "Maglas bbq",
+    "score": 5.491666667
+   },
+   {
+    "team": "Joes dinner",
+    "score": 5.371428571
+   },
+   {
+    "team": "Öreburgers",
+    "score": 4.921428571
+   },
+   {
+    "team": "Furulund",
+    "score": 4.914285714
+   },
+   {
+    "team": "Hungry Dane",
+    "score": 4.564285714
+   }
+  ],
+  "Hemliga Lådan": [
+   {
+    "team": "Återkommer Burger",
+    "score": 7.141666667
+   },
+   {
+    "team": "Burn BBQ",
+    "score": 6.783333333
+   },
+   {
+    "team": "Maglas bbq",
+    "score": 6.783333333
+   },
+   {
+    "team": "Smooth Hill",
+    "score": 6.725
+   },
+   {
+    "team": "Anddersson BBQ",
+    "score": 6.5
+   },
+   {
+    "team": "Happy Days BBQ",
+    "score": 6.38
+   },
+   {
+    "team": "Schlätta burgers",
+    "score": 6.375
+   },
+   {
+    "team": "Furulund",
+    "score": 6.31
+   },
+   {
+    "team": "Joes dinner",
+    "score": 6.191666667
+   },
+   {
+    "team": "Ölkompaniet",
+    "score": 6.1
+   },
+   {
+    "team": "Piratkoket",
+    "score": 6.016666667
+   },
+   {
+    "team": "Smoked by oak",
+    "score": 5.966666667
+   },
+   {
+    "team": "HBG Burger",
+    "score": 5.9
+   },
+   {
+    "team": "Älvängs natur & kulturhus",
+    "score": 5.85
+   },
+   {
+    "team": "Biggie Burgers",
+    "score": 5.691666667
+   },
+   {
+    "team": "Resturang Einar",
+    "score": 5.675
+   },
+   {
+    "team": "Öreburgers",
+    "score": 5.675
+   },
+   {
+    "team": "Rusty Beard",
+    "score": 5.483333333
+   },
+   {
+    "team": "MPX bbq burgers",
+    "score": 5.408333333
+   },
+   {
+    "team": "SIK BBQ",
+    "score": 5.4
+   },
+   {
+    "team": "Kalles burgare",
+    "score": 5.283333333
+   },
+   {
+    "team": "Team Double Cheese",
+    "score": 5.208333333
+   },
+   {
+    "team": "New Homie bbq",
+    "score": 5.158333333
+   },
+   {
+    "team": "Ribburger",
+    "score": 5.114166667
+   },
+   {
+    "team": "Hungry Dane",
+    "score": 0.0
+   }
+  ],
+  "Tjockpuck": [
+   {
+    "team": "Rusty Beard",
+    "score": 6.658333333
+   },
+   {
+    "team": "Happy Days BBQ",
+    "score": 6.535714286
+   },
+   {
+    "team": "Anddersson BBQ",
+    "score": 6.364285714
+   },
+   {
+    "team": "Ölkompaniet",
+    "score": 5.95
+   },
+   {
+    "team": "Smoked by oak",
+    "score": 5.9
+   },
+   {
+    "team": "Schlätta burgers",
+    "score": 5.875
+   },
+   {
+    "team": "Furulund",
+    "score": 5.842857143
+   },
+   {
+    "team": "MPX bbq burgers",
+    "score": 5.828571429
+   },
+   {
+    "team": "New Homie bbq",
+    "score": 5.825
+   },
+   {
+    "team": "Återkommer Burger",
+    "score": 5.79375
+   },
+   {
+    "team": "HBG Burger",
+    "score": 5.764285714
+   },
+   {
+    "team": "SIK BBQ",
+    "score": 5.621428571
+   },
+   {
+    "team": "Smooth Hill",
+    "score": 5.592857143
+   },
+   {
+    "team": "Kalles burgare",
+    "score": 5.564285714
+   },
+   {
+    "team": "Älvängs natur & kulturhus",
+    "score": 5.541666667
+   },
+   {
+    "team": "Öreburgers",
+    "score": 5.364285714
+   },
+   {
+    "team": "Resturang Einar",
+    "score": 5.3
+   },
+   {
+    "team": "Biggie Burgers",
+    "score": 5.2
+   },
+   {
+    "team": "Joes dinner",
+    "score": 4.908333333
+   },
+   {
+    "team": "Maglas bbq",
+    "score": 4.871428571
+   },
+   {
+    "team": "Ribburger",
+    "score": 4.442857143
+   },
+   {
+    "team": "Piratkoket",
+    "score": 4.428571429
+   },
+   {
+    "team": "Burn BBQ",
+    "score": 4.071428571
+   },
+   {
+    "team": "Team Double Cheese",
+    "score": 2.853571429
+   },
+   {
+    "team": "Hungry Dane",
+    "score": 0.0
+   }
+  ]
+ },
+ "officialTotals": [
+  {
+   "team": "Återkommer Burger",
+   "score": 19.86875
+  },
+  {
+   "team": "Smooth Hill",
+   "score": 19.28928571
+  },
+  {
+   "team": "Schlätta burgers",
+   "score": 19.22142857
+  },
+  {
+   "team": "Happy Days BBQ",
+   "score": 18.90142857
+  },
+  {
+   "team": "Anddersson BBQ",
+   "score": 18.77857143
+  },
+  {
+   "team": "Ölkompaniet",
+   "score": 18.58571429
+  },
+  {
+   "team": "MPX bbq burgers",
+   "score": 18.12440476
+  },
+  {
+   "team": "Rusty Beard",
+   "score": 18.02738095
+  },
+  {
+   "team": "HBG Burger",
+   "score": 17.40803571
+  },
+  {
+   "team": "Smoked by oak",
+   "score": 17.37572917
+  },
+  {
+   "team": "Älvängs natur & kulturhus",
+   "score": 17.2702381
+  },
+  {
+   "team": "Biggie Burgers",
+   "score": 17.1702381
+  },
+  {
+   "team": "New Homie bbq",
+   "score": 17.1547619
+  },
+  {
+   "team": "Maglas bbq",
+   "score": 17.14642857
+  },
+  {
+   "team": "Kalles burgare",
+   "score": 17.09136905
+  },
+  {
+   "team": "Furulund",
+   "score": 17.06714286
+  },
+  {
+   "team": "SIK BBQ",
+   "score": 16.85714286
+  },
+  {
+   "team": "Resturang Einar",
+   "score": 16.78214286
+  },
+  {
+   "team": "Burn BBQ",
+   "score": 16.6047619
+  },
+  {
+   "team": "Joes dinner",
+   "score": 16.47142857
+  },
+  {
+   "team": "Piratkoket",
+   "score": 16.0852381
+  },
+  {
+   "team": "Ribburger",
+   "score": 16.01416667
+  },
+  {
+   "team": "Öreburgers",
+   "score": 15.96071429
+  },
+  {
+   "team": "Team Double Cheese",
+   "score": 14.96904762
+  },
+  {
+   "team": "Hungry Dane",
+   "score": 4.564285714
+  }
+ ]
+}
