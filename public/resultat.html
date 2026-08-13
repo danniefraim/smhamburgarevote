@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resultat – SM i Hamburgare</title>
+<style>
+  :root { --paper:#FBF8F2; --ink:#241B12; --muted:#6E6154; --rust:#A9502F; --line:#E5DCCC; --dark:#26170F; --cream:#F5E1C8; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.45; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 14px 14px 60px; }
+  header { background: var(--dark); color: var(--cream); border-radius: 14px; padding: 18px 20px; margin-bottom: 10px; }
+  header h1 { font-size: 1.3rem; }
+  header .sub { color: #D8B893; font-size: .85rem; margin-top: 3px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-top: 14px; }
+  h2 { font-size: 1.05rem; margin-bottom: 8px; }
+  h2 .tag { font-size: .7rem; color: var(--muted); font-weight: 400; margin-left: 6px; }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  th { text-align: left; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); padding: 4px 6px; border-bottom: 1.5px solid var(--line); }
+  td { padding: 7px 6px; border-bottom: 1px solid #F0EADF; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:nth-child(-n+3) td.place { color: var(--rust); font-weight: 800; }
+  .badge { display: inline-block; font-size: .68rem; background: #F3EADB; color: #8A6A4A; border-radius: 99px; padding: 1px 8px; margin-left: 6px; vertical-align: 1px; }
+  .waiting { text-align: center; padding: 70px 20px; }
+  .waiting .big { font-size: 3.4rem; }
+  .waiting p { color: var(--muted); margin-top: 8px; }
+  footer { text-align: center; color: var(--muted); font-size: .75rem; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="eventName">SM i Hamburgare</h1>
+    <div class="sub" id="methodInfo">Resultat</div>
+  </header>
+  <div id="content"><div class="waiting"><div class="big">🍔</div><p>Hämtar resultat …</p></div></div>
+  <footer>Uppdateras automatiskt var 5:e sekund.</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var content = document.getElementById("content");
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (ch) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+    });
+  }
+  var fmt = new Intl.NumberFormat("sv-SE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  var CRIT_NAMES = { smak: "Smak", textur: "Textur", utseende: "Utseende", kreativitet: "Kreativitet" };
+
+  function badges(row) {
+    var out = "";
+    if (row.unresolvedTie) out += '<span class="badge">delad – lottning</span>';
+    else if (row.tieBreakUsed) out += '<span class="badge">skiljeregel: ' + esc(CRIT_NAMES[row.tieBreakUsed] || row.tieBreakUsed) + "</span>";
+    return out;
+  }
+
+  function render(data) {
+    document.getElementById("eventName").textContent = data.eventName;
+    if (data.hidden) {
+      document.getElementById("methodInfo").textContent = "Resultat";
+      content.innerHTML =
+        '<div class="waiting"><div class="big">🤫</div><h2>Resultaten är inte publicerade ännu</h2><p>Håll ut — vinnarna presenteras vid prisutdelningen!</p></div>';
+      return;
+    }
+    document.getElementById("methodInfo").textContent =
+      data.method === "adjusted" ? "Stränghetsjusterad poäng · uppdateras löpande" : "Råpoäng · uppdateras löpande";
+
+    var html = "";
+    if (data.totals.length > 0) {
+      html += '<div class="card"><h2>Totalpoäng<span class="tag">' +
+        esc(data.grenar.filter(function (g) { return g.inTotal; }).map(function (g) { return g.name; }).join(" + ")) +
+        "</span></h2><table><tr><th>#</th><th>Lag</th><th class=num>Poäng</th></tr>";
+      data.totals.forEach(function (t) {
+        html += "<tr><td class=place>" + t.place + "</td><td>" + esc(t.team) + badges(t) + "</td><td class=num>" + fmt.format(t.total) + "</td></tr>";
+      });
+      html += "</table></div>";
+    }
+    data.grenar.forEach(function (g) {
+      if (g.standings.length === 0) return;
+      html += '<div class="card"><h2>' + esc(g.name) + "</h2><table><tr><th>#</th><th>Lag</th><th class=num>Röster</th><th class=num>Poäng</th></tr>";
+      g.standings.forEach(function (s) {
+        html += "<tr><td class=place>" + s.place + "</td><td>" + esc(s.team) + badges(s) + "</td><td class=num>" + s.n + "</td><td class=num>" + fmt.format(s.final) + "</td></tr>";
+      });
+      html += "</table></div>";
+    });
+    content.innerHTML = html || '<div class="waiting"><div class="big">⏳</div><p>Inga resultat ännu.</p></div>';
+  }
+
+  function tick() {
+    fetch("/api/resultat")
+      .then(function (r) { return r.json(); })
+      .then(render)
+      .catch(function () { /* behåll senaste vyn vid nätverksfel */ });
+  }
+  tick();
+  setInterval(tick, 5000);
+})();
+</script>
+</body>
+</html>

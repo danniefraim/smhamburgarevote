@@ -1,5 +1,200 @@
 <!DOCTYPE html>
 <html lang="sv">
-<head><meta charset="utf-8"><title>SM i Hamburgare</title></head>
-<body>Röstsystemet är under uppbyggnad.</body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rösta – SM i Hamburgare</title>
+<style>
+  :root { --paper:#FBF8F2; --ink:#241B12; --muted:#6E6154; --rust:#A9502F; --line:#E5DCCC; --card:#fff; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.45; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 16px 14px 60px; }
+  header { text-align: center; padding: 14px 0 4px; }
+  header h1 { font-size: 1.15rem; letter-spacing: .01em; }
+  header .sub { color: var(--muted); font-size: .85rem; margin-top: 2px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-top: 14px; }
+  .crit-label { font-weight: 700; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: baseline; }
+  .crit-label .val { color: var(--rust); font-size: 1.05rem; min-width: 2ch; text-align: right; }
+  .btns { display: grid; grid-template-columns: repeat(11, 1fr); gap: 4px; }
+  .btns button { padding: 11px 0; border: 1px solid var(--line); background: #fff; border-radius: 8px; font-size: .95rem; color: var(--ink); }
+  .btns button.sel { background: var(--rust); border-color: var(--rust); color: #fff; font-weight: 700; }
+  label.field { display: block; font-weight: 700; margin-bottom: 6px; }
+  input[type=text], textarea { width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; font-size: 1rem; background: #fff; color: var(--ink); }
+  textarea { min-height: 74px; resize: vertical; }
+  .submit { margin-top: 16px; width: 100%; padding: 15px; font-size: 1.1rem; font-weight: 800; color: #fff; background: var(--rust); border: 0; border-radius: 12px; }
+  .submit:disabled { opacity: .45; }
+  .status { text-align: center; padding: 40px 16px; }
+  .status .big { font-size: 3rem; }
+  .status h2 { margin: 10px 0 6px; }
+  .status p { color: var(--muted); }
+  .error-box { background: #F7E8E2; border: 1px solid #E3BFB0; color: #7C2D12; border-radius: 10px; padding: 12px; margin-top: 14px; font-size: .95rem; display: none; }
+  .backup { margin-top: 10px; display: none; }
+  .backup a { color: var(--rust); font-weight: 700; }
+  .hint { color: var(--muted); font-size: .8rem; margin-top: 6px; }
+  footer { text-align: center; color: var(--muted); font-size: .75rem; margin-top: 26px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="eventName">SM i Hamburgare</h1>
+    <div class="sub" id="cardInfo"></div>
+  </header>
+
+  <div id="view"></div>
+
+  <footer>Vid tekniska problem: fyll i pappersröstkortet och lämna in det.</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var qs = new URLSearchParams(location.search);
+  var kortid = (qs.get("kortid") || "").trim();
+  var lagkod = (qs.get("lagkod") || "").trim().toUpperCase();
+  var view = document.getElementById("view");
+  var config = null;
+  var state = { scores: {}, submitting: false };
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (ch) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+    });
+  }
+
+  function statusScreen(icon, title, text, extraHtml) {
+    view.innerHTML =
+      '<div class="status"><div class="big">' + icon + '</div><h2>' + esc(title) + '</h2><p>' + esc(text) + '</p>' +
+      (extraHtml || "") + '</div>';
+  }
+
+  function backupHtml() {
+    if (!config || !config.backupFormUrl) return "";
+    var url = config.backupFormUrl.replace("{lagkod}", encodeURIComponent(lagkod)).replace("{kortid}", encodeURIComponent(kortid));
+    return '<p class="backup" style="display:block"><a href="' + esc(url) + '">Använd reservformuläret i stället →</a></p>';
+  }
+
+  function renderForm() {
+    var judge = localStorage.getItem("domarnamn") || "";
+    var html = '<form id="voteForm">';
+    html += '<div class="card"><label class="field" for="judge">Ditt namn (domare)</label>';
+    html += '<input type="text" id="judge" list="judgeList" autocomplete="off" required maxlength="60" value="' + esc(judge) + '" placeholder="Skriv ditt namn">';
+    html += '<datalist id="judgeList">' + config.judges.map(function (j) { return '<option value="' + esc(j) + '">'; }).join("") + '</datalist>';
+    html += '<div class="hint">Använd samma namn hela dagen.</div></div>';
+    config.criteria.forEach(function (c) {
+      html += '<div class="card"><div class="crit-label"><span>' + esc(c.label) + '</span><span class="val" id="val-' + esc(c.key) + '">–</span></div>';
+      html += '<div class="btns" data-key="' + esc(c.key) + '">';
+      for (var i = 0; i <= 10; i++) html += '<button type="button" data-v="' + i + '">' + i + "</button>";
+      html += "</div></div>";
+    });
+    html += '<div class="card"><label class="field" for="comment">Kommentar till laget (frivilligt)</label>';
+    html += '<textarea id="comment" maxlength="2000" placeholder="Vad var bra? Vad kan bli bättre?"></textarea></div>';
+    html += '<button class="submit" id="submitBtn" type="submit" disabled>Skicka min röst</button>';
+    html += '<div class="error-box" id="errorBox"></div>';
+    html += "</form>";
+    view.innerHTML = html;
+
+    view.querySelectorAll(".btns").forEach(function (row) {
+      row.addEventListener("click", function (ev) {
+        var b = ev.target.closest("button[data-v]");
+        if (!b) return;
+        var key = row.getAttribute("data-key");
+        state.scores[key] = Number(b.getAttribute("data-v"));
+        row.querySelectorAll("button").forEach(function (x) { x.classList.toggle("sel", x === b); });
+        document.getElementById("val-" + key).textContent = b.getAttribute("data-v");
+        updateSubmit();
+      });
+    });
+    document.getElementById("judge").addEventListener("input", updateSubmit);
+    document.getElementById("voteForm").addEventListener("submit", onSubmit);
+    updateSubmit();
+  }
+
+  function complete() {
+    if (!document.getElementById("judge")) return false;
+    if (!document.getElementById("judge").value.trim()) return false;
+    return config.criteria.every(function (c) { return typeof state.scores[c.key] === "number"; });
+  }
+
+  function updateSubmit() {
+    var btn = document.getElementById("submitBtn");
+    if (btn) btn.disabled = !complete() || state.submitting;
+  }
+
+  function showError(msg, withBackup) {
+    var box = document.getElementById("errorBox");
+    if (!box) return;
+    box.style.display = "block";
+    box.innerHTML = esc(msg) + (withBackup ? backupHtml() : "");
+  }
+
+  function onSubmit(ev) {
+    ev.preventDefault();
+    if (!complete() || state.submitting) return;
+    state.submitting = true;
+    updateSubmit();
+    var judge = document.getElementById("judge").value.trim();
+    localStorage.setItem("domarnamn", judge);
+    var payload = {
+      kortid: kortid,
+      lagkod: lagkod,
+      judge: judge,
+      scores: state.scores,
+      comment: document.getElementById("comment").value,
+    };
+    fetch("/api/vote", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+      .then(function (res) { return res.json().then(function (data) { return { res: res, data: data }; }); })
+      .then(function (r) {
+        if (r.data.ok && r.data.status === "accepted") {
+          statusScreen("✅", "Tack, din röst är registrerad!", "Du kan lämna tillbaka kortet eller slänga det.");
+        } else if (r.data.ok && r.data.status === "duplicate") {
+          statusScreen("ℹ️", "Kortet var redan registrerat", "Rösten som registrerades först gäller. Kontakta huvuddomaren om något blivit fel.");
+        } else {
+          state.submitting = false;
+          updateSubmit();
+          showError(r.data.message || "Något gick fel. Försök igen.", false);
+        }
+      })
+      .catch(function () {
+        state.submitting = false;
+        updateSubmit();
+        showError("Ingen kontakt med servern. Kontrollera uppkopplingen och försök igen — eller fyll i papperskortet.", true);
+      });
+  }
+
+  if (!kortid) {
+    statusScreen("📷", "Skanna QR-koden på ditt röstkort", "Den här sidan öppnas via QR-koden på röstkortet. Om skanningen inte fungerar: fyll i kortet med penna och lämna in det.");
+    return;
+  }
+
+  Promise.all([
+    fetch("/api/config").then(function (r) { return r.json(); }),
+    fetch("/api/card/" + encodeURIComponent(kortid)).then(function (r) { return r.json().then(function (d) { return { status: r.status, data: d }; }); }),
+  ])
+    .then(function (results) {
+      config = results[0];
+      document.getElementById("eventName").textContent = config.eventName;
+      var card = results[1];
+      if (card.status === 404) {
+        statusScreen("❓", "Kortet kunde inte hittas", "QR-koden verkar inte höra till årets tävling. Fyll i papperskortet och kontakta huvuddomaren.");
+        return;
+      }
+      lagkod = card.data.lagkod;
+      document.getElementById("cardInfo").textContent = "Kort " + kortid.slice(0, 8) + " · grupp " + lagkod;
+      if (card.data.used) {
+        statusScreen("ℹ️", "Det här kortet är redan registrerat", "Rösten som registrerades först gäller. Kontakta huvuddomaren om något blivit fel.");
+        return;
+      }
+      renderForm();
+    })
+    .catch(function () {
+      statusScreen("📡", "Ingen kontakt med servern", "Kontrollera uppkopplingen och ladda om sidan — eller fyll i papperskortet och lämna in det.");
+    });
+})();
+</script>
+</body>
 </html>
