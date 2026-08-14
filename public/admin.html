@@ -3,48 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#26170F">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍔</text></svg>">
 <title>Admin – SM i Hamburgare</title>
 <style>
-  :root { --paper:#FBF8F2; --ink:#241B12; --muted:#6E6154; --rust:#A9502F; --teal:#00747F; --line:#E5DCCC; --dark:#26170F; --cream:#F5E1C8; }
+  :root {
+    --paper:#FBF8F2; --ink:#241B12; --muted:#6E6154; --rust:#A9502F; --rust-deep:#8C3F22;
+    --teal:#00747F; --line:#E5DCCC; --dark:#26170F; --dark2:#1B0F09; --cream:#F5E1C8;
+    --cream-muted:#D8B893; --tile:#F3EADB;
+    --shadow:0 1px 2px rgba(38,23,15,.06), 0 6px 18px rgba(38,23,15,.05);
+  }
   * { box-sizing: border-box; margin: 0; }
-  body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.45; font-size: 15px; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.45; font-size: 15px; }
+  ::selection { background: var(--cream); }
   .wrap { max-width: 980px; margin: 0 auto; padding: 12px 14px 80px; }
-  header { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--dark); color: var(--cream); border-radius: 12px; padding: 12px 16px; }
-  header h1 { font-size: 1.05rem; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: linear-gradient(180deg, var(--dark) 0%, var(--dark2) 100%); color: var(--cream); border-radius: 14px; padding: 12px 18px; box-shadow: var(--shadow); }
+  header .brand { display: flex; align-items: center; gap: 12px; }
+  header img.logo { width: 40px; height: auto; }
+  header .kicker { font-size: .6rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--cream-muted); }
+  header h1 { font-size: 1.02rem; font-weight: 800; letter-spacing: -.01em; }
+  header button.sec { background: transparent; border: 1px solid rgba(245,225,200,.35); color: var(--cream); }
   nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
-  nav button { padding: 8px 13px; border: 1px solid var(--line); background: #fff; border-radius: 99px; font-size: .88rem; color: var(--ink); cursor: pointer; }
-  nav button.active { background: var(--rust); border-color: var(--rust); color: #fff; font-weight: 700; }
-  .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-top: 12px; }
-  h2 { font-size: 1rem; margin-bottom: 8px; }
+  nav button { padding: 8px 14px; border: 1px solid var(--line); background: #fff; border-radius: 99px; font-size: .88rem; font-weight: 600; color: var(--ink); cursor: pointer; font-family: inherit; transition: box-shadow .12s ease; }
+  nav button:hover { box-shadow: var(--shadow); }
+  nav button.active { background: var(--rust); border-color: var(--rust-deep); color: var(--cream); font-weight: 800; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 15px 17px; margin-top: 12px; box-shadow: var(--shadow); }
+  h2 { font-size: 1rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -.005em; }
   table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-  th { text-align: left; font-size: .68rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); padding: 4px 6px; border-bottom: 1.5px solid var(--line); white-space: nowrap; }
-  td { padding: 6px; border-bottom: 1px solid #F0EADF; vertical-align: top; }
+  th { text-align: left; font-size: .64rem; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); padding: 4px 6px; border-bottom: 1.5px solid var(--line); white-space: nowrap; font-weight: 800; }
+  td { padding: 7px 6px; border-bottom: 1px solid #F0EADF; vertical-align: top; }
+  tr:hover > td { background: #FCF8F0; }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-  input, select, textarea { padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: .95rem; background: #fff; color: var(--ink); font-family: inherit; }
+  input, select, textarea { padding: 9px 11px; border: 1.5px solid var(--line); border-radius: 9px; font-size: .95rem; background: #fff; color: var(--ink); font-family: inherit; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline: 3px solid rgba(169,80,47,.35); outline-offset: 1px; }
   textarea { width: 100%; min-height: 110px; }
-  button.act { padding: 8px 14px; border: 0; border-radius: 8px; background: var(--rust); color: #fff; font-weight: 700; cursor: pointer; font-size: .9rem; }
-  button.sec { padding: 7px 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; font-size: .85rem; }
+  button.act { padding: 9px 16px; border: 0; border-radius: 9px; background: var(--rust); color: var(--cream); font-weight: 800; cursor: pointer; font-size: .9rem; font-family: inherit; box-shadow: 0 2px 8px rgba(169,80,47,.25); }
+  button.act:active { transform: scale(.97); }
+  button.sec { padding: 8px 13px; border: 1px solid var(--line); border-radius: 9px; background: #fff; color: var(--ink); cursor: pointer; font-size: .85rem; font-family: inherit; }
+  button.sec:hover { border-color: #CBBFA9; }
   button.danger { border-color: #d9b0a0; color: #8a2f10; }
   .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 700px) { .grid2 { grid-template-columns: 1fr; } }
-  .stat { display: inline-block; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; margin: 0 8px 8px 0; }
-  .stat b { font-size: 1.3rem; color: var(--rust); display: block; }
-  .stat span { font-size: .72rem; color: var(--muted); }
-  .msg { margin-top: 10px; padding: 10px 12px; border-radius: 8px; display: none; font-size: .9rem; }
+  .stat { display: inline-block; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px 16px; margin: 0 8px 8px 0; box-shadow: var(--shadow); }
+  .stat b { font-size: 1.5rem; color: var(--rust); display: block; letter-spacing: -.01em; }
+  .stat span { font-size: .64rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .msg { margin-top: 10px; padding: 10px 12px; border-radius: 9px; display: none; font-size: .9rem; }
   .msg.err { background: #F7E8E2; color: #7C2D12; border: 1px solid #E3BFB0; display: block; }
   .msg.ok { background: #E4F0EC; color: #114B3C; border: 1px solid #B9D8CD; display: block; }
-  .badge { display: inline-block; font-size: .66rem; background: #F3EADB; color: #8A6A4A; border-radius: 99px; padding: 1px 7px; margin-left: 5px; }
+  .badge { display: inline-block; font-size: .66rem; background: var(--tile); color: #8A6A4A; border-radius: 99px; padding: 1px 8px; margin-left: 5px; font-weight: 600; }
   .warn { color: #8a2f10; font-weight: 700; }
-  .chip { display: inline-block; border: 1px dashed var(--rust); color: var(--rust); border-radius: 99px; padding: 2px 10px; margin: 0 5px 5px 0; cursor: pointer; font-size: .82rem; background: #fff; }
+  .chip { display: inline-block; border: 1.5px dashed var(--rust); color: var(--rust); border-radius: 99px; padding: 3px 11px; margin: 0 5px 5px 0; cursor: pointer; font-size: .82rem; font-weight: 700; background: #fff; }
+  .chip:hover { background: var(--tile); }
   .btns { display: grid; grid-template-columns: repeat(11, 1fr); gap: 4px; max-width: 460px; }
-  .btns button { padding: 9px 0; border: 1px solid var(--line); background: #fff; border-radius: 7px; cursor: pointer; }
-  .btns button.sel { background: var(--rust); border-color: var(--rust); color: #fff; font-weight: 700; }
+  .btns button { padding: 10px 0; border: 1.5px solid var(--line); background: #fff; border-radius: 8px; cursor: pointer; font-family: inherit; font-weight: 600; }
+  .btns button.sel { background: var(--rust); border-color: var(--rust-deep); color: var(--cream); font-weight: 800; }
   .muted { color: var(--muted); font-size: .82rem; }
-  .login { max-width: 380px; margin: 12vh auto 0; text-align: center; }
-  .login input { width: 100%; margin: 10px 0; }
-  .sev-neg { color: var(--rust); } .sev-pos { color: var(--teal); }
+  .login { max-width: 400px; margin: 10vh auto 0; text-align: center; background: linear-gradient(180deg, var(--dark) 0%, var(--dark2) 100%); color: var(--cream); border: 0; border-radius: 20px; padding: 30px 26px 26px; box-shadow: var(--shadow); }
+  .login img.logo { width: 96px; margin-bottom: 14px; }
+  .login h2 { color: var(--cream); }
+  .login .muted { color: var(--cream-muted); }
+  .login input { width: 100%; margin: 14px 0 12px; background: rgba(251,248,242,.97); border-color: transparent; padding: 12px; text-align: center; }
+  .login button.act { width: 100%; padding: 12px; }
+  .sev-neg { color: var(--rust); font-weight: 700; } .sev-pos { color: var(--teal); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -94,8 +115,9 @@ function msg(id, kind, text) {
 function showLogin() {
   clearInterval(refreshTimer);
   app.innerHTML =
-    '<div class="login card"><h2>SM i Hamburgare – admin</h2>' +
-    '<p class="muted">Ange admin-nyckeln.</p>' +
+    '<div class="login"><img class="logo" src="/logo.svg" alt="SM i Burgare">' +
+    '<h2>Tävlingsadmin</h2>' +
+    '<p class="muted">Ange admin-nyckeln för att fortsätta.</p>' +
     '<input type="password" id="tok" placeholder="Admin-nyckel" autofocus>' +
     '<button class="act" id="loginBtn">Logga in</button>' +
     '<div class="msg" id="loginMsg"></div></div>';
@@ -118,7 +140,9 @@ var VIEWS = [
 
 function shell() {
   app.innerHTML =
-    '<header><h1>🍔 SM i Hamburgare – tävlingsadmin</h1><button class="sec" id="logout">Logga ut</button></header>' +
+    '<header><div class="brand"><img class="logo" src="/logo.svg" alt="">' +
+    '<div><div class="kicker">SM i Hamburgare</div><h1>Tävlingsadmin</h1></div></div>' +
+    '<button class="sec" id="logout">Logga ut</button></header>' +
     "<nav>" + VIEWS.map(function (v) { return '<button data-v="' + v[0] + '">' + v[1] + "</button>"; }).join("") + "</nav>" +
     '<div id="main"></div>';
   document.getElementById("logout").addEventListener("click", function () {

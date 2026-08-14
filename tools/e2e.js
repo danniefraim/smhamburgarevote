@@ -19,6 +19,8 @@ const TOKEN = process.env.E2E_TOKEN || "lokal-test-nyckel";
 const CANDIDATE_CARDS = [
   "aaaaaaa1-0000-4000-8000-000000000002",
   "aaaaaaa1-0000-4000-8000-000000000003",
+  "aaaaaaa1-0000-4000-8000-000000000004",
+  "aaaaaaa1-0000-4000-8000-000000000005",
 ];
 const SHOTS = path.join(__dirname, "e2e-shots");
 
@@ -47,6 +49,8 @@ async function pickUnusedCard() {
       if (m.type() !== "error") return;
       const url = (m.location() && m.location().url) || "";
       if (url.includes("favicon")) return;
+      // 404 på kortuppslag är ett förväntat API-svar (okänt kort), inte ett fel.
+      if (url.includes("/api/card/")) return;
       consoleErrors.push(label + ": " + m.text() + " [" + url + "]");
     });
     p.on("pageerror", (e) => consoleErrors.push(label + ": " + String(e)));

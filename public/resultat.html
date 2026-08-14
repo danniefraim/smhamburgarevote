@@ -3,36 +3,99 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#26170F">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍔</text></svg>">
 <title>Resultat – SM i Hamburgare</title>
 <style>
-  :root { --paper:#FBF8F2; --ink:#241B12; --muted:#6E6154; --rust:#A9502F; --line:#E5DCCC; --dark:#26170F; --cream:#F5E1C8; }
+  :root {
+    --paper:#FBF8F2; --card:#fff; --ink:#241B12; --muted:#6E6154;
+    --line:#E5DCCC; --espresso:#26170F; --espresso2:#1B0F09;
+    --cream:#F5E1C8; --cream-muted:#D8B893; --rust:#A9502F;
+    --tile:#F3EADB; --gold:#C08A2D; --silver:#8E8E93; --bronze:#A8663B;
+    --shadow:0 1px 2px rgba(38,23,15,.06), 0 6px 18px rgba(38,23,15,.05);
+  }
   * { box-sizing: border-box; margin: 0; }
-  body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.45; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.45;
+  }
+  ::selection { background: var(--cream); }
   .wrap { max-width: 720px; margin: 0 auto; padding: 14px 14px 60px; }
-  header { background: var(--dark); color: var(--cream); border-radius: 14px; padding: 18px 20px; margin-bottom: 10px; }
-  header h1 { font-size: 1.3rem; }
-  header .sub { color: #D8B893; font-size: .85rem; margin-top: 3px; }
-  .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-top: 14px; }
-  h2 { font-size: 1.05rem; margin-bottom: 8px; }
-  h2 .tag { font-size: .7rem; color: var(--muted); font-weight: 400; margin-left: 6px; }
+
+  header.mast {
+    background: linear-gradient(180deg, var(--espresso) 0%, var(--espresso2) 100%);
+    color: var(--cream); border-radius: 18px; padding: 20px 22px;
+    display: flex; align-items: center; gap: 18px; box-shadow: var(--shadow);
+  }
+  .mast img.logo { width: 82px; height: auto; flex: none; }
+  .kicker {
+    font-size: .64rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cream-muted); margin-bottom: 5px; display: flex; align-items: center; gap: 7px;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #7BC47F; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .3 } }
+  @media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
+  .mast h1 { font-size: 1.45rem; font-weight: 800; letter-spacing: -.01em; }
+  .mast .sub { color: var(--cream-muted); font-size: .85rem; margin-top: 3px; }
+  .mast .rule { width: 34px; height: 4px; background: var(--rust); border-radius: 2px; margin-top: 10px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 15px 17px; margin-top: 14px; box-shadow: var(--shadow);
+  }
+  .card.total { border-top: 4px solid var(--rust); }
+  h2 { font-size: 1.05rem; font-weight: 800; margin-bottom: 3px; letter-spacing: -.005em; }
+  .cardkicker {
+    font-size: .62rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase;
+    color: #8A6A4A; margin-bottom: 2px;
+  }
+  .tag { font-size: .72rem; color: var(--muted); font-weight: 400; margin-bottom: 8px; }
+
   table { width: 100%; border-collapse: collapse; font-size: .95rem; }
-  th { text-align: left; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); padding: 4px 6px; border-bottom: 1.5px solid var(--line); }
-  td { padding: 7px 6px; border-bottom: 1px solid #F0EADF; }
+  th {
+    text-align: left; font-size: .66rem; text-transform: uppercase; letter-spacing: .09em;
+    color: var(--muted); padding: 6px; border-bottom: 1.5px solid var(--line); font-weight: 800;
+  }
+  td { padding: 8px 6px; border-bottom: 1px solid #F0EADF; }
+  tr:last-child td { border-bottom: 0; }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-  tr:nth-child(-n+3) td.place { color: var(--rust); font-weight: 800; }
-  .badge { display: inline-block; font-size: .68rem; background: #F3EADB; color: #8A6A4A; border-radius: 99px; padding: 1px 8px; margin-left: 6px; vertical-align: 1px; }
-  .waiting { text-align: center; padding: 70px 20px; }
-  .waiting .big { font-size: 3.4rem; }
-  .waiting p { color: var(--muted); margin-top: 8px; }
-  footer { text-align: center; color: var(--muted); font-size: .75rem; margin-top: 24px; }
+  tr.leader td { background: #F8F1E2; }
+  tr.leader td:first-child { border-radius: 10px 0 0 10px; }
+  tr.leader td:last-child { border-radius: 0 10px 10px 0; font-weight: 800; }
+
+  .pl {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 25px; height: 25px; border-radius: 50%; font-weight: 800; font-size: .82rem;
+    color: var(--muted); background: transparent;
+  }
+  .pl1 { background: var(--gold); color: #fff; box-shadow: 0 1px 4px rgba(192,138,45,.45); }
+  .pl2 { background: var(--silver); color: #fff; }
+  .pl3 { background: var(--bronze); color: #fff; }
+
+  .badge {
+    display: inline-block; font-size: .66rem; background: var(--tile); color: #8A6A4A;
+    border-radius: 99px; padding: 1px 8px; margin-left: 6px; vertical-align: 1px; font-weight: 600;
+  }
+  .waiting { text-align: center; padding: 52px 24px; margin-top: 14px; border-radius: 20px; }
+  .waiting.dark { background: var(--espresso); color: var(--cream); box-shadow: var(--shadow); }
+  .waiting.dark p { color: var(--cream-muted); }
+  .waiting img.logo { width: 74px; margin-bottom: 16px; }
+  .waiting .big { font-size: 3.2rem; line-height: 1; }
+  .waiting h2 { margin: 12px 0 6px; }
+  .waiting p { color: var(--muted); max-width: 36ch; margin: 0 auto; }
+  footer { text-align: center; color: var(--muted); font-size: .75rem; margin-top: 26px; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <h1 id="eventName">SM i Hamburgare</h1>
-    <div class="sub" id="methodInfo">Resultat</div>
+  <header class="mast">
+    <img class="logo" src="/logo.svg" alt="SM i Burgare">
+    <div>
+      <div class="kicker"><span class="dot"></span><span id="methodInfo">Resultat</span></div>
+      <h1 id="eventName">SM i Hamburgare</h1>
+      <div class="sub" id="subInfo"></div>
+      <div class="rule"></div>
+    </div>
   </header>
   <div id="content"><div class="waiting"><div class="big">🍔</div><p>Hämtar resultat …</p></div></div>
   <footer>Uppdateras automatiskt var 5:e sekund.</footer>
@@ -49,7 +112,6 @@
     });
   }
   var fmt = new Intl.NumberFormat("sv-SE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
   var CRIT_NAMES = { smak: "Smak", textur: "Textur", utseende: "Utseende", kreativitet: "Kreativitet" };
 
   function badges(row) {
@@ -59,32 +121,44 @@
     return out;
   }
 
+  function placeHtml(place) {
+    var cls = place <= 3 ? " pl" + place : "";
+    return '<span class="pl' + cls + '">' + place + "</span>";
+  }
+
   function render(data) {
     document.getElementById("eventName").textContent = data.eventName;
     if (data.hidden) {
       document.getElementById("methodInfo").textContent = "Resultat";
+      document.getElementById("subInfo").textContent = "";
       content.innerHTML =
-        '<div class="waiting"><div class="big">🤫</div><h2>Resultaten är inte publicerade ännu</h2><p>Håll ut — vinnarna presenteras vid prisutdelningen!</p></div>';
+        '<div class="waiting dark"><img class="logo" src="/logo.svg" alt=""><div class="big">🤫</div>' +
+        "<h2>Resultaten är inte publicerade ännu</h2><p>Håll ut — vinnarna presenteras vid prisutdelningen!</p></div>";
       return;
     }
-    document.getElementById("methodInfo").textContent =
-      data.method === "adjusted" ? "Stränghetsjusterad poäng · uppdateras löpande" : "Råpoäng · uppdateras löpande";
+    document.getElementById("methodInfo").textContent = "Live · uppdateras löpande";
+    document.getElementById("subInfo").textContent =
+      data.method === "adjusted" ? "Stränghetsjusterad poäng" : "Råpoäng";
 
     var html = "";
     if (data.totals.length > 0) {
-      html += '<div class="card"><h2>Totalpoäng<span class="tag">' +
+      html += '<div class="card total"><div class="cardkicker">Totalpoäng</div>' +
+        '<div class="tag">' +
         esc(data.grenar.filter(function (g) { return g.inTotal; }).map(function (g) { return g.name; }).join(" + ")) +
-        "</span></h2><table><tr><th>#</th><th>Lag</th><th class=num>Poäng</th></tr>";
+        "</div><table><tr><th>#</th><th>Lag</th><th class=num>Poäng</th></tr>";
       data.totals.forEach(function (t) {
-        html += "<tr><td class=place>" + t.place + "</td><td>" + esc(t.team) + badges(t) + "</td><td class=num>" + fmt.format(t.total) + "</td></tr>";
+        html += '<tr class="' + (t.place === 1 ? "leader" : "") + '"><td>' + placeHtml(t.place) + "</td><td>" +
+          esc(t.team) + badges(t) + "</td><td class=num>" + fmt.format(t.total) + "</td></tr>";
       });
       html += "</table></div>";
     }
     data.grenar.forEach(function (g) {
       if (g.standings.length === 0) return;
-      html += '<div class="card"><h2>' + esc(g.name) + "</h2><table><tr><th>#</th><th>Lag</th><th class=num>Röster</th><th class=num>Poäng</th></tr>";
+      html += '<div class="card"><div class="cardkicker">Gren</div><h2 style="margin-bottom:8px">' + esc(g.name) +
+        "</h2><table><tr><th>#</th><th>Lag</th><th class=num>Röster</th><th class=num>Poäng</th></tr>";
       g.standings.forEach(function (s) {
-        html += "<tr><td class=place>" + s.place + "</td><td>" + esc(s.team) + badges(s) + "</td><td class=num>" + s.n + "</td><td class=num>" + fmt.format(s.final) + "</td></tr>";
+        html += "<tr><td>" + placeHtml(s.place) + "</td><td>" + esc(s.team) + badges(s) +
+          "</td><td class=num>" + s.n + "</td><td class=num>" + fmt.format(s.final) + "</td></tr>";
       });
       html += "</table></div>";
     });

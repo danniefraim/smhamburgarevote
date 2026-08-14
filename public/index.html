@@ -3,47 +3,125 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#26170F">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍔</text></svg>">
 <title>Rösta – SM i Hamburgare</title>
 <style>
-  :root { --paper:#FBF8F2; --ink:#241B12; --muted:#6E6154; --rust:#A9502F; --line:#E5DCCC; --card:#fff; }
+  :root {
+    --paper:#FBF8F2; --card:#fff; --ink:#241B12; --muted:#6E6154;
+    --line:#E5DCCC; --espresso:#26170F; --espresso2:#1B0F09;
+    --cream:#F5E1C8; --cream-muted:#D8B893; --rust:#A9502F; --rust-deep:#8C3F22;
+    --tile:#F3EADB;
+    --shadow:0 1px 2px rgba(38,23,15,.06), 0 6px 18px rgba(38,23,15,.05);
+  }
   * { box-sizing: border-box; margin: 0; }
-  body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.45; }
-  .wrap { max-width: 480px; margin: 0 auto; padding: 16px 14px 60px; }
-  header { text-align: center; padding: 14px 0 4px; }
-  header h1 { font-size: 1.15rem; letter-spacing: .01em; }
-  header .sub { color: var(--muted); font-size: .85rem; margin-top: 2px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-top: 14px; }
-  .crit-label { font-weight: 700; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: baseline; }
-  .crit-label .val { color: var(--rust); font-size: 1.05rem; min-width: 2ch; text-align: right; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.45;
+  }
+  ::selection { background: var(--cream); }
+
+  .mast {
+    background: linear-gradient(180deg, var(--espresso) 0%, var(--espresso2) 100%);
+    color: var(--cream);
+    padding: calc(16px + env(safe-area-inset-top)) 18px 20px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .mast .inner { max-width: 480px; margin: 0 auto; display: flex; align-items: center; gap: 16px; width: 100%; }
+  .mast img.logo { width: 74px; height: auto; flex: none; }
+  .kicker {
+    font-size: .64rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cream-muted); margin-bottom: 4px;
+  }
+  .mast h1 { font-size: 1.3rem; font-weight: 800; letter-spacing: -.01em; line-height: 1.15; }
+  .mast .rule { width: 34px; height: 4px; background: var(--rust); border-radius: 2px; margin-top: 8px; }
+
+  .wrap { max-width: 480px; margin: 0 auto; padding: 6px 14px 30px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 15px 16px; margin-top: 12px; box-shadow: var(--shadow);
+  }
+  label.field {
+    display: block; font-size: .66rem; font-weight: 800; letter-spacing: .18em;
+    text-transform: uppercase; color: #8A6A4A; margin-bottom: 8px;
+  }
+  input[type=text], textarea {
+    width: 100%; padding: 12px 13px; border: 1.5px solid var(--line); border-radius: 11px;
+    font-size: 1.05rem; background: #fff; color: var(--ink); font-family: inherit;
+  }
+  input[type=text]:focus-visible, textarea:focus-visible, button:focus-visible {
+    outline: 3px solid rgba(169,80,47,.4); outline-offset: 1px;
+  }
+  textarea { min-height: 76px; resize: vertical; }
+  .hint { color: var(--muted); font-size: .8rem; margin-top: 7px; }
+
+  .crit-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 9px; }
+  .crit-label .name { font-weight: 800; font-size: 1.02rem; }
+  .crit-label .val {
+    min-width: 34px; text-align: center; font-weight: 800; font-size: 1rem;
+    color: var(--rust); background: var(--tile); border-radius: 9px; padding: 2px 8px;
+  }
+  .crit-label .val.empty { color: #B9AD9C; background: transparent; }
   .btns { display: grid; grid-template-columns: repeat(11, 1fr); gap: 4px; }
-  .btns button { padding: 11px 0; border: 1px solid var(--line); background: #fff; border-radius: 8px; font-size: .95rem; color: var(--ink); }
-  .btns button.sel { background: var(--rust); border-color: var(--rust); color: #fff; font-weight: 700; }
-  label.field { display: block; font-weight: 700; margin-bottom: 6px; }
-  input[type=text], textarea { width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; font-size: 1rem; background: #fff; color: var(--ink); }
-  textarea { min-height: 74px; resize: vertical; }
-  .submit { margin-top: 16px; width: 100%; padding: 15px; font-size: 1.1rem; font-weight: 800; color: #fff; background: var(--rust); border: 0; border-radius: 12px; }
-  .submit:disabled { opacity: .45; }
-  .status { text-align: center; padding: 40px 16px; }
-  .status .big { font-size: 3rem; }
-  .status h2 { margin: 10px 0 6px; }
-  .status p { color: var(--muted); }
-  .error-box { background: #F7E8E2; border: 1px solid #E3BFB0; color: #7C2D12; border-radius: 10px; padding: 12px; margin-top: 14px; font-size: .95rem; display: none; }
+  .btns button {
+    padding: 13px 0; border: 1.5px solid var(--line); background: #fff; border-radius: 10px;
+    font-size: .95rem; font-weight: 600; color: var(--ink); font-family: inherit;
+    transition: transform .08s ease, background-color .12s ease, border-color .12s ease;
+  }
+  .btns button:active { transform: scale(.92); }
+  .btns button.sel {
+    background: var(--rust); border-color: var(--rust-deep); color: var(--cream);
+    font-weight: 800; box-shadow: inset 0 -2px 0 rgba(0,0,0,.15);
+  }
+
+  .actionbar {
+    position: sticky; bottom: 0; margin: 16px -14px 0; padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(251,248,242,.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border-top: 1px solid var(--line);
+  }
+  .actionbar .hint { text-align: center; margin: 0 0 7px; font-size: .8rem; }
+  .actionbar .hint.ready { color: var(--rust); font-weight: 700; }
+  .submit {
+    width: 100%; padding: 16px; font-size: 1.1rem; font-weight: 800; font-family: inherit;
+    color: var(--cream); background: var(--rust); border: 0; border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(169,80,47,.3); transition: transform .08s ease, opacity .15s ease;
+  }
+  .submit:not(:disabled):active { transform: scale(.98); }
+  .submit:disabled { opacity: .4; box-shadow: none; }
+
+  .status { text-align: center; padding: 34px 20px 30px; margin-top: 14px; border-radius: 20px; }
+  .status .big { font-size: 3.2rem; line-height: 1; }
+  .status h2 { margin: 14px 0 8px; font-size: 1.25rem; letter-spacing: -.01em; }
+  .status p { color: var(--muted); max-width: 34ch; margin: 0 auto; }
+  .status.dark { background: var(--espresso); color: var(--cream); box-shadow: var(--shadow); }
+  .status.dark p { color: var(--cream-muted); }
+  .status.dark img.logo { width: 64px; margin-bottom: 14px; }
+  .status.light { background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); }
+
+  .error-box {
+    background: #F7E8E2; border: 1px solid #E3BFB0; color: #7C2D12; border-radius: 12px;
+    padding: 12px 14px; margin-top: 12px; font-size: .95rem; display: none;
+  }
   .backup { margin-top: 10px; display: none; }
-  .backup a { color: var(--rust); font-weight: 700; }
-  .hint { color: var(--muted); font-size: .8rem; margin-top: 6px; }
-  footer { text-align: center; color: var(--muted); font-size: .75rem; margin-top: 26px; }
+  .backup a { color: var(--rust); font-weight: 800; }
+
+  footer { text-align: center; color: var(--muted); font-size: .75rem; padding: 18px 24px 8px; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
+<header class="mast"><div class="inner">
+  <img class="logo" src="/logo.svg" alt="SM i Burgare">
+  <div>
+    <div class="kicker" id="cardInfo">Domarröst</div>
     <h1 id="eventName">SM i Hamburgare</h1>
-    <div class="sub" id="cardInfo"></div>
-  </header>
+    <div class="rule"></div>
+  </div>
+</div></header>
 
+<div class="wrap">
   <div id="view"></div>
-
   <footer>Vid tekniska problem: fyll i pappersröstkortet och lämna in det.</footer>
 </div>
 
@@ -63,9 +141,11 @@
     });
   }
 
-  function statusScreen(icon, title, text, extraHtml) {
+  function statusScreen(kind, icon, title, text, extraHtml) {
     view.innerHTML =
-      '<div class="status"><div class="big">' + icon + '</div><h2>' + esc(title) + '</h2><p>' + esc(text) + '</p>' +
+      '<div class="status ' + kind + '">' +
+      (kind === "dark" ? '<img class="logo" src="/logo.svg" alt="">' : "") +
+      '<div class="big">' + icon + '</div><h2>' + esc(title) + '</h2><p>' + esc(text) + '</p>' +
       (extraHtml || "") + '</div>';
   }
 
@@ -83,15 +163,16 @@
     html += '<datalist id="judgeList">' + config.judges.map(function (j) { return '<option value="' + esc(j) + '">'; }).join("") + '</datalist>';
     html += '<div class="hint">Använd samma namn hela dagen.</div></div>';
     config.criteria.forEach(function (c) {
-      html += '<div class="card"><div class="crit-label"><span>' + esc(c.label) + '</span><span class="val" id="val-' + esc(c.key) + '">–</span></div>';
+      html += '<div class="card"><div class="crit-label"><span class="name">' + esc(c.label) + '</span><span class="val empty" id="val-' + esc(c.key) + '">–</span></div>';
       html += '<div class="btns" data-key="' + esc(c.key) + '">';
       for (var i = 0; i <= 10; i++) html += '<button type="button" data-v="' + i + '">' + i + "</button>";
       html += "</div></div>";
     });
     html += '<div class="card"><label class="field" for="comment">Kommentar till laget (frivilligt)</label>';
     html += '<textarea id="comment" maxlength="2000" placeholder="Vad var bra? Vad kan bli bättre?"></textarea></div>';
-    html += '<button class="submit" id="submitBtn" type="submit" disabled>Skicka min röst</button>';
     html += '<div class="error-box" id="errorBox"></div>';
+    html += '<div class="actionbar"><div class="hint" id="submitHint"></div>';
+    html += '<button class="submit" id="submitBtn" type="submit" disabled>Skicka min röst</button></div>';
     html += "</form>";
     view.innerHTML = html;
 
@@ -102,7 +183,9 @@
         var key = row.getAttribute("data-key");
         state.scores[key] = Number(b.getAttribute("data-v"));
         row.querySelectorAll("button").forEach(function (x) { x.classList.toggle("sel", x === b); });
-        document.getElementById("val-" + key).textContent = b.getAttribute("data-v");
+        var val = document.getElementById("val-" + key);
+        val.textContent = b.getAttribute("data-v");
+        val.classList.remove("empty");
         updateSubmit();
       });
     });
@@ -111,15 +194,36 @@
     updateSubmit();
   }
 
+  function missingCount() {
+    return config.criteria.filter(function (c) { return typeof state.scores[c.key] !== "number"; }).length;
+  }
+
   function complete() {
-    if (!document.getElementById("judge")) return false;
-    if (!document.getElementById("judge").value.trim()) return false;
-    return config.criteria.every(function (c) { return typeof state.scores[c.key] === "number"; });
+    var judge = document.getElementById("judge");
+    if (!judge || !judge.value.trim()) return false;
+    return missingCount() === 0;
   }
 
   function updateSubmit() {
     var btn = document.getElementById("submitBtn");
-    if (btn) btn.disabled = !complete() || state.submitting;
+    var hint = document.getElementById("submitHint");
+    if (!btn) return;
+    btn.disabled = !complete() || state.submitting;
+    if (!hint) return;
+    var judge = document.getElementById("judge");
+    if (!judge.value.trim()) {
+      hint.textContent = "Fyll i ditt namn högst upp.";
+      hint.className = "hint";
+    } else {
+      var left = missingCount();
+      if (left > 0) {
+        hint.textContent = left === 1 ? "1 kriterium kvar att poängsätta." : left + " kriterier kvar att poängsätta.";
+        hint.className = "hint";
+      } else {
+        hint.textContent = "Allt ifyllt — skicka när du är nöjd!";
+        hint.className = "hint ready";
+      }
+    }
   }
 
   function showError(msg, withBackup) {
@@ -127,6 +231,7 @@
     if (!box) return;
     box.style.display = "block";
     box.innerHTML = esc(msg) + (withBackup ? backupHtml() : "");
+    box.scrollIntoView({ block: "nearest" });
   }
 
   function onSubmit(ev) {
@@ -151,9 +256,10 @@
       .then(function (res) { return res.json().then(function (data) { return { res: res, data: data }; }); })
       .then(function (r) {
         if (r.data.ok && r.data.status === "accepted") {
-          statusScreen("✅", "Tack, din röst är registrerad!", "Du kan lämna tillbaka kortet eller slänga det.");
+          statusScreen("dark", "✅", "Tack, din röst är registrerad!", "Du kan lämna tillbaka kortet eller slänga det.");
+          window.scrollTo(0, 0);
         } else if (r.data.ok && r.data.status === "duplicate") {
-          statusScreen("ℹ️", "Kortet var redan registrerat", "Rösten som registrerades först gäller. Kontakta huvuddomaren om något blivit fel.");
+          statusScreen("light", "ℹ️", "Kortet var redan registrerat", "Rösten som registrerades först gäller. Kontakta huvuddomaren om något blivit fel.");
         } else {
           state.submitting = false;
           updateSubmit();
@@ -168,33 +274,32 @@
   }
 
   if (!kortid) {
-    statusScreen("📷", "Skanna QR-koden på ditt röstkort", "Den här sidan öppnas via QR-koden på röstkortet. Om skanningen inte fungerar: fyll i kortet med penna och lämna in det.");
-    return;
+    statusScreen("light", "📷", "Skanna QR-koden på ditt röstkort", "Den här sidan öppnas via QR-koden på röstkortet. Om skanningen inte fungerar: fyll i kortet med penna och lämna in det.");
+  } else {
+    Promise.all([
+      fetch("/api/config").then(function (r) { return r.json(); }),
+      fetch("/api/card/" + encodeURIComponent(kortid)).then(function (r) { return r.json().then(function (d) { return { status: r.status, data: d }; }); }),
+    ])
+      .then(function (results) {
+        config = results[0];
+        document.getElementById("eventName").textContent = config.eventName;
+        var card = results[1];
+        if (card.status === 404) {
+          statusScreen("light", "❓", "Kortet kunde inte hittas", "QR-koden verkar inte höra till årets tävling. Fyll i papperskortet och kontakta huvuddomaren.");
+          return;
+        }
+        lagkod = card.data.lagkod;
+        document.getElementById("cardInfo").textContent = "Kort " + kortid.slice(0, 8) + " · grupp " + lagkod;
+        if (card.data.used) {
+          statusScreen("light", "ℹ️", "Det här kortet är redan registrerat", "Rösten som registrerades först gäller. Kontakta huvuddomaren om något blivit fel.");
+          return;
+        }
+        renderForm();
+      })
+      .catch(function () {
+        statusScreen("light", "📡", "Ingen kontakt med servern", "Kontrollera uppkopplingen och ladda om sidan — eller fyll i papperskortet och lämna in det.");
+      });
   }
-
-  Promise.all([
-    fetch("/api/config").then(function (r) { return r.json(); }),
-    fetch("/api/card/" + encodeURIComponent(kortid)).then(function (r) { return r.json().then(function (d) { return { status: r.status, data: d }; }); }),
-  ])
-    .then(function (results) {
-      config = results[0];
-      document.getElementById("eventName").textContent = config.eventName;
-      var card = results[1];
-      if (card.status === 404) {
-        statusScreen("❓", "Kortet kunde inte hittas", "QR-koden verkar inte höra till årets tävling. Fyll i papperskortet och kontakta huvuddomaren.");
-        return;
-      }
-      lagkod = card.data.lagkod;
-      document.getElementById("cardInfo").textContent = "Kort " + kortid.slice(0, 8) + " · grupp " + lagkod;
-      if (card.data.used) {
-        statusScreen("ℹ️", "Det här kortet är redan registrerat", "Rösten som registrerades först gäller. Kontakta huvuddomaren om något blivit fel.");
-        return;
-      }
-      renderForm();
-    })
-    .catch(function () {
-      statusScreen("📡", "Ingen kontakt med servern", "Kontrollera uppkopplingen och ladda om sidan — eller fyll i papperskortet och lämna in det.");
-    });
 })();
 </script>
 </body>
