@@ -3,87 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#26170F">
+<meta name="theme-color" content="#141110">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍔</text></svg>">
 <title>Resultat – SM i Hamburgare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper:#FBF8F2; --card:#fff; --ink:#241B12; --muted:#6E6154;
-    --line:#E5DCCC; --espresso:#26170F; --espresso2:#1B0F09;
-    --cream:#F5E1C8; --cream-muted:#D8B893; --rust:#A9502F;
-    --tile:#F3EADB; --gold:#C08A2D; --silver:#8E8E93; --bronze:#A8663B;
-    --shadow:0 1px 2px rgba(38,23,15,.06), 0 6px 18px rgba(38,23,15,.05);
+    --bg:#141110; --panel:#1C1713; --panel2:#241E18; --line:#2A231C; --line2:#352C22;
+    --ink:#F2EAD9; --muted:#A08A6A; --dim:#7A6A55; --faint:#5C4F3E;
+    --amber:#FFB03A; --amber-ink:#1A140D;
   }
   * { box-sizing: border-box; margin: 0; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-    background: var(--paper); color: var(--ink); line-height: 1.45;
+    font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.4;
   }
-  ::selection { background: var(--cream); }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 14px 14px 60px; }
+  ::selection { background: rgba(255,176,58,.35); }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 22px 20px 60px; }
 
-  header.mast {
-    background: linear-gradient(180deg, var(--espresso) 0%, var(--espresso2) 100%);
-    color: var(--cream); border-radius: 18px; padding: 20px 22px;
-    display: flex; align-items: center; gap: 18px; box-shadow: var(--shadow);
-  }
-  .mast img.logo { width: 82px; height: auto; flex: none; }
+  header.mast { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; }
+  .mast img.logo { width: 64px; height: auto; flex: none; }
   .kicker {
-    font-size: .64rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
-    color: var(--cream-muted); margin-bottom: 5px; display: flex; align-items: center; gap: 7px;
+    font-size: .66rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--amber); display: flex; align-items: center; gap: 7px;
   }
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: #7BC47F; animation: pulse 2s infinite; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .3 } }
   @media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
-  .mast h1 { font-size: 1.45rem; font-weight: 800; letter-spacing: -.01em; }
-  .mast .sub { color: var(--cream-muted); font-size: .85rem; margin-top: 3px; }
-  .mast .rule { width: 34px; height: 4px; background: var(--rust); border-radius: 2px; margin-top: 10px; }
+  .mast h1 { font-size: 1.7rem; font-weight: 700; letter-spacing: -.01em; }
+  .mast .sub { color: var(--muted); font-size: .85rem; margin-top: 2px; }
 
-  .card {
-    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
-    padding: 15px 17px; margin-top: 14px; box-shadow: var(--shadow);
-  }
-  .card.total { border-top: 4px solid var(--rust); }
-  h2 { font-size: 1.05rem; font-weight: 800; margin-bottom: 3px; letter-spacing: -.005em; }
-  .cardkicker {
-    font-size: .62rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase;
-    color: #8A6A4A; margin-bottom: 2px;
-  }
-  .tag { font-size: .72rem; color: var(--muted); font-weight: 400; margin-bottom: 8px; }
+  .cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: start; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
 
-  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
-  th {
-    text-align: left; font-size: .66rem; text-transform: uppercase; letter-spacing: .09em;
-    color: var(--muted); padding: 6px; border-bottom: 1.5px solid var(--line); font-weight: 800;
+  .board { margin-top: 6px; }
+  .boardkicker {
+    font-size: .69rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted); padding-bottom: 8px; border-bottom: 1px solid var(--line);
   }
-  td { padding: 8px 6px; border-bottom: 1px solid #F0EADF; }
-  tr:last-child td { border-bottom: 0; }
-  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-  tr.leader td { background: #F8F1E2; }
-  tr.leader td:first-child { border-radius: 10px 0 0 10px; }
-  tr.leader td:last-child { border-radius: 0 10px 10px 0; font-weight: 800; }
-
-  .pl {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 25px; height: 25px; border-radius: 50%; font-weight: 800; font-size: .82rem;
-    color: var(--muted); background: transparent;
+  .row {
+    display: flex; align-items: center; gap: 14px; padding: 12px 4px;
+    border-bottom: 1px solid var(--line);
   }
-  .pl1 { background: var(--gold); color: #fff; box-shadow: 0 1px 4px rgba(192,138,45,.45); }
-  .pl2 { background: var(--silver); color: #fff; }
-  .pl3 { background: var(--bronze); color: #fff; }
+  .row .pl { width: 34px; font-size: 1.1rem; font-weight: 600; color: var(--dim); font-variant-numeric: tabular-nums; }
+  .row .team { flex: 1; font-size: 1rem; font-weight: 500; }
+  .row .n { font-size: .75rem; color: var(--dim); font-variant-numeric: tabular-nums; }
+  .row .score { font-size: 1.05rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .row.leader {
+    background: #221B14; border: 1px solid rgba(255,176,58,.4); border-radius: 12px;
+    padding: 13px 14px; margin-top: 8px;
+  }
+  .row.leader .pl { color: var(--amber); font-size: 1.35rem; font-weight: 700; }
+  .row.leader .team { font-size: 1.06rem; font-weight: 600; }
+  .row.leader .score { color: var(--amber); font-size: 1.25rem; font-weight: 700; }
 
   .badge {
-    display: inline-block; font-size: .66rem; background: var(--tile); color: #8A6A4A;
-    border-radius: 99px; padding: 1px 8px; margin-left: 6px; vertical-align: 1px; font-weight: 600;
+    display: inline-block; font-size: .66rem; border: 1px solid var(--line2); color: var(--muted);
+    border-radius: 99px; padding: 1px 8px; margin-left: 8px; vertical-align: 1px; font-weight: 500;
   }
-  .waiting { text-align: center; padding: 52px 24px; margin-top: 14px; border-radius: 20px; }
-  .waiting.dark { background: var(--espresso); color: var(--cream); box-shadow: var(--shadow); }
-  .waiting.dark p { color: var(--cream-muted); }
+  .waiting { text-align: center; padding: 52px 24px; margin-top: 14px; border-radius: 20px; background: var(--panel); }
+  .waiting.dark { border: 1px solid rgba(255,176,58,.35); }
+  .waiting.dark p { color: var(--muted); }
   .waiting img.logo { width: 74px; margin-bottom: 16px; }
   .waiting .big { font-size: 3.2rem; line-height: 1; }
-  .waiting h2 { margin: 12px 0 6px; }
+  .waiting h2 { margin: 12px 0 6px; font-weight: 700; }
   .waiting p { color: var(--muted); max-width: 36ch; margin: 0 auto; }
-  footer { text-align: center; color: var(--muted); font-size: .75rem; margin-top: 26px; }
+  footer { text-align: center; color: var(--faint); font-size: .75rem; margin-top: 30px; }
 </style>
 </head>
 <body>
@@ -94,7 +81,6 @@
       <div class="kicker"><span class="dot"></span><span id="methodInfo">Resultat</span></div>
       <h1 id="eventName">SM i Hamburgare</h1>
       <div class="sub" id="subInfo"></div>
-      <div class="rule"></div>
     </div>
   </header>
   <div id="content"><div class="waiting"><div class="big">🍔</div><p>Hämtar resultat …</p></div></div>
@@ -121,9 +107,8 @@
     return out;
   }
 
-  function placeHtml(place) {
-    var cls = place <= 3 ? " pl" + place : "";
-    return '<span class="pl' + cls + '">' + place + "</span>";
+  function pad(place) {
+    return place < 10 ? "0" + place : String(place);
   }
 
   function render(data) {
@@ -140,29 +125,34 @@
     document.getElementById("subInfo").textContent =
       data.method === "adjusted" ? "Stränghetsjusterad poäng" : "Råpoäng";
 
-    var html = "";
+    var left = "";
     if (data.totals.length > 0) {
-      html += '<div class="card total"><div class="cardkicker">Totalpoäng</div>' +
-        '<div class="tag">' +
+      left += '<div class="board"><div class="boardkicker">Totalpoäng · ' +
         esc(data.grenar.filter(function (g) { return g.inTotal; }).map(function (g) { return g.name; }).join(" + ")) +
-        "</div><table><tr><th>#</th><th>Lag</th><th class=num>Poäng</th></tr>";
+        "</div>";
       data.totals.forEach(function (t) {
-        html += '<tr class="' + (t.place === 1 ? "leader" : "") + '"><td>' + placeHtml(t.place) + "</td><td>" +
-          esc(t.team) + badges(t) + "</td><td class=num>" + fmt.format(t.total) + "</td></tr>";
+        left += '<div class="row' + (t.place === 1 ? " leader" : "") + '"><span class="pl">' + pad(t.place) +
+          '</span><span class="team">' + esc(t.team) + badges(t) + '</span><span class="score">' + fmt.format(t.total) + "</span></div>";
       });
-      html += "</table></div>";
+      left += "</div>";
     }
+    var right = "";
     data.grenar.forEach(function (g) {
       if (g.standings.length === 0) return;
-      html += '<div class="card"><div class="cardkicker">Gren</div><h2 style="margin-bottom:8px">' + esc(g.name) +
-        "</h2><table><tr><th>#</th><th>Lag</th><th class=num>Röster</th><th class=num>Poäng</th></tr>";
+      right += '<div class="board"><div class="boardkicker">Gren · ' + esc(g.name) + "</div>";
       g.standings.forEach(function (s) {
-        html += "<tr><td>" + placeHtml(s.place) + "</td><td>" + esc(s.team) + badges(s) +
-          "</td><td class=num>" + s.n + "</td><td class=num>" + fmt.format(s.final) + "</td></tr>";
+        right += '<div class="row"><span class="pl">' + pad(s.place) + '</span><span class="team">' + esc(s.team) + badges(s) +
+          '</span><span class="n">' + s.n + ' röster</span><span class="score">' + fmt.format(s.final) + "</span></div>";
       });
-      html += "</table></div>";
+      right += "</div>";
     });
-    content.innerHTML = html || '<div class="waiting"><div class="big">⏳</div><p>Inga resultat ännu.</p></div>';
+
+    if (!left && !right) {
+      content.innerHTML = '<div class="waiting"><div class="big">⏳</div><p>Inga resultat ännu.</p></div>';
+      return;
+    }
+    if (!left) content.innerHTML = '<div class="cols"><div>' + right + "</div></div>";
+    else content.innerHTML = '<div class="cols"><div>' + left + "</div><div>" + right + "</div></div>";
   }
 
   function tick() {

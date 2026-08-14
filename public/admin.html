@@ -3,69 +3,79 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#26170F">
+<meta name="theme-color" content="#141110">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍔</text></svg>">
 <title>Admin – SM i Hamburgare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper:#FBF8F2; --ink:#241B12; --muted:#6E6154; --rust:#A9502F; --rust-deep:#8C3F22;
-    --teal:#00747F; --line:#E5DCCC; --dark:#26170F; --dark2:#1B0F09; --cream:#F5E1C8;
-    --cream-muted:#D8B893; --tile:#F3EADB;
-    --shadow:0 1px 2px rgba(38,23,15,.06), 0 6px 18px rgba(38,23,15,.05);
+    --bg:#141110; --panel:#1C1713; --panel2:#241E18; --line:#2A231C; --line2:#352C22;
+    --ink:#F2EAD9; --muted:#A08A6A; --dim:#7A6A55; --faint:#5C4F3E;
+    --amber:#FFB03A; --amber-ink:#1A140D;
   }
   * { box-sizing: border-box; margin: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.45; font-size: 15px; }
-  ::selection { background: var(--cream); }
-  .wrap { max-width: 980px; margin: 0 auto; padding: 12px 14px 80px; }
-  header { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: linear-gradient(180deg, var(--dark) 0%, var(--dark2) 100%); color: var(--cream); border-radius: 14px; padding: 12px 18px; box-shadow: var(--shadow); }
+  body { font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.45; font-size: 15px; }
+  ::selection { background: rgba(255,176,58,.35); }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 14px 16px 80px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 2px 12px; border-bottom: 1px solid var(--line); }
   header .brand { display: flex; align-items: center; gap: 12px; }
-  header img.logo { width: 40px; height: auto; }
-  header .kicker { font-size: .6rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--cream-muted); }
-  header h1 { font-size: 1.02rem; font-weight: 800; letter-spacing: -.01em; }
-  header button.sec { background: transparent; border: 1px solid rgba(245,225,200,.35); color: var(--cream); }
-  nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
-  nav button { padding: 8px 14px; border: 1px solid var(--line); background: #fff; border-radius: 99px; font-size: .88rem; font-weight: 600; color: var(--ink); cursor: pointer; font-family: inherit; transition: box-shadow .12s ease; }
-  nav button:hover { box-shadow: var(--shadow); }
-  nav button.active { background: var(--rust); border-color: var(--rust-deep); color: var(--cream); font-weight: 800; }
-  .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 15px 17px; margin-top: 12px; box-shadow: var(--shadow); }
-  h2 { font-size: 1rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -.005em; }
+  header img.logo { width: 36px; height: auto; }
+  header .kicker { font-size: .6rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  header h1 { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; }
+  header button.sec { background: transparent; border: 1px solid var(--line2); color: var(--muted); }
+  nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+  nav button { padding: 7px 13px; border: 1px solid var(--line2); background: transparent; border-radius: 99px; font-size: .84rem; font-weight: 500; color: #CBBBA0; cursor: pointer; font-family: inherit; transition: border-color .12s ease, color .12s ease; }
+  nav button:hover { border-color: var(--dim); color: var(--ink); }
+  nav button.active { background: var(--amber); border-color: var(--amber); color: var(--amber-ink); font-weight: 700; }
+  .card { background: var(--panel); border-radius: 14px; padding: 16px 18px; margin-top: 12px; }
+  h2 { font-size: .74rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
   table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-  th { text-align: left; font-size: .64rem; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); padding: 4px 6px; border-bottom: 1.5px solid var(--line); white-space: nowrap; font-weight: 800; }
-  td { padding: 7px 6px; border-bottom: 1px solid #F0EADF; vertical-align: top; }
-  tr:hover > td { background: #FCF8F0; }
+  th { text-align: left; font-size: .64rem; text-transform: uppercase; letter-spacing: .12em; color: var(--dim); padding: 4px 6px; border-bottom: 1px solid var(--line); white-space: nowrap; font-weight: 600; }
+  td { padding: 8px 6px; border-bottom: 1px solid var(--panel2); vertical-align: top; }
+  tr:hover > td { background: #201A15; }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-  input, select, textarea { padding: 9px 11px; border: 1.5px solid var(--line); border-radius: 9px; font-size: .95rem; background: #fff; color: var(--ink); font-family: inherit; }
-  input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline: 3px solid rgba(169,80,47,.35); outline-offset: 1px; }
+  input, select, textarea { padding: 9px 11px; border: 1px solid #3A3128; border-radius: 9px; font-size: .95rem; background: #1F1A15; color: var(--ink); font-family: inherit; }
+  input::placeholder, textarea::placeholder { color: var(--faint); }
+  select option { background: #1F1A15; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline: 3px solid rgba(255,176,58,.4); outline-offset: 1px; }
   textarea { width: 100%; min-height: 110px; }
-  button.act { padding: 9px 16px; border: 0; border-radius: 9px; background: var(--rust); color: var(--cream); font-weight: 800; cursor: pointer; font-size: .9rem; font-family: inherit; box-shadow: 0 2px 8px rgba(169,80,47,.25); }
+  button.act { padding: 9px 16px; border: 0; border-radius: 9px; background: var(--amber); color: var(--amber-ink); font-weight: 700; cursor: pointer; font-size: .9rem; font-family: inherit; }
   button.act:active { transform: scale(.97); }
-  button.sec { padding: 8px 13px; border: 1px solid var(--line); border-radius: 9px; background: #fff; color: var(--ink); cursor: pointer; font-size: .85rem; font-family: inherit; }
-  button.sec:hover { border-color: #CBBFA9; }
-  button.danger { border-color: #d9b0a0; color: #8a2f10; }
+  button.sec { padding: 8px 13px; border: 1px solid var(--line2); border-radius: 9px; background: transparent; color: #CBBBA0; cursor: pointer; font-size: .85rem; font-family: inherit; }
+  button.sec:hover { border-color: var(--dim); color: var(--ink); }
+  button.danger { border-color: #5C3A28; color: #F0B9A2; }
   .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 700px) { .grid2 { grid-template-columns: 1fr; } }
-  .stat { display: inline-block; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px 16px; margin: 0 8px 8px 0; box-shadow: var(--shadow); }
-  .stat b { font-size: 1.5rem; color: var(--rust); display: block; letter-spacing: -.01em; }
-  .stat span { font-size: .64rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .statgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px; }
+  @media (max-width: 700px) { .statgrid { grid-template-columns: repeat(2, 1fr); } }
+  .stat { background: var(--panel); border-radius: 14px; padding: 14px 18px; }
+  .stat b { font-size: 2.1rem; font-weight: 700; color: var(--amber); display: block; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .stat span { font-size: .66rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .dash { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; align-items: start; }
+  @media (max-width: 900px) { .dash { grid-template-columns: 1fr; } }
   .msg { margin-top: 10px; padding: 10px 12px; border-radius: 9px; display: none; font-size: .9rem; }
-  .msg.err { background: #F7E8E2; color: #7C2D12; border: 1px solid #E3BFB0; display: block; }
-  .msg.ok { background: #E4F0EC; color: #114B3C; border: 1px solid #B9D8CD; display: block; }
-  .badge { display: inline-block; font-size: .66rem; background: var(--tile); color: #8A6A4A; border-radius: 99px; padding: 1px 8px; margin-left: 5px; font-weight: 600; }
-  .warn { color: #8a2f10; font-weight: 700; }
-  .chip { display: inline-block; border: 1.5px dashed var(--rust); color: var(--rust); border-radius: 99px; padding: 3px 11px; margin: 0 5px 5px 0; cursor: pointer; font-size: .82rem; font-weight: 700; background: #fff; }
-  .chip:hover { background: var(--tile); }
+  .msg.err { background: #2E1B12; color: #F0B9A2; border: 1px solid #5C3A28; display: block; }
+  .msg.ok { background: #16281F; color: #A8D8C0; border: 1px solid #2E4A3A; display: block; }
+  .badge { display: inline-block; font-size: .66rem; border: 1px solid rgba(255,176,58,.5); color: var(--amber); border-radius: 99px; padding: 1px 8px; margin-left: 5px; font-weight: 500; }
+  .warn { color: #F0B9A2; font-weight: 700; }
+  .chip { display: inline-block; border: 1px dashed var(--amber); color: var(--amber); border-radius: 99px; padding: 4px 12px; margin: 0 5px 5px 0; cursor: pointer; font-size: .82rem; font-weight: 600; background: transparent; }
+  .chip:hover { background: rgba(255,176,58,.12); }
+  .bar { display: inline-block; width: 56px; height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; vertical-align: 2px; margin-right: 8px; }
+  .bar i { display: block; height: 100%; background: var(--amber); }
   .btns { display: grid; grid-template-columns: repeat(11, 1fr); gap: 4px; max-width: 460px; }
-  .btns button { padding: 10px 0; border: 1.5px solid var(--line); background: #fff; border-radius: 8px; cursor: pointer; font-family: inherit; font-weight: 600; }
-  .btns button.sel { background: var(--rust); border-color: var(--rust-deep); color: var(--cream); font-weight: 800; }
-  .muted { color: var(--muted); font-size: .82rem; }
-  .login { max-width: 400px; margin: 10vh auto 0; text-align: center; background: linear-gradient(180deg, var(--dark) 0%, var(--dark2) 100%); color: var(--cream); border: 0; border-radius: 20px; padding: 30px 26px 26px; box-shadow: var(--shadow); }
+  .btns button { padding: 10px 0; border: 1px solid var(--line2); background: var(--panel2); border-radius: 7px; cursor: pointer; font-family: inherit; font-weight: 500; color: #CBBBA0; }
+  .btns button.sel { background: var(--amber); border-color: var(--amber); color: var(--amber-ink); font-weight: 700; }
+  .muted { color: var(--dim); font-size: .82rem; }
+  .login { max-width: 400px; margin: 10vh auto 0; text-align: center; background: var(--panel); border: 1px solid rgba(255,176,58,.3); border-radius: 20px; padding: 30px 26px 26px; }
   .login img.logo { width: 96px; margin-bottom: 14px; }
-  .login h2 { color: var(--cream); }
-  .login .muted { color: var(--cream-muted); }
-  .login input { width: 100%; margin: 14px 0 12px; background: rgba(251,248,242,.97); border-color: transparent; padding: 12px; text-align: center; }
+  .login h2 { color: var(--ink); font-size: 1.15rem; letter-spacing: -.01em; text-transform: none; }
+  .login .muted { color: var(--muted); }
+  .login input { width: 100%; margin: 14px 0 12px; padding: 12px; text-align: center; }
   .login button.act { width: 100%; padding: 12px; }
-  .sev-neg { color: var(--rust); font-weight: 700; } .sev-pos { color: var(--teal); font-weight: 700; }
+  .sev-neg { color: #FF8A5C; font-weight: 700; } .sev-pos { color: #6FD3C7; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -166,34 +176,43 @@ function go(view) {
   RENDER[view](main);
 }
 
-// ---------- Översikt ----------
+// ---------- Översikt (dashboard) ----------
 function renderOversikt(main) {
   function load() {
     api("/admin/overview").then(function (r) {
       var d = r.data;
-      var html = '<div style="margin-top:12px">' +
-        '<span class="stat"><b>' + d.totals.votes + "</b><span>röster</span></span>" +
-        '<span class="stat"><b>' + d.totals.cards + "</b><span>kort i registret</span></span>" +
-        '<span class="stat"><b>' + d.conflictCount + "</b><span>konflikter</span></span>" +
-        '<span class="stat"><b>' + d.totals.rejected + "</b><span>avvisade försök</span></span></div>";
+      var html = '<div class="statgrid">' +
+        '<div class="stat"><b>' + d.totals.votes + "</b><span>röster</span></div>" +
+        '<div class="stat"><b>' + d.totals.cards + "</b><span>kort i registret</span></div>" +
+        '<div class="stat"><b>' + d.conflictCount + "</b><span>konflikter</span></div>" +
+        '<div class="stat"><b>' + d.totals.rejected + "</b><span>avvisade försök</span></div></div>";
 
+      html += '<div class="dash" style="margin-top:12px"><div>';
+      html += '<div class="card" style="margin-top:0"><h2>Bidrag</h2><table><tr><th>Gren</th><th>Lag</th><th>Gruppkod</th><th class=num>Röster</th><th class=num>Kort</th></tr>';
+      d.assignments.forEach(function (a) {
+        var full = a.votes >= a.cards;
+        var pct = a.cards > 0 ? Math.round((a.votes / a.cards) * 100) : 0;
+        html += "<tr><td class=muted>" + esc(a.gren) + '</td><td style="font-weight:600">' + esc(a.team) + "</td><td class=muted>" + esc(a.lagkod) +
+          '</td><td class=num><span class="bar"><i style="width:' + Math.min(pct, 100) + '%"></i></span>' +
+          a.votes + (full ? ' <span class="badge">alla kort inne</span>' : "") + "</td><td class=num>" + a.cards + "</td></tr>";
+      });
+      html += "</table></div></div>";
+
+      html += "<div>";
       if (d.unassignedWithVotes.length) {
-        html += '<div class="card"><h2 class="warn">⚠ Gruppkoder med röster utan lag</h2><p class="muted">Koppla dem under Tilldela.</p><div style="margin-top:6px">' +
+        html += '<div class="card" style="margin-top:0"><h2 style="color:var(--amber)">⚠ Väntar på koppling</h2><p class="muted">Röster utan lag — koppla dem under Tilldela.</p><div style="margin-top:8px">' +
           d.unassignedWithVotes.map(function (u) {
             return '<span class="chip" data-lagkod="' + esc(u.lagkod) + '">' + esc(u.lagkod) + " · " + u.votes + " röster</span>";
           }).join("") + "</div></div>";
       }
-
-      html += '<div class="card"><h2>Bidrag</h2><table><tr><th>Gren</th><th>Lag</th><th>Gruppkod</th><th class=num>Röster</th><th class=num>Kort</th></tr>';
-      d.assignments.forEach(function (a) {
-        var full = a.votes >= a.cards;
-        html += "<tr><td>" + esc(a.gren) + "</td><td>" + esc(a.team) + "</td><td>" + esc(a.lagkod) + "</td><td class=num>" +
-          a.votes + (full ? ' <span class="badge">alla kort inne</span>' : "") + "</td><td class=num>" + a.cards + "</td></tr>";
-      });
-      html += "</table></div>";
       if (d.conflictCount > 0) {
-        html += '<div class="card"><h2>Omregistreringsförsök</h2><div id="confList" class="muted">Laddar …</div></div>';
+        html += '<div class="card"' + (d.unassignedWithVotes.length ? "" : ' style="margin-top:0"') + '><h2>Omregistreringsförsök</h2><div id="confList" class="muted">Laddar …</div></div>';
       }
+      if (!d.unassignedWithVotes.length && d.conflictCount === 0) {
+        html += '<div class="card" style="margin-top:0"><h2>Status</h2><p class="muted">Inga okopplade gruppkoder och inga konflikter. Allt ser bra ut.</p></div>';
+      }
+      html += "</div></div>";
+
       main.innerHTML = html;
       main.querySelectorAll(".chip").forEach(function (c) {
         c.addEventListener("click", function () { go("tilldela"); });
@@ -203,12 +222,12 @@ function renderOversikt(main) {
           var rows = cr.data.conflicts.filter(function (k) { return k.reason === "duplicate_conflict"; });
           var el = document.getElementById("confList");
           if (!el) return;
-          el.innerHTML = "<table><tr><th>Tid</th><th>Kort</th><th>Registrerad röst</th><th>Avvisat försök</th></tr>" +
-            rows.map(function (k) {
-              return "<tr><td>" + esc((k.received_at || "").slice(11, 19)) + "</td><td>" + esc((k.kortid || "").slice(0, 8)) +
-                "</td><td>" + esc(k.accepted_judge || "?") + " · " + esc(k.accepted_scores || "") +
-                "</td><td>" + esc(k.judge_name || "?") + " · " + esc(k.scores || "") + " <span class=muted>(" + esc(k.source || "") + ")</span></td></tr>";
-            }).join("") + "</table>";
+          el.innerHTML = rows.map(function (k) {
+            return '<div style="padding:8px 0;border-bottom:1px solid var(--panel2);font-size:.84rem">' +
+              '<div style="color:var(--ink);font-weight:600">' + esc((k.received_at || "").slice(11, 19)) + " · " + esc((k.kortid || "").slice(0, 8)) + "</div>" +
+              '<div style="margin-top:2px">Gäller: ' + esc(k.accepted_judge || "?") + " · " + esc(k.accepted_scores || "") + "</div>" +
+              '<div>Avvisat: ' + esc(k.judge_name || "?") + " · " + esc(k.scores || "") + " (" + esc(k.source || "") + ")</div></div>";
+          }).join("");
         });
       }
     });
@@ -483,7 +502,7 @@ function renderResultat(main) {
         return "";
       }
       var html = '<div class="card"><div class="row" style="justify-content:space-between">' +
-        "<div><h2>Resultat</h2><span class='muted'>Metod: " + (d.method === "adjusted" ? "stränghetsjusterad" : "rå poäng") +
+        "<div><h2 style='margin-bottom:2px'>Resultat</h2><span class='muted'>Metod: " + (d.method === "adjusted" ? "stränghetsjusterad" : "rå poäng") +
         " · dämpning K=" + d.dampingK + " · " + d.voteCount + " röster</span></div>" +
         '<button class="' + (open ? "sec danger" : "act") + '" id="revealBtn">' + (open ? "Dölj publika resultat" : "Publicera resultat publikt") + "</button></div></div>";
 

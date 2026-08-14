@@ -3,111 +3,112 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#26170F">
+<meta name="theme-color" content="#141110">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍔</text></svg>">
 <title>Rösta – SM i Hamburgare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper:#FBF8F2; --card:#fff; --ink:#241B12; --muted:#6E6154;
-    --line:#E5DCCC; --espresso:#26170F; --espresso2:#1B0F09;
-    --cream:#F5E1C8; --cream-muted:#D8B893; --rust:#A9502F; --rust-deep:#8C3F22;
-    --tile:#F3EADB;
-    --shadow:0 1px 2px rgba(38,23,15,.06), 0 6px 18px rgba(38,23,15,.05);
+    --bg:#141110; --panel:#1C1713; --panel2:#241E18; --line:#2A231C; --line2:#352C22;
+    --ink:#F2EAD9; --muted:#A08A6A; --dim:#7A6A55; --faint:#5C4F3E;
+    --amber:#FFB03A; --amber-ink:#1A140D;
   }
   * { box-sizing: border-box; margin: 0; }
   html { -webkit-text-size-adjust: 100%; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-    background: var(--paper); color: var(--ink); line-height: 1.45;
+    font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.4;
   }
-  ::selection { background: var(--cream); }
+  ::selection { background: rgba(255,176,58,.35); }
 
   .mast {
-    background: linear-gradient(180deg, var(--espresso) 0%, var(--espresso2) 100%);
-    color: var(--cream);
-    padding: calc(16px + env(safe-area-inset-top)) 18px 20px;
-    display: flex; align-items: center; gap: 16px;
+    padding: calc(14px + env(safe-area-inset-top)) 18px 14px;
+    border-bottom: 1px solid var(--line);
   }
-  .mast .inner { max-width: 480px; margin: 0 auto; display: flex; align-items: center; gap: 16px; width: 100%; }
-  .mast img.logo { width: 74px; height: auto; flex: none; }
+  .mast .inner { max-width: 480px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
+  .mast img.logo { width: 48px; height: auto; flex: none; }
   .kicker {
-    font-size: .64rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
-    color: var(--cream-muted); margin-bottom: 4px;
+    font-size: .64rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted);
   }
-  .mast h1 { font-size: 1.3rem; font-weight: 800; letter-spacing: -.01em; line-height: 1.15; }
-  .mast .rule { width: 34px; height: 4px; background: var(--rust); border-radius: 2px; margin-top: 8px; }
+  .mast h1 { font-size: 1.2rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.15; }
 
-  .wrap { max-width: 480px; margin: 0 auto; padding: 6px 14px 30px; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 0 14px 30px; }
 
-  .card {
-    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
-    padding: 15px 16px; margin-top: 12px; box-shadow: var(--shadow);
-  }
+  .prog { display: flex; align-items: center; gap: 10px; padding: 12px 4px 0; }
+  .prog .bar { flex: 1; height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; }
+  .prog .bar div { height: 100%; width: 0%; background: var(--amber); transition: width .2s ease; }
+  .prog span { font-size: .69rem; font-weight: 600; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+
+  .card { background: var(--panel); border-radius: 16px; padding: 14px; margin-top: 14px; }
   label.field {
-    display: block; font-size: .66rem; font-weight: 800; letter-spacing: .18em;
-    text-transform: uppercase; color: #8A6A4A; margin-bottom: 8px;
+    display: block; font-size: .64rem; font-weight: 600; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 7px;
   }
   input[type=text], textarea {
-    width: 100%; padding: 12px 13px; border: 1.5px solid var(--line); border-radius: 11px;
-    font-size: 1.05rem; background: #fff; color: var(--ink); font-family: inherit;
+    width: 100%; padding: 11px 13px; border: 1px solid #3A3128; border-radius: 10px;
+    font-size: 1.02rem; background: #1F1A15; color: var(--ink); font-family: inherit;
   }
+  input[type=text]::placeholder, textarea::placeholder { color: var(--faint); }
   input[type=text]:focus-visible, textarea:focus-visible, button:focus-visible {
-    outline: 3px solid rgba(169,80,47,.4); outline-offset: 1px;
+    outline: 3px solid rgba(255,176,58,.45); outline-offset: 1px;
   }
-  textarea { min-height: 76px; resize: vertical; }
-  .hint { color: var(--muted); font-size: .8rem; margin-top: 7px; }
+  textarea { min-height: 64px; resize: vertical; }
+  .hint { color: var(--dim); font-size: .8rem; margin-top: 7px; }
 
-  .crit-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 9px; }
-  .crit-label .name { font-weight: 800; font-size: 1.02rem; }
+  .crit { margin-top: 14px; }
+  .crit:first-child { margin-top: 0; }
+  .crit-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 7px; }
+  .crit-label .name { font-weight: 700; font-size: .95rem; }
   .crit-label .val {
-    min-width: 34px; text-align: center; font-weight: 800; font-size: 1rem;
-    color: var(--rust); background: var(--tile); border-radius: 9px; padding: 2px 8px;
+    min-width: 30px; text-align: center; font-weight: 700; font-size: .9rem;
+    color: var(--amber-ink); background: var(--amber); border-radius: 7px; padding: 1px 9px;
+    font-variant-numeric: tabular-nums;
   }
-  .crit-label .val.empty { color: #B9AD9C; background: transparent; }
-  .btns { display: grid; grid-template-columns: repeat(11, 1fr); gap: 4px; }
+  .crit-label .val.empty { color: var(--faint); background: transparent; }
+  .btns { display: grid; grid-template-columns: repeat(11, 1fr); gap: 3px; }
   .btns button {
-    padding: 13px 0; border: 1.5px solid var(--line); background: #fff; border-radius: 10px;
-    font-size: .95rem; font-weight: 600; color: var(--ink); font-family: inherit;
+    padding: 11px 0; border: 1px solid var(--line2); background: var(--panel2); border-radius: 7px;
+    font-size: .82rem; font-weight: 500; color: #CBBBA0; font-family: inherit;
     transition: transform .08s ease, background-color .12s ease, border-color .12s ease;
   }
   .btns button:active { transform: scale(.92); }
   .btns button.sel {
-    background: var(--rust); border-color: var(--rust-deep); color: var(--cream);
-    font-weight: 800; box-shadow: inset 0 -2px 0 rgba(0,0,0,.15);
+    background: var(--amber); border-color: var(--amber); color: var(--amber-ink); font-weight: 700;
   }
 
   .actionbar {
-    position: sticky; bottom: 0; margin: 16px -14px 0; padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
-    background: rgba(251,248,242,.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    position: sticky; bottom: 0; margin: 16px -14px 0; padding: 10px 14px calc(12px + env(safe-area-inset-bottom));
+    background: rgba(20,17,16,.92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
     border-top: 1px solid var(--line);
   }
-  .actionbar .hint { text-align: center; margin: 0 0 7px; font-size: .8rem; }
-  .actionbar .hint.ready { color: var(--rust); font-weight: 700; }
+  .actionbar .hint { text-align: center; margin: 0 0 8px; font-size: .78rem; color: var(--muted); }
+  .actionbar .hint.ready { color: var(--amber); font-weight: 600; }
   .submit {
-    width: 100%; padding: 16px; font-size: 1.1rem; font-weight: 800; font-family: inherit;
-    color: var(--cream); background: var(--rust); border: 0; border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(169,80,47,.3); transition: transform .08s ease, opacity .15s ease;
+    width: 100%; padding: 15px; font-size: 1.05rem; font-weight: 700; font-family: inherit;
+    color: var(--amber-ink); background: var(--amber); border: 0; border-radius: 12px;
+    transition: transform .08s ease, opacity .15s ease;
   }
   .submit:not(:disabled):active { transform: scale(.98); }
-  .submit:disabled { opacity: .4; box-shadow: none; }
+  .submit:disabled { opacity: .45; }
 
-  .status { text-align: center; padding: 34px 20px 30px; margin-top: 14px; border-radius: 20px; }
+  .status { text-align: center; padding: 34px 20px 30px; margin-top: 14px; border-radius: 20px; background: var(--panel); }
   .status .big { font-size: 3.2rem; line-height: 1; }
-  .status h2 { margin: 14px 0 8px; font-size: 1.25rem; letter-spacing: -.01em; }
+  .status h2 { margin: 14px 0 8px; font-size: 1.25rem; letter-spacing: -.01em; font-weight: 700; }
   .status p { color: var(--muted); max-width: 34ch; margin: 0 auto; }
-  .status.dark { background: var(--espresso); color: var(--cream); box-shadow: var(--shadow); }
-  .status.dark p { color: var(--cream-muted); }
+  .status.dark { background: var(--panel); border: 1px solid rgba(255,176,58,.35); }
   .status.dark img.logo { width: 64px; margin-bottom: 14px; }
-  .status.light { background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); }
 
   .error-box {
-    background: #F7E8E2; border: 1px solid #E3BFB0; color: #7C2D12; border-radius: 12px;
+    background: #2E1B12; border: 1px solid #5C3A28; color: #F0B9A2; border-radius: 12px;
     padding: 12px 14px; margin-top: 12px; font-size: .95rem; display: none;
   }
   .backup { margin-top: 10px; display: none; }
-  .backup a { color: var(--rust); font-weight: 800; }
+  .backup a { color: var(--amber); font-weight: 700; }
 
-  footer { text-align: center; color: var(--muted); font-size: .75rem; padding: 18px 24px 8px; }
+  footer { text-align: center; color: var(--faint); font-size: .72rem; padding: 18px 24px 8px; }
 </style>
 </head>
 <body>
@@ -116,7 +117,6 @@
   <div>
     <div class="kicker" id="cardInfo">Domarröst</div>
     <h1 id="eventName">SM i Hamburgare</h1>
-    <div class="rule"></div>
   </div>
 </div></header>
 
@@ -158,16 +158,19 @@
   function renderForm() {
     var judge = localStorage.getItem("domarnamn") || "";
     var html = '<form id="voteForm">';
+    html += '<div class="prog"><div class="bar"><div id="progFill"></div></div><span id="progLabel"></span></div>';
     html += '<div class="card"><label class="field" for="judge">Ditt namn (domare)</label>';
     html += '<input type="text" id="judge" list="judgeList" autocomplete="off" required maxlength="60" value="' + esc(judge) + '" placeholder="Skriv ditt namn">';
     html += '<datalist id="judgeList">' + config.judges.map(function (j) { return '<option value="' + esc(j) + '">'; }).join("") + '</datalist>';
     html += '<div class="hint">Använd samma namn hela dagen.</div></div>';
+    html += '<div class="card">';
     config.criteria.forEach(function (c) {
-      html += '<div class="card"><div class="crit-label"><span class="name">' + esc(c.label) + '</span><span class="val empty" id="val-' + esc(c.key) + '">–</span></div>';
+      html += '<div class="crit"><div class="crit-label"><span class="name">' + esc(c.label) + '</span><span class="val empty" id="val-' + esc(c.key) + '">–</span></div>';
       html += '<div class="btns" data-key="' + esc(c.key) + '">';
       for (var i = 0; i <= 10; i++) html += '<button type="button" data-v="' + i + '">' + i + "</button>";
       html += "</div></div>";
     });
+    html += '</div>';
     html += '<div class="card"><label class="field" for="comment">Kommentar till laget (frivilligt)</label>';
     html += '<textarea id="comment" maxlength="2000" placeholder="Vad var bra? Vad kan bli bättre?"></textarea></div>';
     html += '<div class="error-box" id="errorBox"></div>';
@@ -209,6 +212,12 @@
     var hint = document.getElementById("submitHint");
     if (!btn) return;
     btn.disabled = !complete() || state.submitting;
+    var total = config.criteria.length;
+    var done = total - missingCount();
+    var fill = document.getElementById("progFill");
+    var progLabel = document.getElementById("progLabel");
+    if (fill) fill.style.width = Math.round((done / total) * 100) + "%";
+    if (progLabel) progLabel.textContent = done + "/" + total + " kriterier";
     if (!hint) return;
     var judge = document.getElementById("judge");
     if (!judge.value.trim()) {
