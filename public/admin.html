@@ -25,6 +25,13 @@
   header .kicker { font-size: .6rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
   header h1 { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; }
   header button.sec { background: transparent; border: 1px solid var(--line2); color: var(--muted); }
+  @media (min-width: 900px) {
+    header { padding: 16px 2px 18px; }
+    header .brand { gap: 16px; }
+    header img.logo { width: 56px; }
+    header .kicker { font-size: .66rem; letter-spacing: .22em; }
+    header h1 { font-size: 1.5rem; }
+  }
   nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
   nav button { padding: 7px 13px; border: 1px solid var(--line2); background: transparent; border-radius: 99px; font-size: .84rem; font-weight: 500; color: #CBBBA0; cursor: pointer; font-family: inherit; transition: border-color .12s ease, color .12s ease; }
   nav button:hover { border-color: var(--dim); color: var(--ink); }
