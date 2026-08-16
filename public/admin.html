@@ -6,10 +6,16 @@
 <meta name="theme-color" content="#141110">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍔</text></svg>">
 <title>Admin – SM i Hamburgare</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* Space Grotesk self-hostad (public/fonts/, OFL-licens) — inga externa beroenden
+     på tävlingsdagen; arenanätet behöver bara nå vår egen worker. */
+  @font-face {
+    font-family: "Space Grotesk";
+    src: url("/fonts/space-grotesk.woff2") format("woff2");
+    font-weight: 300 700;
+    font-style: normal;
+    font-display: swap;
+  }
   :root {
     --bg:#141110; --panel:#1C1713; --panel2:#241E18; --line:#2A231C; --line2:#352C22;
     --ink:#F2EAD9; --muted:#A08A6A; --dim:#7A6A55; --faint:#5C4F3E;
@@ -144,6 +150,32 @@ function esc(s) {
   });
 }
 var fmt2 = new Intl.NumberFormat("sv-SE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+var TIDFMT = new Intl.DateTimeFormat("sv-SE", {
+  timeZone: "Europe/Stockholm",
+  year: "numeric", month: "2-digit", day: "2-digit",
+  hour: "2-digit", minute: "2-digit", second: "2-digit",
+  hourCycle: "h23",
+});
+
+/**
+ * D1-tidsstämplar är UTC ("YYYY-MM-DD HH:MM:SS") — allt som visas formateras i
+ * svensk tid (Europe/Stockholm). del: "hms" 14:30:15 · "dhm" 08-16 14:30 ·
+ * "dhms" 08-16 14:30:15 · "lang" 2026-08-16 14:30 · annars hela stämpeln.
+ */
+function svTid(utc, del) {
+  if (!utc) return "";
+  var d = new Date(String(utc).replace(" ", "T") + "Z");
+  if (isNaN(d.getTime())) return String(utc);
+  var p = {};
+  TIDFMT.formatToParts(d).forEach(function (x) { p[x.type] = x.value; });
+  var s = p.year + "-" + p.month + "-" + p.day + " " + p.hour + ":" + p.minute + ":" + p.second;
+  if (del === "hms") return s.slice(11, 19);
+  if (del === "dhm") return s.slice(5, 16);
+  if (del === "dhms") return s.slice(5, 19);
+  if (del === "lang") return s.slice(0, 16);
+  return s;
+}
 
 function api(path, opts) {
   opts = opts || {};
@@ -492,7 +524,7 @@ function renderOversikt(main) {
       } else {
         html += "<table><tr><th>Tid</th><th>Lag</th><th>Gren</th><th>Domare</th><th>Gruppkod</th><th>Källa</th></tr>" +
           recent.map(function (v) {
-            return "<tr><td class=muted>" + esc((v.created_at || "").slice(11, 19)) + "</td>" +
+            return "<tr><td class=muted>" + esc(svTid(v.created_at, "hms")) + "</td>" +
               '<td style="font-weight:600">' + (v.team ? esc(v.team) : '<span class="warn">ej kopplad</span>') + "</td>" +
               "<td class=muted>" + esc(v.gren || "") + "</td><td>" + esc(v.judge) + (v.edited_at ? '<span class="edited">ändrad</span>' : "") +
               "</td><td class=muted>" + esc(v.lagkod) + "</td><td class=muted>" + (v.source === "paper" ? "papper" : "digital") + "</td></tr>";
@@ -555,7 +587,7 @@ function renderOversikt(main) {
           if (!el) return;
           el.innerHTML = rows.map(function (k) {
             return '<div style="padding:8px 0;border-bottom:1px solid var(--panel2);font-size:.84rem">' +
-              '<div style="color:var(--ink);font-weight:600">' + esc((k.received_at || "").slice(11, 19)) + " · " + esc((k.kortid || "").slice(0, 8)) + "</div>" +
+              '<div style="color:var(--ink);font-weight:600">' + esc(svTid(k.received_at, "hms")) + " · " + esc((k.kortid || "").slice(0, 8)) + "</div>" +
               '<div style="margin-top:2px">Gäller: ' + esc(k.accepted_judge || "?") + " · " + esc(k.accepted_scores || "") + "</div>" +
               '<div>Avvisat: ' + esc(k.judge_name || "?") + " · " + esc(k.scores || "") + " (" + esc(k.source || "") + ")</div></div>";
           }).join("");
@@ -785,7 +817,7 @@ function renderRostkort(main, params) {
     function shortLabel(c) { return c.label.split("/")[0]; }
 
     function editedTitle(v) {
-      return "Rättat " + (v.edited_at || "").slice(0, 16) + (v.edited_by ? " av " + v.edited_by : "") +
+      return "Rättat " + svTid(v.edited_at, "lang") + (v.edited_by ? " av " + v.edited_by : "") +
         (v.edited_reason ? " — " + v.edited_reason : "");
     }
 
@@ -828,7 +860,7 @@ function renderRostkort(main, params) {
         "<th>Kommentar</th><th>Källa</th><th></th></tr>" +
         votes.map(function (v) {
           var cls = editing === v.kortid ? "editing" : (justSaved === v.kortid ? "saved" : "");
-          var row = "<tr" + (cls ? ' class="' + cls + '"' : "") + "><td class=muted>" + esc((v.created_at || "").slice(5, 16)) + "</td>" +
+          var row = "<tr" + (cls ? ' class="' + cls + '"' : "") + "><td class=muted>" + esc(svTid(v.created_at, "dhm")) + "</td>" +
             '<td style="font-weight:600">' + (v.team ? esc(v.team) : '<span class="warn">ej kopplad</span>') + "</td>" +
             "<td class=muted>" + esc(v.gren || "") + "</td><td class=muted>" + esc(v.lagkod) + "</td>" +
             "<td>" + esc(v.judge) + (v.edited_at ? '<span class="edited" title="' + esc(editedTitle(v)) + '">ändrad</span>' : "") + "</td>" +
@@ -839,8 +871,8 @@ function renderRostkort(main, params) {
           return row + '<tr class="editing"><td colspan="' + cols + '">' +
             '<div class="row"><input id="edJudge" list="edJudges" size="22" value="' + esc(v.judge) + '" placeholder="Domare">' +
             '<datalist id="edJudges">' + judges.map(function (j) { return '<option value="' + esc(j.name) + '">'; }).join("") + "</datalist>" +
-            '<span class="muted">Kort ' + esc(v.kortid.slice(0, 8)) + " · registrerat " + esc((v.created_at || "").slice(0, 16)) +
-            (v.edited_at ? " · senast rättat " + esc(v.edited_at.slice(0, 16)) + (v.edited_by ? " av " + esc(v.edited_by) : "") : "") +
+            '<span class="muted">Kort ' + esc(v.kortid.slice(0, 8)) + " · registrerat " + esc(svTid(v.created_at, "lang")) +
+            (v.edited_at ? " · senast rättat " + esc(svTid(v.edited_at, "lang")) + (v.edited_by ? " av " + esc(v.edited_by) : "") : "") +
             "</span></div>" +
             criteria.map(function (c) {
               return '<div style="margin-top:10px"><b>' + esc(c.label) + '</b> <span class="muted" id="edVal-' + esc(c.key) + '">' +
@@ -995,7 +1027,7 @@ function renderDomare(main) {
         '<p class="muted">Ångra flyttar tillbaka rösterna som skrevs med variantnamnet, även de som kommit in efter slagningen. Röster som faktiskt skrevs med det rätta namnet står kvar.</p>' +
         "<table style='margin-top:8px'><tr><th>Tid</th><th>Från</th><th>Till</th><th class=num>Flyttade röster</th><th></th></tr>" +
         merges.map(function (m) {
-          return "<tr><td class=muted>" + esc((m.created_at || "").slice(5, 16)) + "</td><td>" + esc(m.from_name) + "</td><td>" + esc(m.to_name) +
+          return "<tr><td class=muted>" + esc(svTid(m.created_at, "dhm")) + "</td><td>" + esc(m.from_name) + "</td><td>" + esc(m.to_name) +
             "</td><td class=num>" + m.movedVotes + '</td><td><button class="sec danger" data-undo="' + m.id + '" data-from="' + esc(m.from_name) +
             '" data-to="' + esc(m.to_name) + '">Ångra</button></td></tr>';
         }).join("") + "</table></div>";
@@ -1051,7 +1083,7 @@ function renderAvdrag(main) {
       list.map(function (a) {
         var label = a.team ? esc(a.team) + " · " + esc(a.gren || "?") : esc(a.lagkod);
         var amount = a.points > 0 ? "−" + fmt2.format(a.points) + " p" : Math.round(a.pct * 100) + " %";
-        return "<tr" + (a.revoked_at ? ' style="opacity:.5"' : "") + "><td>" + esc((a.created_at || "").slice(5, 16)) + "</td><td>" + label +
+        return "<tr" + (a.revoked_at ? ' style="opacity:.5"' : "") + "><td>" + esc(svTid(a.created_at, "dhm")) + "</td><td>" + label +
           "</td><td class=num>" + amount + "</td><td>" + esc(a.reason) + "</td><td>" + esc(a.decided_by || "") + "</td><td>" +
           (a.revoked_at ? "återkallat" : '<button class="sec danger" data-rev="' + a.id + '">Återkalla</button>') + "</td></tr>";
       }).join("") + "</table></div>";
@@ -1303,7 +1335,7 @@ function renderData(main) {
       .then(function (blob) {
         var a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "roster-" + new Date().toISOString().slice(0, 16).replace(":", "") + ".csv";
+        a.download = "roster-" + svTid(new Date().toISOString().slice(0, 19).replace("T", " ")).replace(" ", "T").replaceAll(":", "") + ".csv";
         a.click();
         URL.revokeObjectURL(a.href);
       });
@@ -1311,7 +1343,7 @@ function renderData(main) {
   api("/admin/log").then(function (r) {
     document.getElementById("logBox").innerHTML = "<table><tr><th>Tid</th><th>Händelse</th><th>Detalj</th></tr>" +
       r.data.log.map(function (l) {
-        return "<tr><td>" + esc((l.at || "").slice(5, 19)) + "</td><td>" + esc(l.action) + "</td><td class=muted>" + esc(l.detail || "") + "</td></tr>";
+        return "<tr><td>" + esc(svTid(l.at, "dhms")) + "</td><td>" + esc(l.action) + "</td><td class=muted>" + esc(l.detail || "") + "</td></tr>";
       }).join("") + "</table>";
   });
 }

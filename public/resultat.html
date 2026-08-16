@@ -6,10 +6,16 @@
 <meta name="theme-color" content="#141110">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍔</text></svg>">
 <title>Resultat – SM i Hamburgare</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* Space Grotesk self-hostad (public/fonts/, OFL-licens) — inga externa beroenden
+     på tävlingsdagen; arenanätet behöver bara nå vår egen worker. */
+  @font-face {
+    font-family: "Space Grotesk";
+    src: url("/fonts/space-grotesk.woff2") format("woff2");
+    font-weight: 300 700;
+    font-style: normal;
+    font-display: swap;
+  }
   :root {
     --bg:#141110; --panel:#1C1713; --panel2:#241E18; --line:#2A231C; --line2:#352C22;
     --ink:#F2EAD9; --muted:#A08A6A; --dim:#7A6A55; --faint:#5C4F3E;
