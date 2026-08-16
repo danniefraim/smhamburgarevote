@@ -12,8 +12,9 @@ Byggt på Cloudflare Workers + D1 med statiska sidor — en deploy, inga servrar
   inget — de loggas och flaggas. Medveten korrigering görs som loggad admin-override.
 - **Allt years-specifikt är data, inte kod:** grenar, kriterier, vikter, lag och domare
   redigeras i admin.
-- **Poängmetod:** viktat medel × (1 − avdrag), med stränghetsjustering enligt
-  tävlingsreglerna (Variant A). Metoden och dämpningen är inställningar.
+- **Poängmetod:** viktat medel × (1 − procentavdrag) − fasta poängavdrag, med
+  stränghetsjustering enligt tävlingsreglerna (Variant A). Metoden och dämpningen är
+  inställningar.
 - **Facit-test:** motorn reproducerar de officiella resultaten från SM 2025 exakt ur
   rårösterna, inklusive skiljereglerna (`test/replay2025.test.ts`).
 
@@ -85,10 +86,24 @@ utan att korten trycks om. Alternativet är att trycka korten med workers.dev-ad
 - När en bunt serveras: Admin → **Tilldela** → koppla gruppkoden till lag + gren.
   (Röster som kommer in före kopplingen syns under "väntar på koppling" och räknas
   så fort kopplingen finns.)
-- Följ **Översikt**: röster per bidrag, "alla kort inne"-markering, konflikter.
+- Följ **Översikt**: de tio senast inkomna röstkorten, röster per bidrag och gren,
+  konflikter. Det trycks alltid fler kort än det finns domare, så röstningen är klar
+  långt innan alla kort är använda — stapeln jämför med bidraget som fått flest röster
+  i grenen, den är ingen målsnöre.
 - Papperskort matas in löpande under **Papper** — dubbletter är ofarliga.
+- **Röstkort**-fliken listar allt som registrerats. Filtrera på domare, lag, gren eller
+  gruppkod (eller klicka dig dit från ett lag eller en domare) och rätta felaktiga kort
+  med **Ändra**. Varje rättelse kräver en motivering som hör till just det kortet; den
+  hamnar i adminloggen tillsammans med före- och eftervärdena, syns när du hovrar över
+  *ändrad*-märket och följer med i CSV-exporten. Fältet **Ditt namn** är däremot ditt
+  eget och ligger kvar mellan kort — skriv inte motiveringen där.
 - Ta en CSV-export (**Data → Ladda ner**) ungefär varje halvtimme som ögonblicksbild.
-- Avdrag beslutas och loggas under **Avdrag** (procent av bidragets poäng; 100 % nollar).
+- Avdrag beslutas och loggas under **Avdrag**: antingen procent av bidragets poäng
+  (100 % nollar) eller ett fast poängavdrag som dras från slutpoängen.
+- Felstavade domarnamn slås ihop under **Domare**. Så länge slagningen gäller hamnar även
+  nya röster med variantnamnet på det rätta namnet. Blev det fel går slagningen att ångra:
+  rösterna som skrevs med variantnamnet följer med tillbaka — också de som kom in efteråt —
+  medan röster som faktiskt skrevs med målnamnet står kvar.
 
 **Reservlägen, i ordning**
 1. Röstsidan visar automatiskt länk till reservformuläret vid nätverksfel
@@ -97,7 +112,8 @@ utan att korten trycks om. Alternativet är att trycka korten med workers.dev-ad
 3. Totalstopp: papperskort + kalkylark. Tävlingen kan alltid slutföras.
 
 **Efter sista rösten**
-- Kontrollera Översikt: inga saknade kort du väntar på, inga olösta konflikter.
+- Kontrollera Översikt: alla gruppkoder kopplade, inga olösta konflikter. (Oanvända
+  röstkort är normalt och inget att vänta in.)
 - Resultat-fliken: granska rå vs justerad, skiljeregel-flaggor och ev. lottningsbehov.
 - Publicera med knappen **Publicera resultat publikt** när det är dags.
 - Ta en slutlig CSV-export och spara i årets mapp.
@@ -105,7 +121,7 @@ utan att korten trycks om. Alternativet är att trycka korten med workers.dev-ad
 ## Repetition/generalrepetition
 
 `tools/e2e.js` kör hela flödet i en riktig webbläsare (rösta → dubblett → admin →
-publicera → publik sida) mot din lokala dev-server:
+röstkortsvyn → publicera → publik sida) mot din lokala dev-server:
 
 ```bash
 npm i -D playwright && npx playwright install chromium   # engångs

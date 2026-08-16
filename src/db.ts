@@ -55,7 +55,9 @@ export async function loadScoringInputs(db: D1Database): Promise<ScoringInputs> 
          WHERE t.active = 1 AND g.active = 1`,
       )
       .all<{ lagkod: string; team: string; gren: string }>(),
-    db.prepare("SELECT lagkod, pct FROM avdrag WHERE revoked_at IS NULL").all<{ lagkod: string; pct: number }>(),
+    db
+      .prepare("SELECT lagkod, pct, points FROM avdrag WHERE revoked_at IS NULL")
+      .all<{ lagkod: string; pct: number; points: number }>(),
   ]);
 
   return {

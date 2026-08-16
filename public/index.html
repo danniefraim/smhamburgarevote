@@ -134,6 +134,9 @@
   var view = document.getElementById("view");
   var config = null;
   var state = { scores: {}, submitting: false };
+  var DUPLICATE_TEXT =
+    "Rösten som registrerades först gäller. Är det fel: fyll i pappersröstkortet och se till att det kommer till " +
+    "huvuddomarna, så rättas det till.";
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (ch) {
@@ -268,7 +271,7 @@
           statusScreen("dark", "✅", "Tack, din röst är registrerad!", "Du kan lämna tillbaka kortet eller slänga det.");
           window.scrollTo(0, 0);
         } else if (r.data.ok && r.data.status === "duplicate") {
-          statusScreen("light", "ℹ️", "Kortet var redan registrerat", "Rösten som registrerades först gäller. Kontakta huvuddomaren om något blivit fel.");
+          statusScreen("light", "ℹ️", "Kortet var redan registrerat", DUPLICATE_TEXT);
         } else {
           state.submitting = false;
           updateSubmit();
@@ -300,7 +303,7 @@
         lagkod = card.data.lagkod;
         document.getElementById("cardInfo").textContent = "Kort " + kortid.slice(0, 8) + " · grupp " + lagkod;
         if (card.data.used) {
-          statusScreen("light", "ℹ️", "Det här kortet är redan registrerat", "Rösten som registrerades först gäller. Kontakta huvuddomaren om något blivit fel.");
+          statusScreen("light", "ℹ️", "Det här kortet är redan registrerat", DUPLICATE_TEXT);
           return;
         }
         renderForm();

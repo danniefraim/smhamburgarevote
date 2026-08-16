@@ -36,7 +36,10 @@ export interface ContributionIn {
 
 export interface AvdragIn {
   lagkod: string;
+  /** Procentavdrag 0–1, multiplikativt. */
   pct: number;
+  /** Fast poängavdrag, dras efter procentavdraget. */
+  points?: number;
 }
 
 export interface ScoringOptions {
@@ -56,6 +59,7 @@ export interface StandingEntry {
   gren: string;
   n: number;
   factor: number;
+  deduction: number;
   raw: number;
   adjusted: number;
   final: number;
@@ -175,9 +179,13 @@ export function computeResults(
   });
 
   const factorByLagkod = new Map<string, number>();
+  const deductionByLagkod = new Map<string, number>();
   for (const a of avdrag) {
     const prev = factorByLagkod.get(a.lagkod) ?? 1;
     factorByLagkod.set(a.lagkod, prev * (1 - Math.min(1, Math.max(0, a.pct))));
+    if (a.points) {
+      deductionByLagkod.set(a.lagkod, (deductionByLagkod.get(a.lagkod) ?? 0) + Math.max(0, a.points));
+    }
   }
 
   // Kriterier i skiljeregelordning: fallande vikt.
@@ -186,6 +194,10 @@ export function computeResults(
   const entries: StandingEntry[] = contributions.map((c) => {
     const idxs = votesByLagkod.get(c.lagkod) ?? [];
     const factor = factorByLagkod.get(c.lagkod) ?? 1;
+    const deduction = deductionByLagkod.get(c.lagkod) ?? 0;
+    // Poängavdraget dras av på slutpoängen. Kriterievärdena behålls som rena
+    // kvalitetsmått — de används bara som skiljeregel.
+    const deduct = (value: number) => (deduction > 0 ? Math.max(0, value - deduction) : value);
     const rawCrit: Record<string, number> = {};
     const adjCrit: Record<string, number> = {};
     for (const crit of criteria) {
@@ -194,14 +206,15 @@ export function computeResults(
       rawCrit[crit.key] = mean(raw) * factor;
       adjCrit[crit.key] = mean(adj) * factor;
     }
-    const raw = mean(idxs.map((i) => weighted[i]!)) * factor;
-    const adjusted = mean(idxs.map((i) => weighted[i]! - sevTotal.get(votes[i]!.judge)!)) * factor;
+    const raw = deduct(mean(idxs.map((i) => weighted[i]!)) * factor);
+    const adjusted = deduct(mean(idxs.map((i) => weighted[i]! - sevTotal.get(votes[i]!.judge)!)) * factor);
     return {
       lagkod: c.lagkod,
       team: c.team,
       gren: c.gren,
       n: idxs.length,
       factor,
+      deduction,
       raw,
       adjusted,
       final: options.method === "adjusted" ? adjusted : raw,

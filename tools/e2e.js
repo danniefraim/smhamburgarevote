@@ -94,14 +94,28 @@ async function pickUnusedCard() {
   await admin.goto(`${BASE}/admin.html`);
   await admin.fill("#tok", TOKEN);
   await admin.click("#loginBtn");
-  await admin.waitForSelector("text=Bidrag");
+  await admin.waitForSelector("text=Senast inkomna röstkort");
+  const ovText = await admin.textContent("#main");
+  if (!ovText.includes("Browser-Testare")) fail("UI-rösten syns inte bland de senast inkomna röstkorten");
   console.log("✓ Admin-login och översikt");
+
+  // ---- 4b. Röstkortsvyn: filtrera fram rösten och öppna rättningsläget ----
+  await admin.click('nav button[data-v="rostkort"]');
+  await admin.waitForSelector("#fJudge-q");
+  await admin.fill("#fJudge-q", "Browser");
+  await admin.click('#fJudge-list div[data-v]');
+  await admin.waitForSelector("text=Browser-Testare");
+  await admin.click("#rkTable button[data-edit]");
+  await admin.waitForSelector("#edSave");
+  await admin.click("#edCancel");
+  await admin.screenshot({ path: path.join(SHOTS, "3-admin-rostkort.png"), fullPage: true });
+  console.log("✓ Röstkortsvyn filtrerar och öppnar rättningsläget");
 
   await admin.click('nav button[data-v="resultat"]');
   await admin.waitForSelector("text=Domarnas stränghet");
   const resText = await admin.textContent("#main");
   if (!resText.includes("Browser-Testare")) fail("Domaren från UI-rösten saknas i stränghetstabellen");
-  await admin.screenshot({ path: path.join(SHOTS, "3-admin-resultat.png"), fullPage: true });
+  await admin.screenshot({ path: path.join(SHOTS, "4-admin-resultat.png"), fullPage: true });
 
   admin.once("dialog", (d) => d.accept());
   await admin.click("#revealBtn");
@@ -113,7 +127,7 @@ async function pickUnusedCard() {
   trackErrors(pub, "resultat");
   await pub.goto(`${BASE}/resultat.html`);
   await pub.waitForSelector("text=Freestyle");
-  await pub.screenshot({ path: path.join(SHOTS, "4-publikt-resultat.png"), fullPage: true });
+  await pub.screenshot({ path: path.join(SHOTS, "5-publikt-resultat.png"), fullPage: true });
   console.log("✓ Publik resultatsida visar ställningen");
 
   // ---- 6. Dölj igen + kontrollera konsolfel ----

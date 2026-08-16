@@ -1,8 +1,8 @@
 import { Hono } from "hono";
 import { adminAuth } from "./auth";
-import { getSettings, loadScoringInputs, logAdmin } from "./db";
+import { getActiveCriteria, getSettings, loadScoringInputs, logAdmin, resolveJudgeId } from "./db";
 import { computeResults } from "./scoring";
-import { submitVote } from "./vote";
+import { normalizeJudgeName, stableScoreJson, submitVote, validateScores } from "./vote";
 
 export const adminRoutes = new Hono<{ Bindings: Env }>();
 
@@ -14,7 +14,7 @@ adminRoutes.get("/ping", (c) => c.json({ ok: true }));
 
 adminRoutes.get("/overview", async (c) => {
   const db = c.env.DB;
-  const [assignments, unassigned, conflicts, counters] = await Promise.all([
+  const [assignments, unassigned, conflicts, counters, recent] = await Promise.all([
     db
       .prepare(
         `SELECT a.lagkod, t.name AS team, g.name AS gren,
@@ -43,12 +43,25 @@ adminRoutes.get("/overview", async (c) => {
                 (SELECT COUNT(*) FROM submission_log WHERE accepted = 0) AS rejected`,
       )
       .first<{ votes: number; cards: number; rejected: number }>(),
+    db
+      .prepare(
+        `SELECT v.kortid, v.lagkod, v.created_at, v.source, v.edited_at, j.name AS judge,
+                t.name AS team, g.name AS gren
+         FROM votes v
+         JOIN judges j ON j.id = v.judge_id
+         LEFT JOIN assignments a ON a.lagkod = v.lagkod
+         LEFT JOIN teams t ON t.id = a.team_id
+         LEFT JOIN grenar g ON g.id = a.gren_id
+         ORDER BY v.created_at DESC, v.rowid DESC LIMIT 10`,
+      )
+      .all(),
   ]);
   return c.json({
     assignments: assignments.results,
     unassignedWithVotes: unassigned.results,
     conflictCount: conflicts?.n ?? 0,
     totals: counters,
+    recentVotes: recent.results,
   });
 });
 
@@ -229,14 +242,34 @@ adminRoutes.patch("/criteria/:id", async (c) => {
 // ---------- Domare ----------
 
 adminRoutes.get("/judges", async (c) => {
-  const { results } = await c.env.DB
-    .prepare(
-      `SELECT j.id, j.name, j.alias_of,
-              (SELECT COUNT(*) FROM votes v WHERE v.judge_id = j.id) AS votes
-       FROM judges j ORDER BY j.name COLLATE NOCASE`,
-    )
-    .all();
-  return c.json({ judges: results });
+  const db = c.env.DB;
+  const [judges, merges] = await Promise.all([
+    db
+      .prepare(
+        `SELECT j.id, j.name, j.alias_of,
+                (SELECT COUNT(*) FROM votes v WHERE v.judge_id = j.id) AS votes
+         FROM judges j ORDER BY j.name COLLATE NOCASE`,
+      )
+      .all(),
+    db
+      .prepare(
+        `SELECT m.id, m.from_id, m.to_id, m.created_at, m.detail,
+                f.name AS from_name, t.name AS to_name
+         FROM judge_merges m
+         JOIN judges f ON f.id = m.from_id
+         JOIN judges t ON t.id = m.to_id
+         WHERE m.undone_at IS NULL
+         ORDER BY m.id DESC LIMIT 50`,
+      )
+      .all<{ id: number; detail: string }>(),
+  ]);
+  return c.json({
+    judges: judges.results,
+    merges: merges.results.map(({ detail, ...m }) => ({
+      ...m,
+      movedVotes: ((JSON.parse(detail) as { kortids?: string[] }).kortids ?? []).length,
+    })),
+  });
 });
 
 adminRoutes.post("/judges/merge", async (c) => {
@@ -259,14 +292,125 @@ adminRoutes.post("/judges/merge", async (c) => {
   if (!to || from.id === to.id) {
     return c.json({ ok: false, code: "validation", message: "Ogiltig sammanslagning." }, 400);
   }
+
+  // Spara exakt vad sammanslagningen rör, så att den kan ångras utan att dra med
+  // sig röster som kommit in på målet efteråt.
+  const [moved, aliases] = await Promise.all([
+    db.prepare("SELECT kortid FROM votes WHERE judge_id = ?").bind(from.id).all<{ kortid: string }>(),
+    db.prepare("SELECT id FROM judges WHERE alias_of = ?").bind(from.id).all<{ id: number }>(),
+  ]);
+  const detail = {
+    kortids: moved.results.map((r) => r.kortid),
+    aliasIds: aliases.results.map((r) => r.id),
+  };
+
   await db.batch([
     db.prepare("UPDATE votes SET judge_id = ? WHERE judge_id = ?").bind(to.id, from.id),
     db.prepare("UPDATE judges SET alias_of = ? WHERE id = ? OR alias_of = ?").bind(to.id, from.id, from.id),
     db
+      .prepare("INSERT INTO judge_merges (from_id, to_id, detail) VALUES (?, ?, ?)")
+      .bind(from.id, to.id, JSON.stringify(detail)),
+    db
       .prepare("INSERT INTO admin_log (action, detail) VALUES ('judge_merge', ?)")
-      .bind(JSON.stringify({ from: from.name, to: to.name })),
+      .bind(JSON.stringify({ from: from.name, to: to.name, movedVotes: detail.kortids.length })),
   ]);
-  return c.json({ ok: true, mergedInto: to.name });
+  return c.json({ ok: true, mergedInto: to.name, movedVotes: detail.kortids.length });
+});
+
+/**
+ * Ångrar en sammanslagning. En röst går tillbaka om namnet som senast skrevs för den
+ * (submission_log är källan) hör till det namnkluster som nu bryts loss igen. Det
+ * fångar både rösterna slagningen flyttade och de som kommit in på variantnamnet
+ * medan slagningen gällde — men lämnar kvar röster som faktiskt skrevs med målnamnet.
+ */
+adminRoutes.post("/judges/merge/:id/undo", async (c) => {
+  const id = Number(c.req.param("id"));
+  const db = c.env.DB;
+  const merge = await db
+    .prepare(
+      `SELECT m.id, m.from_id, m.to_id, m.detail, f.name AS from_name, t.name AS to_name
+       FROM judge_merges m
+       JOIN judges f ON f.id = m.from_id
+       JOIN judges t ON t.id = m.to_id
+       WHERE m.id = ? AND m.undone_at IS NULL`,
+    )
+    .bind(id)
+    .first<{ id: number; from_id: number; to_id: number; detail: string; from_name: string; to_name: string }>();
+  if (!merge) return c.json({ ok: false, code: "not_found", message: "Sammanslagningen finns inte (eller är redan ångrad)." }, 404);
+
+  const from = await db
+    .prepare("SELECT id, alias_of FROM judges WHERE id = ?")
+    .bind(merge.from_id)
+    .first<{ id: number; alias_of: number | null }>();
+  if (!from || from.alias_of !== merge.to_id) {
+    return c.json(
+      {
+        ok: false,
+        code: "conflict",
+        message: `${merge.from_name} har slagits ihop vidare sedan dess. Ångra den senaste sammanslagningen först.`,
+      },
+      409,
+    );
+  }
+
+  const detail = JSON.parse(merge.detail) as { kortids?: string[]; aliasIds?: number[] };
+  const kortids = detail.kortids ?? [];
+  const aliasIds = detail.aliasIds ?? [];
+  // Namnklustret som bryts loss: domaren själv plus de alias slagningen tog med sig.
+  const clusterIds = [merge.from_id, ...aliasIds];
+  const clusterPlaceholders = clusterIds.map(() => "?").join(",");
+
+  // Jämförelsen sker mot judges.name, som är COLLATE NOCASE — samma matchning som
+  // när en röst kommer in och namnet slås upp.
+  const restore = [
+    db
+      .prepare(
+        `UPDATE votes SET judge_id = ? WHERE judge_id = ? AND EXISTS (
+           SELECT 1 FROM judges j
+           WHERE j.id IN (${clusterPlaceholders})
+             AND j.name = (SELECT l.judge_name FROM submission_log l
+                           WHERE l.kortid = votes.kortid AND l.accepted = 1
+                           ORDER BY l.id DESC LIMIT 1)
+         )`,
+      )
+      .bind(merge.from_id, merge.to_id, ...clusterIds),
+  ];
+  // Skyddsnät: röster utan spår i submission_log kan inte namnmatchas, så de
+  // flyttas tillbaka på vad slagningen faktiskt tog med sig.
+  for (let i = 0; i < kortids.length; i += 50) {
+    const chunk = kortids.slice(i, i + 50);
+    restore.push(
+      db
+        .prepare(
+          `UPDATE votes SET judge_id = ? WHERE judge_id = ? AND kortid IN (${chunk.map(() => "?").join(",")})
+             AND NOT EXISTS (SELECT 1 FROM submission_log l WHERE l.kortid = votes.kortid AND l.accepted = 1)`,
+        )
+        .bind(merge.from_id, merge.to_id, ...chunk),
+    );
+  }
+
+  const statements = [...restore];
+  statements.push(db.prepare("UPDATE judges SET alias_of = NULL WHERE id = ?").bind(merge.from_id));
+  if (aliasIds.length > 0) {
+    statements.push(
+      db
+        .prepare(`UPDATE judges SET alias_of = ? WHERE id IN (${aliasIds.map(() => "?").join(",")})`)
+        .bind(merge.from_id, ...aliasIds),
+    );
+  }
+  statements.push(db.prepare("UPDATE judge_merges SET undone_at = datetime('now') WHERE id = ?").bind(merge.id));
+
+  const results = await db.batch(statements);
+  const restoredVotes = results
+    .slice(0, restore.length)
+    .reduce((sum, r) => sum + (r.meta.changes ?? 0), 0);
+  await logAdmin(db, "judge_merge_undo", {
+    from: merge.from_name,
+    to: merge.to_name,
+    restoredVotes,
+    movedByMerge: kortids.length,
+  });
+  return c.json({ ok: true, restoredVotes });
 });
 
 // ---------- Tilldelning gruppkod -> lag + gren ----------
@@ -313,7 +457,7 @@ adminRoutes.delete("/assign/:lagkod", async (c) => {
 adminRoutes.get("/avdrag", async (c) => {
   const { results } = await c.env.DB
     .prepare(
-      `SELECT av.id, av.lagkod, av.pct, av.reason, av.decided_by, av.created_at, av.revoked_at,
+      `SELECT av.id, av.lagkod, av.pct, av.points, av.reason, av.decided_by, av.created_at, av.revoked_at,
               t.name AS team, g.name AS gren
        FROM avdrag av
        LEFT JOIN assignments a ON a.lagkod = av.lagkod
@@ -325,26 +469,37 @@ adminRoutes.get("/avdrag", async (c) => {
   return c.json({ avdrag: results });
 });
 
+/** Avdrag är antingen procent av bidragets poäng eller ett fast poängavdrag. */
 adminRoutes.post("/avdrag", async (c) => {
   const body = (await c.req.json().catch(() => ({}))) as {
     lagkod?: string;
     pct?: number;
+    points?: number;
     reason?: string;
     decidedBy?: string;
   };
   const lagkod = (body.lagkod ?? "").trim().toUpperCase();
   const reason = (body.reason ?? "").trim();
-  if (!lagkod || !reason || typeof body.pct !== "number" || body.pct <= 0 || body.pct > 1) {
+  const pct = typeof body.pct === "number" ? body.pct : 0;
+  const points = typeof body.points === "number" ? body.points : 0;
+  if (!lagkod || !reason) {
+    return c.json({ ok: false, code: "validation", message: "lagkod och motivering krävs." }, 400);
+  }
+  if (pct < 0 || pct > 1 || points < 0 || !Number.isFinite(pct) || !Number.isFinite(points)) {
+    return c.json({ ok: false, code: "validation", message: "Ogiltigt avdrag (pct 0–1, points ≥ 0)." }, 400);
+  }
+  const kinds = (pct > 0 ? 1 : 0) + (points > 0 ? 1 : 0);
+  if (kinds !== 1) {
     return c.json(
-      { ok: false, code: "validation", message: "lagkod, pct (0–1) och motivering krävs." },
+      { ok: false, code: "validation", message: "Ange antingen ett procentavdrag eller ett fast poängavdrag." },
       400,
     );
   }
   const row = await c.env.DB
-    .prepare("INSERT INTO avdrag (lagkod, pct, reason, decided_by) VALUES (?, ?, ?, ?) RETURNING *")
-    .bind(lagkod, body.pct, reason, body.decidedBy ?? null)
+    .prepare("INSERT INTO avdrag (lagkod, pct, points, reason, decided_by) VALUES (?, ?, ?, ?, ?) RETURNING *")
+    .bind(lagkod, pct, points, reason, body.decidedBy ?? null)
     .first();
-  await logAdmin(c.env.DB, "avdrag_create", { lagkod, pct: body.pct, reason });
+  await logAdmin(c.env.DB, "avdrag_create", { lagkod, pct, points, reason });
   return c.json({ ok: true, avdrag: row }, 201);
 });
 
@@ -356,6 +511,127 @@ adminRoutes.post("/avdrag/:id/revoke", async (c) => {
     .run();
   if (res.meta.changes === 0) return c.json({ ok: false, code: "not_found", message: "Avdraget finns inte." }, 404);
   await logAdmin(c.env.DB, "avdrag_revoke", { id });
+  return c.json({ ok: true });
+});
+
+// ---------- Röstkort (lista, filtrering och rättelse) ----------
+
+/** Alla registrerade röstkort, filtrerbara på domare, lag och gren. */
+adminRoutes.get("/votes", async (c) => {
+  const q = c.req.query();
+  const wheres: string[] = [];
+  const binds: unknown[] = [];
+  for (const [param, column] of [
+    ["judgeId", "v.judge_id"],
+    ["teamId", "a.team_id"],
+    ["grenId", "a.gren_id"],
+  ] as const) {
+    const value = Number(q[param]);
+    if (!q[param] || !Number.isFinite(value)) continue;
+    wheres.push(`${column} = ?`);
+    binds.push(value);
+  }
+  if (q["lagkod"]) {
+    wheres.push("v.lagkod = ?");
+    binds.push(q["lagkod"].trim().toUpperCase());
+  }
+  const limit = Math.min(Math.max(Number(q["limit"] ?? 500) || 500, 1), 2000);
+  const { results } = await c.env.DB
+    .prepare(
+      `SELECT v.kortid, v.lagkod, v.judge_id, j.name AS judge, v.scores, v.comment, v.source,
+              v.entered_by, v.created_at, v.edited_at, v.edited_by, v.edited_reason,
+              t.name AS team, g.name AS gren
+       FROM votes v
+       JOIN judges j ON j.id = v.judge_id
+       LEFT JOIN assignments a ON a.lagkod = v.lagkod
+       LEFT JOIN teams t ON t.id = a.team_id
+       LEFT JOIN grenar g ON g.id = a.gren_id
+       ${wheres.length ? "WHERE " + wheres.join(" AND ") : ""}
+       ORDER BY v.created_at DESC, v.rowid DESC
+       LIMIT ?`,
+    )
+    .bind(...binds, limit)
+    .all<{ scores: string }>();
+  return c.json({
+    votes: results.map(({ scores, ...v }) => ({ ...v, scores: JSON.parse(scores) as Record<string, number> })),
+    limit,
+  });
+});
+
+/** Rättar en registrerad röst. Ursprunglig tidsstämpel behålls; ändringen loggas. */
+adminRoutes.patch("/votes/:kortid", async (c) => {
+  const kortid = c.req.param("kortid").trim();
+  const body = (await c.req.json().catch(() => ({}))) as {
+    judge?: string;
+    scores?: unknown;
+    comment?: string;
+    editedBy?: string;
+    reason?: string;
+  };
+  const db = c.env.DB;
+  const existing = await db
+    .prepare(
+      `SELECT v.kortid, v.lagkod, v.judge_id, j.name AS judge, v.scores, v.comment
+       FROM votes v JOIN judges j ON j.id = v.judge_id WHERE v.kortid = ?`,
+    )
+    .bind(kortid)
+    .first<{ kortid: string; lagkod: string; judge_id: number; judge: string; scores: string; comment: string | null }>();
+  if (!existing) return c.json({ ok: false, code: "not_found", message: "Röstkortet är inte registrerat." }, 404);
+
+  let judgeId = existing.judge_id;
+  let judgeName = existing.judge;
+  if (body.judge !== undefined) {
+    judgeName = normalizeJudgeName(body.judge);
+    if (!judgeName || judgeName.length > 60) {
+      return c.json({ ok: false, code: "validation", message: "Ange ett giltigt domarnamn." }, 400);
+    }
+    judgeId = await resolveJudgeId(db, judgeName);
+  }
+
+  let scoresJson = existing.scores;
+  if (body.scores !== undefined) {
+    const checked = validateScores(await getActiveCriteria(db), body.scores);
+    if (!checked.ok) return c.json({ ok: false, code: "validation", message: checked.message }, 400);
+    scoresJson = stableScoreJson(checked.scores);
+  }
+
+  const comment = body.comment === undefined ? existing.comment : body.comment.trim().slice(0, 2000) || null;
+  const editedBy = typeof body.editedBy === "string" ? body.editedBy.trim() || null : null;
+  const reason = typeof body.reason === "string" ? body.reason.trim().slice(0, 500) : "";
+
+  if (judgeId === existing.judge_id && scoresJson === existing.scores && comment === existing.comment) {
+    return c.json({ ok: true, unchanged: true });
+  }
+  // Motiveringen hör till just det här kortet — den är det som gör rättelsen granskbar.
+  if (!reason) {
+    return c.json({ ok: false, code: "validation", message: "Ange varför kortet rättas." }, 400);
+  }
+
+  await db.batch([
+    db
+      .prepare(
+        `UPDATE votes SET judge_id = ?, scores = ?, comment = ?, edited_at = datetime('now'), edited_by = ?,
+                edited_reason = ?
+         WHERE kortid = ?`,
+      )
+      .bind(judgeId, scoresJson, comment, editedBy, reason, kortid),
+    db
+      .prepare(
+        `INSERT INTO submission_log (kortid, lagkod, judge_name, scores, comment, source, entered_by, accepted, reason)
+         VALUES (?, ?, ?, ?, ?, 'paper', ?, 1, 'admin_edit')`,
+      )
+      .bind(kortid, existing.lagkod, judgeName, scoresJson, comment, editedBy),
+    db.prepare("INSERT INTO admin_log (action, detail) VALUES ('vote_edit', ?)").bind(
+      JSON.stringify({
+        kortid,
+        lagkod: existing.lagkod,
+        editedBy,
+        reason,
+        before: { judge: existing.judge, scores: JSON.parse(existing.scores), comment: existing.comment },
+        after: { judge: judgeName, scores: JSON.parse(scoresJson), comment },
+      }),
+    ),
+  ]);
   return c.json({ ok: true });
 });
 
@@ -493,7 +769,7 @@ adminRoutes.get("/export.csv", async (c) => {
     db
       .prepare(
         `SELECT v.kortid, v.lagkod, t.name AS team, g.name AS gren, j.name AS judge,
-                v.scores, v.comment, v.source, v.entered_by, v.created_at
+                v.scores, v.comment, v.source, v.entered_by, v.created_at, v.edited_at, v.edited_by, v.edited_reason
          FROM votes v
          JOIN judges j ON j.id = v.judge_id
          LEFT JOIN assignments a ON a.lagkod = v.lagkod
@@ -512,10 +788,16 @@ adminRoutes.get("/export.csv", async (c) => {
         source: string;
         entered_by: string | null;
         created_at: string;
+        edited_at: string | null;
+        edited_by: string | null;
+        edited_reason: string | null;
       }>(),
   ]);
   const keys = criteria.results.map((r) => r.key);
-  const header = ["kortid", "lagkod", "lag", "gren", "domare", ...keys, "kommentar", "källa", "registrerad_av", "tid"];
+  const header = [
+    "kortid", "lagkod", "lag", "gren", "domare", ...keys,
+    "kommentar", "källa", "registrerad_av", "tid", "ändrad", "ändrad_av", "ändringsmotivering",
+  ];
   const lines = [header.join(";")];
   for (const v of votes.results) {
     const scores = JSON.parse(v.scores) as Record<string, number>;
@@ -531,6 +813,9 @@ adminRoutes.get("/export.csv", async (c) => {
         v.source,
         v.entered_by ?? "",
         v.created_at,
+        v.edited_at ?? "",
+        v.edited_by ?? "",
+        v.edited_reason ?? "",
       ]
         .map(csvField)
         .join(";"),

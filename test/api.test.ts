@@ -370,3 +370,253 @@ describe("publik resultatsida", () => {
     expect(open.totals[0]!.team).toBe("Lag Beta");
   });
 });
+
+/**
+ * Egna kort, eget lag och egen gren — så att rättelserna här inte rör scenariot ovan.
+ * Ligger sist i filen eftersom den ändrar domare, avdrag och röster.
+ */
+describe("röstkort: lista, rättelse och poängavdrag", () => {
+  const IJKL = {
+    ett: "88888888-8888-4888-8888-888888888881",
+    tva: "88888888-8888-4888-8888-888888888882",
+    tre: "88888888-8888-4888-8888-888888888883",
+    fyra: "88888888-8888-4888-8888-888888888884",
+    fem: "88888888-8888-4888-8888-888888888885",
+    sex: "88888888-8888-4888-8888-888888888886",
+  };
+  let teamGamma = 0;
+  let grenRatt = 0;
+
+  beforeAll(async () => {
+    await SELF.fetch("http://t/api/admin/cards/import", {
+      method: "POST",
+      headers: ADMIN,
+      body: Object.values(IJKL)
+        .map((kortid) => `${kortid};IJKL`)
+        .join("\n"),
+    });
+    const gamma = (await (await post("/api/admin/teams", { name: "Lag Gamma" }, true)).json()) as {
+      team: { id: number };
+    };
+    teamGamma = gamma.team.id;
+    const gren = (await (await post("/api/admin/grenar", { name: "Rättningsgren", inTotal: false }, true)).json()) as {
+      gren: { id: number };
+    };
+    grenRatt = gren.gren.id;
+    await post("/api/admin/assign", { lagkod: "IJKL", teamId: teamGamma, grenId: grenRatt }, true);
+    await post("/api/vote", { kortid: IJKL.ett, judge: "Rättaren", scores: scores(5) });
+    await post("/api/vote", { kortid: IJKL.tva, judge: "Rättaren", scores: scores(7), comment: "god" });
+  });
+
+  it("listar röstkort och filtrerar på lag, gren, domare och gruppkod", async () => {
+    type VoteRow = { kortid: string; team: string | null; gren: string | null; judge: string; scores: Record<string, number> };
+    const all = (await (await get(`/api/admin/votes?teamId=${teamGamma}`, true)).json()) as { votes: VoteRow[] };
+    expect(all.votes.map((v) => v.kortid).sort()).toEqual([IJKL.ett, IJKL.tva].sort());
+    expect(all.votes[0]!.team).toBe("Lag Gamma");
+    expect(all.votes[0]!.gren).toBe("Rättningsgren");
+    expect(all.votes[0]!.scores["smak"]).toBeTypeOf("number");
+
+    const byGren = (await (await get(`/api/admin/votes?grenId=${grenRatt}`, true)).json()) as { votes: VoteRow[] };
+    expect(byGren.votes).toHaveLength(2);
+
+    const byLagkod = (await (await get("/api/admin/votes?lagkod=ijkl", true)).json()) as { votes: VoteRow[] };
+    expect(byLagkod.votes).toHaveLength(2);
+
+    const judges = (await (await get("/api/admin/judges", true)).json()) as { judges: { id: number; name: string }[] };
+    const rattaren = judges.judges.find((j) => j.name === "Rättaren")!;
+    const byJudge = (await (await get(`/api/admin/votes?judgeId=${rattaren.id}`, true)).json()) as { votes: VoteRow[] };
+    expect(byJudge.votes.every((v) => v.judge === "Rättaren")).toBe(true);
+
+    const tomt = (await (await get("/api/admin/votes?lagkod=SAKNAS", true)).json()) as { votes: VoteRow[] };
+    expect(tomt.votes).toHaveLength(0);
+  });
+
+  it("rättar en registrerad röst, behåller tidsstämpeln och loggar före/efter", async () => {
+    const before = await env.DB.prepare("SELECT created_at FROM votes WHERE kortid = ?")
+      .bind(IJKL.ett)
+      .first<{ created_at: string }>();
+
+    const res = await SELF.fetch(`http://t/api/admin/votes/${IJKL.ett}`, {
+      method: "PATCH",
+      headers: { ...ADMIN, "content-type": "application/json" },
+      body: JSON.stringify({
+        judge: "Selin",
+        scores: { ...scores(9), smak: 10 },
+        comment: "Rättat",
+        editedBy: "Danni",
+        reason: "Felläst siffra på papperskortet",
+      }),
+    });
+    expect(res.status).toBe(200);
+
+    const after = await env.DB.prepare(
+      "SELECT v.scores, v.comment, v.created_at, v.edited_at, v.edited_by, v.edited_reason, j.name AS judge FROM votes v JOIN judges j ON j.id = v.judge_id WHERE v.kortid = ?",
+    )
+      .bind(IJKL.ett)
+      .first<{
+        scores: string;
+        comment: string;
+        created_at: string;
+        edited_at: string;
+        edited_by: string;
+        edited_reason: string;
+        judge: string;
+      }>();
+    expect(JSON.parse(after!.scores)["smak"]).toBe(10);
+    expect(after!.judge).toBe("Selin");
+    expect(after!.comment).toBe("Rättat");
+    expect(after!.edited_by).toBe("Danni");
+    expect(after!.edited_reason).toBe("Felläst siffra på papperskortet");
+    expect(after!.edited_at).not.toBeNull();
+    expect(after!.created_at).toBe(before!.created_at);
+
+    const logged = await env.DB.prepare("SELECT detail FROM admin_log WHERE action = 'vote_edit' ORDER BY id DESC")
+      .first<{ detail: string }>();
+    const detail = JSON.parse(logged!.detail) as {
+      reason: string;
+      before: { judge: string; scores: Record<string, number> };
+      after: { judge: string };
+    };
+    expect(detail.reason).toBe("Felläst siffra på papperskortet");
+    expect(detail.before.judge).toBe("Rättaren");
+    expect(detail.before.scores["smak"]).toBe(5);
+    expect(detail.after.judge).toBe("Selin");
+
+    const sublog = await env.DB.prepare(
+      "SELECT COUNT(*) AS n FROM submission_log WHERE kortid = ? AND reason = 'admin_edit'",
+    )
+      .bind(IJKL.ett)
+      .first<{ n: number }>();
+    expect(sublog!.n).toBe(1);
+  });
+
+  it("avvisar rättelse av okänt kort och ogiltiga poäng", async () => {
+    const unknown = await SELF.fetch("http://t/api/admin/votes/finns-inte", {
+      method: "PATCH",
+      headers: { ...ADMIN, "content-type": "application/json" },
+      body: JSON.stringify({ comment: "hej", reason: "test" }),
+    });
+    expect(unknown.status).toBe(404);
+
+    const bad = await SELF.fetch(`http://t/api/admin/votes/${IJKL.tva}`, {
+      method: "PATCH",
+      headers: { ...ADMIN, "content-type": "application/json" },
+      body: JSON.stringify({ scores: { ...scores(5), smak: 12 }, reason: "test" }),
+    });
+    expect(bad.status).toBe(400);
+
+    // Motiveringen hör till kortet och måste fyllas i för varje rättelse.
+    const utanMotivering = await SELF.fetch(`http://t/api/admin/votes/${IJKL.tva}`, {
+      method: "PATCH",
+      headers: { ...ADMIN, "content-type": "application/json" },
+      body: JSON.stringify({ scores: scores(3), editedBy: "Danni" }),
+    });
+    expect(utanMotivering.status).toBe(400);
+    expect(((await utanMotivering.json()) as { message: string }).message).toContain("varför");
+    // …och rösten står orörd kvar.
+    const orord = await env.DB.prepare("SELECT scores, edited_at FROM votes WHERE kortid = ?")
+      .bind(IJKL.tva)
+      .first<{ scores: string; edited_at: string | null }>();
+    expect(JSON.parse(orord!.scores)["smak"]).toBe(7);
+    expect(orord!.edited_at).toBeNull();
+  });
+
+  it("ångrar en domarsammanslagning och följer namnet som skrevs på kortet", async () => {
+    const judgeOf = (kortid: string) =>
+      env.DB.prepare("SELECT judge_id FROM votes WHERE kortid = ?")
+        .bind(kortid)
+        .first<{ judge_id: number }>()
+        .then((r) => r!.judge_id);
+
+    await post("/api/vote", { kortid: IJKL.tre, judge: "Rättarn", scores: scores(6) });
+    const judges = (await (await get("/api/admin/judges", true)).json()) as { judges: { id: number; name: string }[] };
+    const from = judges.judges.find((j) => j.name === "Rättarn")!;
+    const to = judges.judges.find((j) => j.name === "Rättaren")!;
+
+    const merged = (await (await post("/api/admin/judges/merge", { fromId: from.id, toId: to.id }, true)).json()) as {
+      movedVotes: number;
+    };
+    expect(merged.movedVotes).toBe(1);
+    expect(await judgeOf(IJKL.tre)).toBe(to.id);
+
+    // Medan slagningen gäller hamnar båda namnen på målet …
+    await post("/api/vote", { kortid: IJKL.fyra, judge: "Rättaren", scores: scores(4) });
+    await post("/api/vote", { kortid: IJKL.sex, judge: "rättarn", scores: scores(2) });
+    expect(await judgeOf(IJKL.fyra)).toBe(to.id);
+    expect(await judgeOf(IJKL.sex)).toBe(to.id);
+
+    const list = (await (await get("/api/admin/judges", true)).json()) as {
+      merges: { id: number; from_name: string; to_name: string; movedVotes: number }[];
+    };
+    const merge = list.merges.find((m) => m.from_name === "Rättarn")!;
+    expect(merge.to_name).toBe("Rättaren");
+
+    const undo = (await (await post(`/api/admin/judges/merge/${merge.id}/undo`, {}, true)).json()) as {
+      ok: boolean;
+      restoredVotes: number;
+    };
+    // Både den flyttade rösten och den som skrevs "rättarn" efteråt går tillbaka.
+    expect(undo).toMatchObject({ ok: true, restoredVotes: 2 });
+    expect(await judgeOf(IJKL.tre)).toBe(from.id);
+    expect(await judgeOf(IJKL.sex)).toBe(from.id);
+    // Rösten som faktiskt skrevs med målnamnet står kvar.
+    expect(await judgeOf(IJKL.fyra)).toBe(to.id);
+    expect(
+      (await env.DB.prepare("SELECT alias_of FROM judges WHERE id = ?").bind(from.id).first<{ alias_of: number | null }>())!
+        .alias_of,
+    ).toBeNull();
+
+    // Samma sammanslagning kan inte ångras två gånger.
+    expect((await post(`/api/admin/judges/merge/${merge.id}/undo`, {}, true)).status).toBe(404);
+    const efter = (await (await get("/api/admin/judges", true)).json()) as { merges: { id: number }[] };
+    expect(efter.merges.some((m) => m.id === merge.id)).toBe(false);
+  });
+
+  it("fast poängavdrag dras från slutpoängen och kan återkallas", async () => {
+    const utan = (await (await get("/api/admin/results", true)).json()) as {
+      standings: Record<string, { team: string; final: number; deduction: number }[]>;
+    };
+    const fore = utan.standings["Rättningsgren"]!.find((e) => e.team === "Lag Gamma")!;
+
+    const created = (await (
+      await post("/api/admin/avdrag", { lagkod: "IJKL", points: 2, reason: "Sen inlämning", decidedBy: "Danni" }, true)
+    ).json()) as { avdrag: { id: number; pct: number; points: number } };
+    expect(created.avdrag).toMatchObject({ pct: 0, points: 2 });
+
+    const med = (await (await get("/api/admin/results", true)).json()) as {
+      standings: Record<string, { team: string; final: number; deduction: number }[]>;
+    };
+    const efter = med.standings["Rättningsgren"]!.find((e) => e.team === "Lag Gamma")!;
+    expect(efter.deduction).toBeCloseTo(2, 6);
+    expect(efter.final).toBeCloseTo(fore.final - 2, 6);
+
+    await post(`/api/admin/avdrag/${created.avdrag.id}/revoke`, {}, true);
+    const aterkallat = (await (await get("/api/admin/results", true)).json()) as {
+      standings: Record<string, { team: string; final: number; deduction: number }[]>;
+    };
+    expect(aterkallat.standings["Rättningsgren"]!.find((e) => e.team === "Lag Gamma")!.final).toBeCloseTo(fore.final, 6);
+  });
+
+  it("avdrag kräver antingen procent eller poäng, inte båda", async () => {
+    expect((await post("/api/admin/avdrag", { lagkod: "IJKL", reason: "Inget värde" }, true)).status).toBe(400);
+    expect(
+      (await post("/api/admin/avdrag", { lagkod: "IJKL", pct: 0.5, points: 2, reason: "Båda" }, true)).status,
+    ).toBe(400);
+    expect((await post("/api/admin/avdrag", { lagkod: "IJKL", points: -1, reason: "Negativt" }, true)).status).toBe(400);
+    expect((await post("/api/admin/avdrag", { lagkod: "IJKL", points: 1.5, reason: "Poäng" }, true)).status).toBe(201);
+  });
+
+  it("översikten visar de tio senast inkomna röstkorten, nyast först", async () => {
+    await post("/api/vote", { kortid: IJKL.fem, judge: "Sistin", scores: scores(3) });
+    const data = (await (await get("/api/admin/overview", true)).json()) as {
+      recentVotes: { kortid: string; judge: string; team: string | null; gren: string | null; created_at: string }[];
+    };
+    expect(data.recentVotes).toHaveLength(10);
+    expect(data.recentVotes[0]!.kortid).toBe(IJKL.fem);
+    expect(data.recentVotes[0]!.judge).toBe("Sistin");
+    expect(data.recentVotes[0]!.team).toBe("Lag Gamma");
+    for (let i = 1; i < data.recentVotes.length; i++) {
+      expect(data.recentVotes[i - 1]!.created_at >= data.recentVotes[i]!.created_at).toBe(true);
+    }
+  });
+});

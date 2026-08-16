@@ -99,6 +99,30 @@ describe("avdrag", () => {
     });
     expect(res.standings["Testgren"]![0]!.final).toBe(0);
   });
+
+  it("fast poängavdrag dras från slutpoängen", () => {
+    const avdrag: AvdragIn[] = [{ lagkod: "AAAA", pct: 0, points: 2.5 }];
+    const res = computeResults(votes, contribs, CRIT, GRENAR, avdrag, { method: "raw", dampingK: 0 });
+    const entry = res.standings["Testgren"]![0]!;
+    expect(entry.deduction).toBeCloseTo(2.5, 6);
+    expect(entry.final).toBeCloseTo(5.5, 6);
+  });
+
+  it("procent dras först, fasta poäng därefter", () => {
+    const avdrag: AvdragIn[] = [
+      { lagkod: "AAAA", pct: 0.5 },
+      { lagkod: "AAAA", pct: 0, points: 1 },
+    ];
+    const res = computeResults(votes, contribs, CRIT, GRENAR, avdrag, { method: "raw", dampingK: 0 });
+    // 8 × 0,5 = 4, minus 1 poäng = 3.
+    expect(res.standings["Testgren"]![0]!.final).toBeCloseTo(3, 6);
+  });
+
+  it("poängavdrag kan inte pressa bidraget under noll", () => {
+    const avdrag: AvdragIn[] = [{ lagkod: "AAAA", pct: 0, points: 99 }];
+    const res = computeResults(votes, contribs, CRIT, GRENAR, avdrag, { method: "raw", dampingK: 0 });
+    expect(res.standings["Testgren"]![0]!.final).toBe(0);
+  });
 });
 
 describe("skiljeregler", () => {

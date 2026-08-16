@@ -1,4 +1,4 @@
-import { getActiveCriteria, resolveJudgeId } from "./db";
+import { getActiveCriteria, resolveJudgeId, type CriterionRow } from "./db";
 
 export type VotePayload = Record<string, unknown>;
 
@@ -19,9 +19,30 @@ export function normalizeJudgeName(raw: string): string {
   return raw.replace(/\s+/g, " ").replace(/[\s,.]+$/g, "").trim();
 }
 
-function stableScoreJson(scores: Record<string, number>): string {
+export function stableScoreJson(scores: Record<string, number>): string {
   const sorted = Object.keys(scores).sort();
   return JSON.stringify(Object.fromEntries(sorted.map((k) => [k, scores[k]])));
+}
+
+export type ScoreCheck = { ok: true; scores: Record<string, number> } | { ok: false; message: string };
+
+/** Kräver ett heltal 0–10 för varje aktivt kriterium, och inga okända kriterier. */
+export function validateScores(criteria: CriterionRow[], raw: unknown): ScoreCheck {
+  if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
+    return { ok: false, message: "Poäng saknas." };
+  }
+  const scores = raw as Record<string, unknown>;
+  const clean: Record<string, number> = {};
+  for (const c of criteria) {
+    const v = scores[c.key];
+    if (typeof v !== "number" || !Number.isInteger(v) || v < 0 || v > 10) {
+      return { ok: false, message: `Ogiltig poäng för ${c.label ?? c.key} (heltal 0–10 krävs).` };
+    }
+    clean[c.key] = v;
+  }
+  const extra = Object.keys(scores).filter((k) => !criteria.some((c) => c.key === k));
+  if (extra.length > 0) return { ok: false, message: `Okända kriterier: ${extra.join(", ")}.` };
+  return { ok: true, scores: clean };
 }
 
 export async function submitVote(db: D1Database, payload: VotePayload, opts: SubmitOptions): Promise<SubmitResult> {
@@ -55,20 +76,9 @@ export async function submitVote(db: D1Database, payload: VotePayload, opts: Sub
   if (!judgeName || judgeName.length > 60) return reject("validation", "Ange ett giltigt domarnamn.");
 
   const criteria = await getActiveCriteria(db);
-  if (typeof rawScores !== "object" || rawScores === null || Array.isArray(rawScores)) {
-    return reject("validation", "Poäng saknas.");
-  }
-  const scores = rawScores as Record<string, unknown>;
-  const clean: Record<string, number> = {};
-  for (const c of criteria) {
-    const v = scores[c.key];
-    if (typeof v !== "number" || !Number.isInteger(v) || v < 0 || v > 10) {
-      return reject("validation", `Ogiltig poäng för ${c.label ?? c.key} (heltal 0–10 krävs).`);
-    }
-    clean[c.key] = v;
-  }
-  const extra = Object.keys(scores).filter((k) => !criteria.some((c) => c.key === k));
-  if (extra.length > 0) return reject("validation", `Okända kriterier: ${extra.join(", ")}.`);
+  const checked = validateScores(criteria, rawScores);
+  if (!checked.ok) return reject("validation", checked.message);
+  const clean = checked.scores;
 
   const card = await db.prepare("SELECT lagkod FROM cards WHERE kortid = ?").bind(kortid).first<{ lagkod: string }>();
   if (!card) return reject("unknown_card", "Röstkortet finns inte i registret.");

@@ -83,16 +83,52 @@
   .login input { width: 100%; margin: 14px 0 12px; padding: 12px; text-align: center; }
   .login button.act { width: 100%; padding: 12px; }
   .sev-neg { color: #FF8A5C; font-weight: 700; } .sev-pos { color: #6FD3C7; font-weight: 700; }
+  .combo { position: relative; display: inline-block; }
+  .combo input.combo-q { width: 100%; }
+  .combo-list {
+    position: absolute; z-index: 30; top: calc(100% + 4px); left: 0;
+    min-width: 100%; width: max-content; max-width: 460px;
+    max-height: 260px; overflow-y: auto; background: #1F1A15; border: 1px solid var(--line2);
+    border-radius: 10px; box-shadow: 0 14px 34px rgba(0,0,0,.55); padding: 4px;
+  }
+  .combo-list div[data-v] { padding: 7px 10px; border-radius: 7px; cursor: pointer; font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .combo-list div[data-v]:hover, .combo-list div[data-v].on { background: var(--panel2); color: var(--ink); }
+  .combo-list div[data-v].cur { color: var(--amber); font-weight: 600; }
+  .combo-list .none { padding: 8px 10px; color: var(--dim); font-size: .85rem; }
+  .legrow { display: flex; align-items: baseline; gap: 8px; }
+  .legrow .legname { color: var(--dim); font-size: .78rem; }
+  .edited { font-size: .66rem; color: var(--amber); border: 1px solid rgba(255,176,58,.4); border-radius: 99px; padding: 0 7px; margin-left: 5px; }
+  tr.editing > td { background: #211A14; }
+  #rkTable { overflow-x: auto; }
+  #rkTable .msg { margin-top: 12px; }
+  @keyframes sparad { from { background: rgba(255,176,58,.28); } to { background: transparent; } }
+  tr.saved > td { animation: sparad 1.8s ease-out; }
+  @media (prefers-reduced-motion: reduce) { tr.saved > td { animation: none; background: #211A14; } }
+  .scoreset { display: inline-flex; gap: 10px; flex-wrap: wrap; }
+  .scoreset b { font-weight: 600; color: var(--muted); font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; }
+  /* Reservplats för meddelanden vars vanliga ruta hamnat utanför skärmen. */
+  #toast {
+    position: fixed; left: 50%; transform: translateX(-50%);
+    bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 100;
+    max-width: min(620px, calc(100vw - 32px)); padding: 12px 16px; border-radius: 10px;
+    font-size: .92rem; box-shadow: 0 16px 40px rgba(0,0,0,.6); cursor: pointer; display: none;
+  }
+  #toast.err { background: #2E1B12; color: #F0B9A2; border: 1px solid #5C3A28; display: block; }
+  #toast.ok { background: #16281F; color: #A8D8C0; border: 1px solid #2E4A3A; display: block; }
 </style>
 </head>
 <body>
 <div class="wrap" id="app"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 <script>
 (function () {
 "use strict";
 var app = document.getElementById("app");
 var token = sessionStorage.getItem("adminToken") || "";
-var currentView = location.hash.replace("#", "") || "oversikt";
+var startHash = location.hash.replace("#", "");
+var currentView = (startHash.split("?")[0] || "oversikt");
+var currentQuery = startHash.indexOf("?") >= 0 ? startHash.slice(startHash.indexOf("?") + 1) : "";
+var renderedHash = null;
 var refreshTimer = null;
 var cache = { config: null };
 
@@ -120,12 +156,158 @@ function api(path, opts) {
   });
 }
 
+var toast = document.getElementById("toast");
+var toastTimer = null;
+toast.addEventListener("click", function () { toast.className = ""; });
+
+function showToast(kind, text) {
+  toast.className = kind;
+  toast.textContent = text;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { toast.className = ""; }, kind === "ok" ? 4000 : 9000);
+}
+
+/** Kvittens på något som ritar om vyn — notisen ligger utanför #app och överlever. */
+function flash(kind, text) {
+  showToast(kind, text);
+}
+
+function inView(el) {
+  var r = el.getBoundingClientRect();
+  if (r.width === 0 && r.height === 0) return false;
+  return r.bottom > 0 && r.top < (window.innerHeight || document.documentElement.clientHeight);
+}
+
+/**
+ * Skriver meddelandet i vyns egen ruta. Ligger den utanför skärmen — långa listor gör
+ * det lätt hänt — visas samma text som en notis längst ner, så svaret aldrig missas.
+ */
 function msg(id, kind, text) {
   var el = document.getElementById(id);
-  if (!el) return;
+  if (!el) { showToast(kind, text); return; }
   el.className = "msg " + kind;
   el.textContent = text;
+  if (!inView(el)) showToast(kind, text);
+  else toast.className = "";
   if (kind === "ok") setTimeout(function () { if (el.className.indexOf("ok") >= 0) { el.className = "msg"; } }, 4000);
+}
+
+// ---------- Sökbar dropdown ----------
+// Med ~30 lag blir vanliga select-listor för långsamma att bläddra i, särskilt
+// listorna med lag × gren. comboHtml() lägger ut fältet, comboInit() kopplar på
+// sökningen och det valda värdet hamnar i ett dolt fält med samma id.
+var COMBOS = {};
+
+function comboHtml(id, placeholder, width) {
+  return '<span class="combo" style="width:' + (width || 240) + 'px">' +
+    '<input type="hidden" id="' + id + '">' +
+    '<input type="text" class="combo-q" id="' + id + '-q" placeholder="' + esc(placeholder) + '" autocomplete="off" ' +
+    'role="combobox" aria-autocomplete="list" aria-expanded="false">' +
+    '<div class="combo-list" id="' + id + '-list" role="listbox" style="display:none"></div></span>';
+}
+
+function comboInit(id, options, onChange) {
+  var hidden = document.getElementById(id);
+  var q = document.getElementById(id + "-q");
+  var list = document.getElementById(id + "-list");
+  if (!hidden || !q || !list) return;
+  var st = { options: options, shown: [], active: -1, open: false };
+  COMBOS[id] = st;
+
+  function labelFor(value) {
+    for (var i = 0; i < options.length; i++) {
+      if (String(options[i].value) === String(value)) return options[i].label;
+    }
+    return "";
+  }
+  function filter(text) {
+    var terms = String(text || "").toLowerCase().split(/\s+/).filter(Boolean);
+    if (!terms.length) return options.slice();
+    return options.filter(function (o) {
+      var hay = o.label.toLowerCase();
+      return terms.every(function (t) { return hay.indexOf(t) >= 0; });
+    });
+  }
+  function draw() {
+    if (!st.shown.length) {
+      list.innerHTML = '<div class="none">Inga träffar.</div>';
+      return;
+    }
+    list.innerHTML = st.shown.map(function (o, i) {
+      return '<div data-v="' + esc(o.value) + '" role="option"' +
+        (String(o.value) === String(hidden.value) ? ' aria-selected="true"' : "") +
+        ' class="' + (i === st.active ? "on " : "") + (String(o.value) === String(hidden.value) ? "cur" : "") + '">' +
+        esc(o.label) + "</div>";
+    }).join("");
+    var on = list.querySelector(".on");
+    if (on) on.scrollIntoView({ block: "nearest" });
+  }
+  function open(text) {
+    st.shown = filter(text);
+    st.active = st.shown.length ? 0 : -1;
+    st.open = true;
+    list.style.display = "block";
+    q.setAttribute("aria-expanded", "true");
+    draw();
+  }
+  function close() {
+    st.open = false;
+    list.style.display = "none";
+    q.setAttribute("aria-expanded", "false");
+  }
+  function pick(value) {
+    hidden.value = value == null ? "" : String(value);
+    q.value = labelFor(hidden.value);
+    close();
+    if (onChange) onChange(hidden.value);
+  }
+
+  q.addEventListener("focus", function () { open(""); q.select(); });
+  q.addEventListener("input", function () {
+    if (!q.value.trim()) { hidden.value = ""; if (onChange) onChange(""); }
+    open(q.value);
+  });
+  q.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      if (!st.open) { open(q.value); return; }
+      if (!st.shown.length) return;
+      st.active = (st.active + (e.key === "ArrowDown" ? 1 : -1) + st.shown.length) % st.shown.length;
+      draw();
+    } else if (e.key === "Enter") {
+      if (st.open && st.active >= 0) { e.preventDefault(); pick(st.shown[st.active].value); }
+    } else if (e.key === "Escape") {
+      if (st.open) { e.stopPropagation(); close(); q.value = labelFor(hidden.value); }
+    }
+  });
+  q.addEventListener("blur", function () {
+    setTimeout(function () { close(); q.value = labelFor(hidden.value); }, 120);
+  });
+  // mousedown före blur, annars hinner listan stängas innan klicket landar.
+  list.addEventListener("mousedown", function (e) {
+    var opt = e.target.closest("div[data-v]");
+    if (!opt) return;
+    e.preventDefault();
+    pick(opt.getAttribute("data-v"));
+  });
+}
+
+function comboSet(id, value) {
+  var hidden = document.getElementById(id);
+  var q = document.getElementById(id + "-q");
+  var st = COMBOS[id];
+  if (!hidden || !q || !st) return;
+  var label = "";
+  for (var i = 0; i < st.options.length; i++) {
+    if (String(st.options[i].value) === String(value)) label = st.options[i].label;
+  }
+  hidden.value = label ? String(value) : "";
+  q.value = label;
+}
+
+function comboValue(id) {
+  var hidden = document.getElementById(id);
+  return hidden ? hidden.value : "";
 }
 
 // ---------- Login ----------
@@ -142,7 +324,7 @@ function showLogin() {
     token = document.getElementById("tok").value.trim();
     api("/admin/ping").then(function () {
       sessionStorage.setItem("adminToken", token);
-      shell(); go(currentView);
+      shell(); go(currentView, currentQuery, true);
     }).catch(function () { msg("loginMsg", "err", "Fel nyckel."); });
   }
   document.getElementById("loginBtn").addEventListener("click", attempt);
@@ -151,7 +333,7 @@ function showLogin() {
 
 // ---------- Skal och navigation ----------
 var VIEWS = [
-  ["oversikt", "Översikt"], ["tilldela", "Tilldela"], ["papper", "Papper"], ["lag", "Lag"],
+  ["oversikt", "Översikt"], ["tilldela", "Tilldela"], ["papper", "Papper"], ["rostkort", "Röstkort"], ["lag", "Lag"],
   ["domare", "Domare"], ["avdrag", "Avdrag"], ["resultat", "Resultat"], ["installningar", "Inställningar"], ["data", "Data"],
 ];
 
@@ -171,17 +353,58 @@ function shell() {
   });
 }
 
-function go(view) {
+function hashFor(view, query) {
+  return view + (query ? "?" + query : "");
+}
+
+function parseHash() {
+  var h = location.hash.replace(/^#/, "");
+  var i = h.indexOf("?");
+  return { view: (i < 0 ? h : h.slice(0, i)) || "oversikt", query: i < 0 ? "" : h.slice(i + 1) };
+}
+
+/** Byter vy och lägger den i historiken. replace = byt ut nuvarande post i stället. */
+function go(view, query, replace) {
+  var hash = "#" + hashFor(view, query);
+  if (replace && history.replaceState) history.replaceState(null, "", hash);
+  else if (location.hash !== hash) location.hash = hash;
+  show(view, query);
+}
+
+/** Ritar upp vyn. renderedHash håller reda på vad som faktiskt visas just nu. */
+function show(view, query) {
   currentView = view;
-  location.hash = view;
+  currentQuery = query || "";
+  renderedHash = hashFor(view, currentQuery);
   clearInterval(refreshTimer);
   app.querySelectorAll("nav button").forEach(function (b) {
     b.classList.toggle("active", b.getAttribute("data-v") === view);
   });
   var main = document.getElementById("main");
   main.innerHTML = '<div class="card muted">Laddar …</div>';
-  RENDER[view](main);
+  RENDER[view](main, new URLSearchParams(currentQuery));
 }
+
+/**
+ * Uppdaterar adressraden utan att lägga till en historikpost — för filter som ändras
+ * ofta. Bak-knappen ska ta dig till föregående vy, inte backa filter för filter.
+ */
+function syncHash(view, query) {
+  var hash = "#" + hashFor(view, query);
+  if (location.hash === hash) return;
+  renderedHash = hashFor(view, query);
+  currentQuery = query || "";
+  if (history.replaceState) history.replaceState(null, "", hash);
+}
+
+// Bak/framåt i webbläsaren: rita om när adressen pekar på något annat än det som visas.
+window.addEventListener("hashchange", function () {
+  var h = parseHash();
+  if (hashFor(h.view, h.query) === renderedHash) return; // vi satte den själva
+  if (!token || !document.getElementById("main")) return; // inloggningsvyn — låt den vara
+  if (!RENDER[h.view]) return;
+  show(h.view, h.query);
+});
 
 // ---------- Översikt (dashboard) ----------
 function renderOversikt(main) {
@@ -194,16 +417,47 @@ function renderOversikt(main) {
         '<div class="stat"><b>' + d.conflictCount + "</b><span>konflikter</span></div>" +
         '<div class="stat"><b>' + d.totals.rejected + "</b><span>avvisade försök</span></div></div>";
 
+      var recent = d.recentVotes || [];
+      html += '<div class="card"><h2>Senast inkomna röstkort</h2>';
+      if (!recent.length) {
+        html += '<p class="muted">Inga röster ännu.</p>';
+      } else {
+        html += "<table><tr><th>Tid</th><th>Lag</th><th>Gren</th><th>Domare</th><th>Gruppkod</th><th>Källa</th></tr>" +
+          recent.map(function (v) {
+            return "<tr><td class=muted>" + esc((v.created_at || "").slice(11, 19)) + "</td>" +
+              '<td style="font-weight:600">' + (v.team ? esc(v.team) : '<span class="warn">ej kopplad</span>') + "</td>" +
+              "<td class=muted>" + esc(v.gren || "") + "</td><td>" + esc(v.judge) + (v.edited_at ? '<span class="edited">ändrad</span>' : "") +
+              "</td><td class=muted>" + esc(v.lagkod) + "</td><td class=muted>" + (v.source === "paper" ? "papper" : "digital") + "</td></tr>";
+          }).join("") + "</table>" +
+          '<div class="row" style="margin-top:10px"><button class="sec" id="allaKort">Se alla röstkort →</button></div>';
+      }
+      html += "</div>";
+
       html += '<div class="dash" style="margin-top:12px"><div>';
-      html += '<div class="card" style="margin-top:0"><h2>Bidrag</h2><table><tr><th>Gren</th><th>Lag</th><th>Gruppkod</th><th class=num>Röster</th><th class=num>Kort</th></tr>';
+      var byGren = {};
+      var grenOrder = [];
       d.assignments.forEach(function (a) {
-        var full = a.votes >= a.cards;
-        var pct = a.cards > 0 ? Math.round((a.votes / a.cards) * 100) : 0;
-        html += "<tr><td class=muted>" + esc(a.gren) + '</td><td style="font-weight:600">' + esc(a.team) + "</td><td class=muted>" + esc(a.lagkod) +
-          '</td><td class=num><span class="bar"><i style="width:' + Math.min(pct, 100) + '%"></i></span>' +
-          a.votes + (full ? ' <span class="badge">alla kort inne</span>' : "") + "</td><td class=num>" + a.cards + "</td></tr>";
+        if (!byGren[a.gren]) { byGren[a.gren] = []; grenOrder.push(a.gren); }
+        byGren[a.gren].push(a);
       });
-      html += "</table></div></div>";
+      if (!grenOrder.length) {
+        html += '<div class="card" style="margin-top:0"><h2>Grenar</h2><p class="muted">Inga gruppkoder kopplade ännu.</p></div>';
+      }
+      grenOrder.forEach(function (gren, gi) {
+        var rows = byGren[gren];
+        var max = rows.reduce(function (m, a) { return Math.max(m, a.votes); }, 0);
+        var sum = rows.reduce(function (s, a) { return s + a.votes; }, 0);
+        html += '<div class="card"' + (gi === 0 ? ' style="margin-top:0"' : "") + "><h2>" + esc(gren) +
+          ' <span class="badge">' + rows.length + " bidrag · " + sum + " röster</span></h2>" +
+          "<table><tr><th>Lag</th><th>Gruppkod</th><th class=num>Röster</th></tr>" +
+          rows.map(function (a) {
+            var pct = max > 0 ? Math.round((a.votes / max) * 100) : 0;
+            return '<tr><td style="font-weight:600">' + esc(a.team) + "</td><td class=muted>" + esc(a.lagkod) +
+              '</td><td class=num><span class="bar"><i style="width:' + pct + '%"></i></span>' + a.votes + "</td></tr>";
+          }).join("") + "</table></div>";
+      });
+      html += '<p class="muted" style="margin-top:8px">Stapeln jämför med bidraget som fått flest röster i grenen. Fler kort trycks än det finns domare — röstningen är klar långt innan alla kort är använda.</p>';
+      html += "</div>";
 
       html += "<div>";
       if (d.unassignedWithVotes.length) {
@@ -224,6 +478,8 @@ function renderOversikt(main) {
       main.querySelectorAll(".chip").forEach(function (c) {
         c.addEventListener("click", function () { go("tilldela"); });
       });
+      var allaKort = document.getElementById("allaKort");
+      if (allaKort) allaKort.addEventListener("click", function () { go("rostkort"); });
       if (d.conflictCount > 0) {
         api("/admin/conflicts").then(function (cr) {
           var rows = cr.data.conflicts.filter(function (k) { return k.reason === "duplicate_conflict"; });
@@ -249,12 +505,17 @@ function renderTilldela(main) {
     var teams = rs[0].data.teams.filter(function (t) { return t.active; });
     var grenar = rs[1].data.grenar.filter(function (g) { return g.active; });
     var ov = rs[2].data;
+    // Vi tilldelar en gren i taget under dagen, så senast valda gren ligger kvar.
+    var lastGren = localStorage.getItem("senasteGren") || "";
+    if (!grenar.some(function (g) { return String(g.id) === lastGren; })) lastGren = "";
     var html = '<div class="card"><h2>Koppla gruppkod till lag och gren</h2>' +
       '<p class="muted">Ta bunten som serverats, läs gruppkoden på korten och koppla den till laget.</p>' +
       '<div class="row" style="margin-top:8px">' +
       '<input id="asLagkod" placeholder="Gruppkod (t.ex. SODG)" size="12" style="text-transform:uppercase">' +
-      '<select id="asTeam"><option value="">– välj lag –</option>' + teams.map(function (t) { return '<option value="' + t.id + '">' + esc(t.name) + "</option>"; }).join("") + "</select>" +
-      '<select id="asGren">' + grenar.map(function (g) { return '<option value="' + g.id + '">' + esc(g.name) + "</option>"; }).join("") + "</select>" +
+      comboHtml("asTeam", "Sök lag …", 230) +
+      '<select id="asGren">' + grenar.map(function (g) {
+        return '<option value="' + g.id + '"' + (String(g.id) === lastGren ? " selected" : "") + ">" + esc(g.name) + "</option>";
+      }).join("") + "</select>" +
       '<button class="act" id="asBtn">Koppla</button></div>' +
       '<div class="row" style="margin-top:8px"><input id="newTeamName" placeholder="Nytt lag …" size="18"><button class="sec" id="newTeamBtn">+ Skapa lag</button></div>' +
       '<div class="msg" id="asMsg"></div>';
@@ -269,6 +530,10 @@ function renderTilldela(main) {
           "</td><td class=num>" + a.votes + '</td><td><button class="sec danger" data-del="' + esc(a.lagkod) + '">Ta bort</button></td></tr>';
       }).join("") + "</table></div>";
     main.innerHTML = html;
+    comboInit("asTeam", teams.map(function (t) { return { value: t.id, label: t.name }; }));
+    document.getElementById("asGren").addEventListener("change", function (e) {
+      localStorage.setItem("senasteGren", e.target.value);
+    });
 
     main.querySelectorAll(".chip").forEach(function (c) {
       c.addEventListener("click", function () { document.getElementById("asLagkod").value = c.getAttribute("data-k"); });
@@ -277,17 +542,18 @@ function renderTilldela(main) {
       var name = document.getElementById("newTeamName").value.trim();
       if (!name) return;
       api("/admin/teams", { method: "POST", body: { name: name } }).then(function (r) {
-        if (r.status === 201) { msg("asMsg", "ok", "Laget " + name + " skapat."); renderTilldela(main); }
+        if (r.status === 201) { flash("ok", "Laget " + name + " skapat."); renderTilldela(main); }
         else msg("asMsg", "err", r.data.message || "Kunde inte skapa laget.");
       });
     });
     document.getElementById("asBtn").addEventListener("click", function () {
       var lagkod = document.getElementById("asLagkod").value.trim().toUpperCase();
-      var teamId = Number(document.getElementById("asTeam").value);
+      var teamId = Number(comboValue("asTeam"));
       var grenId = Number(document.getElementById("asGren").value);
       if (!lagkod || !teamId || !grenId) { msg("asMsg", "err", "Fyll i gruppkod, lag och gren."); return; }
+      localStorage.setItem("senasteGren", String(grenId));
       api("/admin/assign", { method: "POST", body: { lagkod: lagkod, teamId: teamId, grenId: grenId } }).then(function (r) {
-        if (r.data.ok) { msg("asMsg", "ok", lagkod + " kopplad."); renderTilldela(main); }
+        if (r.data.ok) { flash("ok", lagkod + " kopplad."); renderTilldela(main); }
         else msg("asMsg", "err", r.data.message || "Fel vid koppling.");
       });
     });
@@ -295,7 +561,11 @@ function renderTilldela(main) {
       b.addEventListener("click", function () {
         var lagkod = b.getAttribute("data-del");
         if (!confirm("Ta bort kopplingen för " + lagkod + "? Rösterna finns kvar och kan kopplas om.")) return;
-        api("/admin/assign/" + encodeURIComponent(lagkod), { method: "DELETE" }).then(function () { renderTilldela(main); });
+        api("/admin/assign/" + encodeURIComponent(lagkod), { method: "DELETE" }).then(function (r) {
+          if (!r.data.ok) { msg("asMsg", "err", r.data.message || "Kunde inte ta bort kopplingen."); return; }
+          flash("ok", "Kopplingen för " + lagkod + " borttagen.");
+          renderTilldela(main);
+        });
       });
     });
   });
@@ -384,6 +654,179 @@ function renderPapper(main) {
   });
 }
 
+// ---------- Röstkort ----------
+function renderRostkort(main, params) {
+  Promise.all([
+    api("/admin/judges"),
+    api("/admin/teams"),
+    api("/admin/grenar"),
+    fetch("/api/config").then(function (r) { return r.json(); }),
+  ]).then(function (rs) {
+    var judges = rs[0].data.judges.filter(function (j) { return j.alias_of === null; });
+    var teams = rs[1].data.teams;
+    var grenar = rs[2].data.grenar;
+    var criteria = rs[3].criteria;
+    cache.config = rs[3];
+    var editing = null;
+    var editScores = {};
+    var justSaved = null;
+
+    var head = '<div class="card"><h2>Röstkort</h2>' +
+      '<p class="muted">Alla registrerade röster. Filtrera fram rätt kort och rätta vid behov — varje ändring loggas.</p>' +
+      '<div class="row" style="margin-top:8px">' +
+      comboHtml("fJudge", "Alla domare", 200) +
+      comboHtml("fTeam", "Alla lag", 200) +
+      '<select id="fGren"><option value="">Alla grenar</option>' +
+      grenar.map(function (g) { return '<option value="' + g.id + '">' + esc(g.name) + "</option>"; }).join("") + "</select>" +
+      '<input id="fLagkod" placeholder="Gruppkod" size="10" style="text-transform:uppercase">' +
+      '<button class="sec" id="fClear">Rensa</button>' +
+      '<span class="muted" id="fCount"></span></div>' +
+      '<div class="msg" id="rkMsg"></div></div>' +
+      '<div class="card" id="rkTable"><span class="muted">Laddar …</span></div>';
+    main.innerHTML = head;
+
+    comboInit("fJudge", judges.map(function (j) { return { value: j.id, label: j.name + " (" + j.votes + ")" }; }), load);
+    comboInit("fTeam", teams.map(function (t) { return { value: t.id, label: t.name }; }), load);
+    comboSet("fJudge", params.get("judge") || "");
+    comboSet("fTeam", params.get("team") || "");
+    if (params.get("gren")) document.getElementById("fGren").value = params.get("gren");
+    if (params.get("lagkod")) document.getElementById("fLagkod").value = params.get("lagkod");
+    document.getElementById("fGren").addEventListener("change", load);
+    document.getElementById("fLagkod").addEventListener("change", load);
+    document.getElementById("fClear").addEventListener("click", function () {
+      comboSet("fJudge", ""); comboSet("fTeam", "");
+      document.getElementById("fGren").value = "";
+      document.getElementById("fLagkod").value = "";
+      load();
+    });
+
+    function shortLabel(c) { return c.label.split("/")[0]; }
+
+    function editedTitle(v) {
+      return "Rättat " + (v.edited_at || "").slice(0, 16) + (v.edited_by ? " av " + v.edited_by : "") +
+        (v.edited_reason ? " — " + v.edited_reason : "");
+    }
+
+    function load() {
+      // Adressraden använder korta namn (team=), API:et sina egna (teamId=).
+      var filters = [
+        ["judge", "judgeId", comboValue("fJudge")],
+        ["team", "teamId", comboValue("fTeam")],
+        ["gren", "grenId", document.getElementById("fGren").value],
+        ["lagkod", "lagkod", document.getElementById("fLagkod").value.trim().toUpperCase()],
+      ].filter(function (f) { return f[2]; });
+      syncHash("rostkort", filters.map(function (f) { return f[0] + "=" + encodeURIComponent(f[2]); }).join("&"));
+      var qs = filters.map(function (f) { return f[1] + "=" + encodeURIComponent(f[2]); }).join("&");
+      api("/admin/votes" + (qs ? "?" + qs : "")).then(function (r) {
+        draw(r.data.votes, r.data.limit);
+      });
+    }
+
+    function draw(votes, limit) {
+      document.getElementById("fCount").textContent =
+        votes.length + " röstkort" + (limit && votes.length >= limit ? " (visar de " + limit + " senaste)" : "");
+      var box = document.getElementById("rkTable");
+      if (!votes.length) {
+        box.innerHTML = '<p class="muted">Inga röstkort matchar filtret.</p>';
+        return;
+      }
+      var cols = 7 + criteria.length;
+      box.innerHTML = "<table><tr><th>Tid</th><th>Lag</th><th>Gren</th><th>Gruppkod</th><th>Domare</th>" +
+        criteria.map(function (c) { return '<th class=num>' + esc(shortLabel(c)) + "</th>"; }).join("") +
+        "<th>Kommentar</th><th>Källa</th><th></th></tr>" +
+        votes.map(function (v) {
+          var cls = editing === v.kortid ? "editing" : (justSaved === v.kortid ? "saved" : "");
+          var row = "<tr" + (cls ? ' class="' + cls + '"' : "") + "><td class=muted>" + esc((v.created_at || "").slice(5, 16)) + "</td>" +
+            '<td style="font-weight:600">' + (v.team ? esc(v.team) : '<span class="warn">ej kopplad</span>') + "</td>" +
+            "<td class=muted>" + esc(v.gren || "") + "</td><td class=muted>" + esc(v.lagkod) + "</td>" +
+            "<td>" + esc(v.judge) + (v.edited_at ? '<span class="edited" title="' + esc(editedTitle(v)) + '">ändrad</span>' : "") + "</td>" +
+            criteria.map(function (c) { return "<td class=num>" + (v.scores[c.key] === undefined ? "–" : v.scores[c.key]) + "</td>"; }).join("") +
+            "<td>" + esc(v.comment || "") + "</td><td class=muted>" + (v.source === "paper" ? "papper" : "digital") + "</td>" +
+            '<td><button class="sec" data-edit="' + esc(v.kortid) + '">Ändra</button></td></tr>';
+          if (editing !== v.kortid) return row;
+          return row + '<tr class="editing"><td colspan="' + cols + '">' +
+            '<div class="row"><input id="edJudge" list="edJudges" size="22" value="' + esc(v.judge) + '" placeholder="Domare">' +
+            '<datalist id="edJudges">' + judges.map(function (j) { return '<option value="' + esc(j.name) + '">'; }).join("") + "</datalist>" +
+            '<span class="muted">Kort ' + esc(v.kortid.slice(0, 8)) + " · registrerat " + esc((v.created_at || "").slice(0, 16)) +
+            (v.edited_at ? " · senast rättat " + esc(v.edited_at.slice(0, 16)) + (v.edited_by ? " av " + esc(v.edited_by) : "") : "") +
+            "</span></div>" +
+            criteria.map(function (c) {
+              return '<div style="margin-top:10px"><b>' + esc(c.label) + '</b> <span class="muted" id="edVal-' + esc(c.key) + '">' +
+                (editScores[c.key] === undefined ? "" : editScores[c.key]) + "</span>" +
+                '<div class="btns" data-key="' + esc(c.key) + '">' +
+                Array.from({ length: 11 }, function (_, i) {
+                  return '<button type="button" data-v="' + i + '"' + (editScores[c.key] === i ? ' class="sel"' : "") + ">" + i + "</button>";
+                }).join("") + "</div></div>";
+            }).join("") +
+            '<div style="margin-top:10px"><input id="edComment" style="width:100%" placeholder="Domarens kommentar till laget" value="' + esc(v.comment || "") + '"></div>' +
+            '<div style="margin-top:10px"><input id="edReason" style="width:100%" placeholder="Varför rättas det här kortet? (t.ex. felläst siffra på papperskortet)"' +
+            (v.edited_reason ? ' title="Förra motiveringen: ' + esc(v.edited_reason) + '"' : "") + "></div>" +
+            '<div class="row" style="margin-top:12px"><button class="act" id="edSave">Spara ändring</button>' +
+            '<button class="sec" id="edCancel">Avbryt</button>' +
+            '<input id="edBy" size="16" placeholder="Ditt namn" value="' + esc(localStorage.getItem("adminNamn") || "") + '">' +
+            '<span class="muted">Motiveringen gäller det här kortet. Ditt namn sparas till nästa gång.</span></div>' +
+            '<div class="msg" id="edMsg"></div></td></tr>';
+        }).join("") + "</table>";
+
+      var sparad = box.querySelector("tr.saved");
+      if (sparad) {
+        justSaved = null;
+        sparad.scrollIntoView({ block: "nearest" });
+      }
+
+      box.querySelectorAll("[data-edit]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var kortid = b.getAttribute("data-edit");
+          var v = votes.find(function (x) { return x.kortid === kortid; });
+          editing = editing === kortid ? null : kortid;
+          editScores = editing ? Object.assign({}, v.scores) : {};
+          draw(votes, limit);
+        });
+      });
+      if (!editing) return;
+
+      box.querySelectorAll(".btns").forEach(function (row) {
+        row.addEventListener("click", function (ev) {
+          var b = ev.target.closest("button[data-v]");
+          if (!b) return;
+          var key = row.getAttribute("data-key");
+          editScores[key] = Number(b.getAttribute("data-v"));
+          row.querySelectorAll("button").forEach(function (x) { x.classList.toggle("sel", x === b); });
+          document.getElementById("edVal-" + key).textContent = b.getAttribute("data-v");
+        });
+      });
+      document.getElementById("edCancel").addEventListener("click", function () { editing = null; draw(votes, limit); });
+      document.getElementById("edSave").addEventListener("click", function () {
+        var v = votes.find(function (x) { return x.kortid === editing; });
+        var judge = document.getElementById("edJudge").value.trim();
+        var by = document.getElementById("edBy").value.trim();
+        var reason = document.getElementById("edReason").value.trim();
+        var comment = document.getElementById("edComment").value;
+        var missing = criteria.filter(function (c) { return typeof editScores[c.key] !== "number"; });
+        // Meddelanden hör hemma i redigeringsrutan — listan kan vara hundratals rader lång.
+        if (!judge) { msg("edMsg", "err", "Domarnamn krävs."); return; }
+        if (missing.length) { msg("edMsg", "err", "Poäng saknas för: " + missing.map(function (c) { return c.label; }).join(", ")); return; }
+        var andrat = judge !== v.judge || comment.trim() !== (v.comment || "") ||
+          criteria.some(function (c) { return editScores[c.key] !== v.scores[c.key]; });
+        if (!andrat) { msg("edMsg", "err", "Inget är ändrat på kortet ännu."); return; }
+        if (!reason) { msg("edMsg", "err", "Skriv varför kortet rättas — motiveringen loggas med ändringen."); return; }
+        if (by) localStorage.setItem("adminNamn", by);
+        api("/admin/votes/" + encodeURIComponent(editing), { method: "PATCH", body: {
+          judge: judge, scores: editScores, comment: comment, editedBy: by, reason: reason,
+        } }).then(function (r) {
+          if (!r.data.ok) { msg("edMsg", "err", r.data.message || "Kunde inte spara."); return; }
+          msg("rkMsg", "ok", r.data.unchanged ? "Inget ändrat." : "Röstkortet uppdaterat och ändringen loggad.");
+          justSaved = editing;
+          editing = null;
+          load();
+        });
+      });
+    }
+
+    load();
+  });
+}
+
 // ---------- Lag ----------
 function renderLag(main) {
   api("/admin/teams").then(function (r) {
@@ -393,31 +836,44 @@ function renderLag(main) {
       "<table style='margin-top:10px'><tr><th>Lag</th><th class=num>Kopplingar</th><th>Status</th><th></th></tr>" +
       r.data.teams.map(function (t) {
         return "<tr><td>" + esc(t.name) + "</td><td class=num>" + t.assignments + "</td><td>" + (t.active ? "aktivt" : '<span class="muted">inaktivt</span>') + "</td>" +
-          '<td class="row"><button class="sec" data-ren="' + t.id + '" data-name="' + esc(t.name) + '">Byt namn</button>' +
+          '<td class="row"><button class="sec" data-kort="' + t.id + '">Röstkort</button>' +
+          '<button class="sec" data-ren="' + t.id + '" data-name="' + esc(t.name) + '">Byt namn</button>' +
           '<button class="sec" data-tog="' + t.id + '" data-act="' + t.active + '">' + (t.active ? "Inaktivera" : "Aktivera") + "</button></td></tr>";
       }).join("") + "</table></div>";
     main.innerHTML = html;
+    main.querySelectorAll("[data-kort]").forEach(function (b) {
+      b.addEventListener("click", function () { go("rostkort", "team=" + b.getAttribute("data-kort")); });
+    });
     document.getElementById("lagAdd").addEventListener("click", function () {
       var name = document.getElementById("lagName").value.trim();
       if (!name) return;
       api("/admin/teams", { method: "POST", body: { name: name } }).then(function (r2) {
-        if (r2.status === 201) renderLag(main);
-        else msg("lagMsg", "err", r2.data.message);
+        if (r2.status !== 201) { msg("lagMsg", "err", r2.data.message || "Kunde inte skapa laget."); return; }
+        flash("ok", "Laget " + name + " tillagt.");
+        renderLag(main);
       });
     });
     main.querySelectorAll("[data-ren]").forEach(function (b) {
       b.addEventListener("click", function () {
-        var name = prompt("Nytt namn:", b.getAttribute("data-name"));
-        if (!name) return;
+        var old = b.getAttribute("data-name");
+        var name = prompt("Nytt namn:", old);
+        if (!name || name === old) return;
         api("/admin/teams/" + b.getAttribute("data-ren"), { method: "PATCH", body: { name: name } }).then(function (r2) {
-          if (r2.data.ok) renderLag(main); else msg("lagMsg", "err", r2.data.message);
+          if (!r2.data.ok) { msg("lagMsg", "err", r2.data.message || "Kunde inte byta namn."); return; }
+          flash("ok", old + " heter nu " + name + ".");
+          renderLag(main);
         });
       });
     });
     main.querySelectorAll("[data-tog]").forEach(function (b) {
       b.addEventListener("click", function () {
-        api("/admin/teams/" + b.getAttribute("data-tog"), { method: "PATCH", body: { active: b.getAttribute("data-act") !== "1" } })
-          .then(function () { renderLag(main); });
+        var pa = b.getAttribute("data-act") !== "1";
+        api("/admin/teams/" + b.getAttribute("data-tog"), { method: "PATCH", body: { active: pa } })
+          .then(function (r2) {
+            if (!r2.data.ok) { msg("lagMsg", "err", r2.data.message || "Kunde inte ändra status."); return; }
+            flash("ok", "Laget är nu " + (pa ? "aktivt" : "inaktivt") + ".");
+            renderLag(main);
+          });
       });
     });
   });
@@ -427,29 +883,59 @@ function renderLag(main) {
 function renderDomare(main) {
   api("/admin/judges").then(function (r) {
     var judges = r.data.judges;
+    var merges = r.data.merges || [];
     var canon = judges.filter(function (j) { return j.alias_of === null; });
+    var opts = canon.map(function (j) { return { value: j.id, label: j.name + " (" + j.votes + " röster)" }; });
     var html = '<div class="card"><h2>Domare</h2>' +
-      '<p class="muted">Slå ihop dubbletter (t.ex. stavningsvarianter) — rösterna flyttas till målet och varianten blir alias.</p>' +
-      '<div class="row" style="margin:8px 0"><select id="mFrom"><option value="">– variant/dubblett –</option>' +
-      canon.map(function (j) { return '<option value="' + j.id + '">' + esc(j.name) + " (" + j.votes + ")</option>"; }).join("") + "</select>" +
-      '<span>→</span><select id="mTo"><option value="">– rätt namn –</option>' +
-      canon.map(function (j) { return '<option value="' + j.id + '">' + esc(j.name) + " (" + j.votes + ")</option>"; }).join("") + "</select>" +
+      '<p class="muted">Slå ihop dubbletter (t.ex. stavningsvarianter) — rösterna flyttas till målet och varianten blir alias. Nya röster som skrivs med variantnamnet hamnar också på målet. Sammanslagningen kan ångras.</p>' +
+      '<div class="row" style="margin:8px 0">' + comboHtml("mFrom", "Sök variant/dubblett …", 230) +
+      "<span>→</span>" + comboHtml("mTo", "Sök rätt namn …", 230) +
       '<button class="act" id="mBtn">Slå ihop</button></div><div class="msg" id="mMsg"></div>' +
-      "<table style='margin-top:8px'><tr><th>Namn</th><th class=num>Röster</th><th>Alias</th></tr>" +
+      "<table style='margin-top:8px'><tr><th>Namn</th><th class=num>Röster</th><th>Alias</th><th></th></tr>" +
       judges.map(function (j) {
         var aliasName = j.alias_of !== null ? (judges.find(function (x) { return x.id === j.alias_of; }) || {}).name : null;
-        return "<tr><td>" + esc(j.name) + "</td><td class=num>" + j.votes + "</td><td>" + (aliasName ? "→ " + esc(aliasName) : "") + "</td></tr>";
+        return "<tr><td>" + esc(j.name) + "</td><td class=num>" + j.votes + "</td><td>" + (aliasName ? "→ " + esc(aliasName) : "") + "</td>" +
+          '<td>' + (j.votes > 0 ? '<button class="sec" data-kort="' + j.id + '">Röstkort</button>' : "") + "</td></tr>";
       }).join("") + "</table></div>";
+
+    if (merges.length) {
+      html += '<div class="card"><h2>Sammanslagningar som kan ångras</h2>' +
+        '<p class="muted">Ångra flyttar tillbaka rösterna som skrevs med variantnamnet, även de som kommit in efter slagningen. Röster som faktiskt skrevs med det rätta namnet står kvar.</p>' +
+        "<table style='margin-top:8px'><tr><th>Tid</th><th>Från</th><th>Till</th><th class=num>Flyttade röster</th><th></th></tr>" +
+        merges.map(function (m) {
+          return "<tr><td class=muted>" + esc((m.created_at || "").slice(5, 16)) + "</td><td>" + esc(m.from_name) + "</td><td>" + esc(m.to_name) +
+            "</td><td class=num>" + m.movedVotes + '</td><td><button class="sec danger" data-undo="' + m.id + '" data-from="' + esc(m.from_name) +
+            '" data-to="' + esc(m.to_name) + '">Ångra</button></td></tr>';
+        }).join("") + "</table></div>";
+    }
     main.innerHTML = html;
+    comboInit("mFrom", opts);
+    comboInit("mTo", opts);
+
+    main.querySelectorAll("[data-kort]").forEach(function (b) {
+      b.addEventListener("click", function () { go("rostkort", "judge=" + b.getAttribute("data-kort")); });
+    });
     document.getElementById("mBtn").addEventListener("click", function () {
-      var fromId = Number(document.getElementById("mFrom").value);
-      var toId = Number(document.getElementById("mTo").value);
+      var fromId = Number(comboValue("mFrom"));
+      var toId = Number(comboValue("mTo"));
       if (!fromId || !toId || fromId === toId) { msg("mMsg", "err", "Välj två olika domare."); return; }
       var fromName = judges.find(function (j) { return j.id === fromId; }).name;
       var toName = judges.find(function (j) { return j.id === toId; }).name;
       if (!confirm('Flytta alla röster från "' + fromName + '" till "' + toName + '"?')) return;
       api("/admin/judges/merge", { method: "POST", body: { fromId: fromId, toId: toId } }).then(function (r2) {
-        if (r2.data.ok) renderDomare(main); else msg("mMsg", "err", r2.data.message);
+        if (!r2.data.ok) { msg("mMsg", "err", r2.data.message || "Kunde inte slå ihop."); return; }
+        flash("ok", fromName + " sammanslagen med " + toName + " (" + r2.data.movedVotes + " röster flyttade).");
+        renderDomare(main);
+      });
+    });
+    main.querySelectorAll("[data-undo]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (!confirm('Ångra sammanslagningen "' + b.getAttribute("data-from") + '" → "' + b.getAttribute("data-to") + '"?')) return;
+        api("/admin/judges/merge/" + b.getAttribute("data-undo") + "/undo", { method: "POST", body: {} }).then(function (r2) {
+          if (!r2.data.ok) { msg("mMsg", "err", r2.data.message || "Kunde inte ångra."); return; }
+          flash("ok", "Sammanslagningen ångrad — " + r2.data.restoredVotes + " röster tillbaka.");
+          renderDomare(main);
+        });
       });
     });
   });
@@ -462,34 +948,60 @@ function renderAvdrag(main) {
     var assignments = rs[1].data.assignments;
     var by = localStorage.getItem("adminNamn") || "";
     var html = '<div class="card"><h2>Nytt avdrag</h2>' +
-      '<p class="muted">Avdraget är i procent av bidragets poäng i grenen (100 % nollar bidraget). Beslutet loggas.</p>' +
-      '<div class="row" style="margin-top:8px"><select id="avLagkod"><option value="">– välj bidrag –</option>' +
-      assignments.map(function (a) { return '<option value="' + esc(a.lagkod) + '">' + esc(a.team) + " · " + esc(a.gren) + " (" + esc(a.lagkod) + ")</option>"; }).join("") + "</select>" +
-      '<input id="avPct" type="number" min="1" max="100" placeholder="%" style="width:80px">' +
+      '<p class="muted">Välj procent av bidragets poäng i grenen (100 % nollar bidraget) eller ett fast poängavdrag som dras från slutpoängen. Beslutet loggas.</p>' +
+      '<div class="row" style="margin-top:8px">' + comboHtml("avLagkod", "Sök lag eller gren …", 280) +
+      '<select id="avKind"><option value="pct">procent</option><option value="points">fasta poäng</option></select>' +
+      '<input id="avValue" type="number" min="0" step="0.01" placeholder="%" style="width:90px">' +
       '<input id="avReason" placeholder="Motivering" size="28">' +
       '<input id="avBy" placeholder="Beslutad av" size="14" value="' + esc(by) + '">' +
       '<button class="act" id="avBtn">Lägg avdrag</button></div><div class="msg" id="avMsg"></div></div>';
     html += '<div class="card"><h2>Beslutslogg</h2><table><tr><th>Tid</th><th>Bidrag</th><th class=num>Avdrag</th><th>Motivering</th><th>Beslutad av</th><th></th></tr>' +
       list.map(function (a) {
         var label = a.team ? esc(a.team) + " · " + esc(a.gren || "?") : esc(a.lagkod);
+        var amount = a.points > 0 ? "−" + fmt2.format(a.points) + " p" : Math.round(a.pct * 100) + " %";
         return "<tr" + (a.revoked_at ? ' style="opacity:.5"' : "") + "><td>" + esc((a.created_at || "").slice(5, 16)) + "</td><td>" + label +
-          "</td><td class=num>" + Math.round(a.pct * 100) + " %</td><td>" + esc(a.reason) + "</td><td>" + esc(a.decided_by || "") + "</td><td>" +
+          "</td><td class=num>" + amount + "</td><td>" + esc(a.reason) + "</td><td>" + esc(a.decided_by || "") + "</td><td>" +
           (a.revoked_at ? "återkallat" : '<button class="sec danger" data-rev="' + a.id + '">Återkalla</button>') + "</td></tr>";
       }).join("") + "</table></div>";
     main.innerHTML = html;
+    comboInit("avLagkod", assignments.map(function (a) {
+      return { value: a.lagkod, label: a.team + " · " + a.gren + " (" + a.lagkod + ")" };
+    }));
+    var avKind = document.getElementById("avKind");
+    avKind.addEventListener("change", function () {
+      document.getElementById("avValue").placeholder = avKind.value === "points" ? "poäng" : "%";
+    });
     document.getElementById("avBtn").addEventListener("click", function () {
-      var lagkod = document.getElementById("avLagkod").value;
-      var pct = Number(document.getElementById("avPct").value);
+      var lagkod = comboValue("avLagkod");
+      var value = Number(document.getElementById("avValue").value);
       var reason = document.getElementById("avReason").value.trim();
-      if (!lagkod || !(pct >= 1 && pct <= 100) || !reason) { msg("avMsg", "err", "Bidrag, procent (1–100) och motivering krävs."); return; }
+      var points = avKind.value === "points";
+      if (!lagkod || !reason) { msg("avMsg", "err", "Bidrag och motivering krävs."); return; }
+      if (!(value > 0) || (!points && value > 100)) {
+        msg("avMsg", "err", points ? "Ange ett poängavdrag större än 0." : "Ange en procentsats mellan 1 och 100.");
+        return;
+      }
       localStorage.setItem("adminNamn", document.getElementById("avBy").value.trim());
-      api("/admin/avdrag", { method: "POST", body: { lagkod: lagkod, pct: pct / 100, reason: reason, decidedBy: document.getElementById("avBy").value.trim() } })
-        .then(function (r2) { if (r2.data.ok) renderAvdrag(main); else msg("avMsg", "err", r2.data.message); });
+      api("/admin/avdrag", { method: "POST", body: {
+        lagkod: lagkod,
+        pct: points ? 0 : value / 100,
+        points: points ? value : 0,
+        reason: reason,
+        decidedBy: document.getElementById("avBy").value.trim(),
+      } }).then(function (r2) {
+        if (!r2.data.ok) { msg("avMsg", "err", r2.data.message || "Kunde inte lägga avdraget."); return; }
+        flash("ok", "Avdraget är registrerat och loggat.");
+        renderAvdrag(main);
+      });
     });
     main.querySelectorAll("[data-rev]").forEach(function (b) {
       b.addEventListener("click", function () {
         if (!confirm("Återkalla avdraget?")) return;
-        api("/admin/avdrag/" + b.getAttribute("data-rev") + "/revoke", { method: "POST", body: {} }).then(function () { renderAvdrag(main); });
+        api("/admin/avdrag/" + b.getAttribute("data-rev") + "/revoke", { method: "POST", body: {} }).then(function (r2) {
+          if (!r2.data.ok) { msg("avMsg", "err", r2.data.message || "Kunde inte återkalla avdraget."); return; }
+          flash("ok", "Avdraget är återkallat.");
+          renderAvdrag(main);
+        });
       });
     });
   });
@@ -514,10 +1026,19 @@ function renderResultat(main) {
         '<button class="' + (open ? "sec danger" : "act") + '" id="revealBtn">' + (open ? "Dölj publika resultat" : "Publicera resultat publikt") + "</button></div></div>";
 
       if (d.totals.length) {
-        html += '<div class="card"><h2>Totalpoäng</h2><table><tr><th>#</th><th>Lag</th><th class=num>Totalt</th></tr>' +
+        var totalGrenar = d.grenar.filter(function (g) { return g.inTotal; });
+        html += '<div class="card"><h2>Totalpoäng</h2><table><tr><th>#</th><th>Lag</th>' +
+          totalGrenar.map(function (g) { return '<th class=num>' + esc(g.name) + "</th>"; }).join("") +
+          "<th class=num>Totalt</th></tr>" +
           d.totals.map(function (t, i) {
-            return "<tr><td>" + (i + 1) + "</td><td>" + esc(t.team) + badge(t) + "</td><td class=num><b>" + fmt2.format(t.total) + "</b></td></tr>";
-          }).join("") + "</table></div>";
+            return "<tr><td>" + (i + 1) + "</td><td>" + esc(t.team) + badge(t) + "</td>" +
+              totalGrenar.map(function (g) {
+                var v = t.perGren[g.name];
+                return "<td class=num>" + (v === undefined ? '<span class="muted">–</span>' : fmt2.format(v)) + "</td>";
+              }).join("") +
+              "<td class=num><b>" + fmt2.format(t.total) + "</b></td></tr>";
+          }).join("") + "</table>" +
+          '<p class="muted" style="margin-top:8px">Grenpoängen på varje rad är samma slutpoäng som i grentabellerna nedan. “–” betyder att laget saknar bidrag i grenen.</p></div>';
       }
       d.grenar.forEach(function (g) {
         var list = d.standings[g.name] || [];
@@ -525,9 +1046,12 @@ function renderResultat(main) {
         html += '<div class="card"><h2>' + esc(g.name) + (g.inTotal ? "" : ' <span class="badge">utanför totalen</span>') + "</h2>" +
           "<table><tr><th>#</th><th>Lag</th><th>Kod</th><th class=num>Röster</th><th class=num>Rå</th><th class=num>Justerad</th><th class=num>Avdrag</th><th class=num>Slutpoäng</th></tr>" +
           list.map(function (e, i) {
+            var deductions = [];
+            if (e.factor < 1) deductions.push("−" + Math.round((1 - e.factor) * 100) + " %");
+            if (e.deduction > 0) deductions.push("−" + fmt2.format(e.deduction) + " p");
             return "<tr><td>" + (i + 1) + "</td><td>" + esc(e.team) + badge(e) + "</td><td class=muted>" + esc(e.lagkod) + "</td><td class=num>" + e.n +
               "</td><td class=num>" + fmt2.format(e.raw) + "</td><td class=num>" + fmt2.format(e.adjusted) +
-              "</td><td class=num>" + (e.factor < 1 ? "−" + Math.round((1 - e.factor) * 100) + " %" : "") +
+              "</td><td class=num>" + deductions.join(" ") +
               "</td><td class=num><b>" + fmt2.format(e.final) + "</b></td></tr>";
           }).join("") + "</table></div>";
       });
@@ -611,7 +1135,9 @@ function renderInstallningar(main) {
           weight: Number(tr.querySelector(".cWeight").value),
           active: tr.querySelector(".cActive").checked,
         } }).then(function (r2) {
-          if (r2.data.ok) renderInstallningar(main); else msg("cMsg", "err", r2.data.message);
+          if (!r2.data.ok) { msg("cMsg", "err", r2.data.message || "Kunde inte spara kriteriet."); return; }
+          flash("ok", "Kriteriet sparat.");
+          renderInstallningar(main);
         });
       });
     });
@@ -621,7 +1147,9 @@ function renderInstallningar(main) {
         label: document.getElementById("cNewLabel").value,
         weight: Number(document.getElementById("cNewWeight").value),
       } }).then(function (r2) {
-        if (r2.status === 201) renderInstallningar(main); else msg("cMsg", "err", r2.data.message);
+        if (r2.status !== 201) { msg("cMsg", "err", r2.data.message || "Kunde inte skapa kriteriet."); return; }
+        flash("ok", "Kriteriet tillagt.");
+        renderInstallningar(main);
       });
     });
     main.querySelectorAll(".gSave").forEach(function (b) {
@@ -632,7 +1160,9 @@ function renderInstallningar(main) {
           inTotal: tr.querySelector(".gTotal").checked,
           active: tr.querySelector(".gActive").checked,
         } }).then(function (r2) {
-          if (r2.data.ok) renderInstallningar(main); else msg("gMsg", "err", r2.data.message);
+          if (!r2.data.ok) { msg("gMsg", "err", r2.data.message || "Kunde inte spara grenen."); return; }
+          flash("ok", "Grenen sparad.");
+          renderInstallningar(main);
         });
       });
     });
@@ -641,7 +1171,9 @@ function renderInstallningar(main) {
         name: document.getElementById("gNewName").value,
         inTotal: document.getElementById("gNewTotal").checked,
       } }).then(function (r2) {
-        if (r2.status === 201) renderInstallningar(main); else msg("gMsg", "err", r2.data.message);
+        if (r2.status !== 201) { msg("gMsg", "err", r2.data.message || "Kunde inte skapa grenen."); return; }
+        flash("ok", "Grenen tillagd.");
+        renderInstallningar(main);
       });
     });
   });
@@ -693,13 +1225,13 @@ function renderData(main) {
 }
 
 var RENDER = {
-  oversikt: renderOversikt, tilldela: renderTilldela, papper: renderPapper, lag: renderLag,
+  oversikt: renderOversikt, tilldela: renderTilldela, papper: renderPapper, rostkort: renderRostkort, lag: renderLag,
   domare: renderDomare, avdrag: renderAvdrag, resultat: renderResultat, installningar: renderInstallningar, data: renderData,
 };
 
-if (!RENDER[currentView]) currentView = "oversikt";
+if (!RENDER[currentView]) { currentView = "oversikt"; currentQuery = ""; }
 if (token) {
-  api("/admin/ping").then(function () { shell(); go(currentView); }).catch(function () { /* showLogin körs av api() */ });
+  api("/admin/ping").then(function () { shell(); go(currentView, currentQuery, true); }).catch(function () { /* showLogin körs av api() */ });
 } else {
   showLogin();
 }

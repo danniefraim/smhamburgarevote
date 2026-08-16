@@ -49,6 +49,11 @@
   }
   .row .pl { width: 34px; font-size: 1.1rem; font-weight: 600; color: var(--dim); font-variant-numeric: tabular-nums; }
   .row .team { flex: 1; font-size: 1rem; font-weight: 500; }
+  .row .legs {
+    display: block; margin-top: 3px; font-size: .72rem; font-weight: 400; color: var(--dim);
+    font-variant-numeric: tabular-nums;
+  }
+  .row.leader .legs { color: var(--muted); }
   .row .n { font-size: .75rem; color: var(--dim); font-variant-numeric: tabular-nums; }
   .row .score { font-size: 1.05rem; font-weight: 600; font-variant-numeric: tabular-nums; }
   .row.leader {
@@ -127,12 +132,17 @@
 
     var left = "";
     if (data.totals.length > 0) {
+      var totalGrenar = data.grenar.filter(function (g) { return g.inTotal; });
       left += '<div class="board"><div class="boardkicker">Totalpoäng · ' +
-        esc(data.grenar.filter(function (g) { return g.inTotal; }).map(function (g) { return g.name; }).join(" + ")) +
-        "</div>";
+        esc(totalGrenar.map(function (g) { return g.name; }).join(" + ")) + "</div>";
       data.totals.forEach(function (t) {
+        var legs = totalGrenar.map(function (g) {
+          var v = t.perGren[g.name];
+          return esc(g.name) + " " + (v === undefined ? "–" : fmt.format(v));
+        }).join(" · ");
         left += '<div class="row' + (t.place === 1 ? " leader" : "") + '"><span class="pl">' + pad(t.place) +
-          '</span><span class="team">' + esc(t.team) + badges(t) + '</span><span class="score">' + fmt.format(t.total) + "</span></div>";
+          '</span><span class="team">' + esc(t.team) + badges(t) + '<span class="legs">' + legs + "</span></span>" +
+          '<span class="score">' + fmt.format(t.total) + "</span></div>";
       });
       left += "</div>";
     }
