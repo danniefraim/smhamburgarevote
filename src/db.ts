@@ -73,19 +73,28 @@ export async function loadScoringInputs(db: D1Database): Promise<ScoringInputs> 
   };
 }
 
-/** Slår upp domare på namn (skiftlägesokänsligt), följer alias och skapar vid behov. */
+/** Slår upp domare på namn (skiftlägesokänsligt, även Å/Ä/Ö), följer alias och skapar vid behov. */
 export async function resolveJudgeId(db: D1Database, name: string): Promise<number> {
+  const norm = name.toLowerCase();
   const existing = await db
-    .prepare("SELECT id, alias_of FROM judges WHERE name = ?")
-    .bind(name)
+    .prepare("SELECT id, alias_of FROM judges WHERE name_norm = ?")
+    .bind(norm)
     .first<{ id: number; alias_of: number | null }>();
   if (existing) return existing.alias_of ?? existing.id;
+  // Målfritt ON CONFLICT: två samtidiga röster med samma nya namn kan kollidera på
+  // name_norm eller på namnets NOCASE-unikhet — förloraren får ingen rad tillbaka
+  // och slår upp vinnarens i stället.
   const inserted = await db
-    .prepare("INSERT INTO judges (name) VALUES (?) RETURNING id")
-    .bind(name)
+    .prepare("INSERT INTO judges (name, name_norm) VALUES (?, ?) ON CONFLICT DO NOTHING RETURNING id")
+    .bind(name, norm)
     .first<{ id: number }>();
-  if (!inserted) throw new Error("Kunde inte skapa domare");
-  return inserted.id;
+  if (inserted) return inserted.id;
+  const winner = await db
+    .prepare("SELECT id, alias_of FROM judges WHERE name_norm = ?")
+    .bind(norm)
+    .first<{ id: number; alias_of: number | null }>();
+  if (!winner) throw new Error("Kunde inte skapa domare");
+  return winner.alias_of ?? winner.id;
 }
 
 export async function logAdmin(db: D1Database, action: string, detail: unknown): Promise<void> {

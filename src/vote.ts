@@ -53,16 +53,18 @@ export async function submitVote(db: D1Database, payload: VotePayload, opts: Sub
   const rawScores = payload.scores;
 
   async function reject(code: string, message: string): Promise<SubmitResult> {
+    // Avvisade försök loggas med kapade fält: endpointen är öppen och oautentiserad,
+    // så okapade payloads vore ett gratis sätt att fylla databasen med skräp.
     await db
       .prepare(
         `INSERT INTO submission_log (kortid, lagkod, judge_name, scores, comment, source, entered_by, accepted, reason)
          VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?)`,
       )
       .bind(
-        kortid || null,
-        lagkodIn || null,
-        judgeName || null,
-        rawScores ? JSON.stringify(rawScores) : null,
+        kortid.slice(0, 100) || null,
+        lagkodIn.slice(0, 40) || null,
+        judgeName.slice(0, 200) || null,
+        rawScores ? JSON.stringify(rawScores).slice(0, 2000) : null,
         comment || null,
         opts.source,
         opts.enteredBy ?? null,

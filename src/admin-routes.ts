@@ -186,6 +186,18 @@ adminRoutes.get("/criteria", async (c) => {
   return c.json({ criteria: results });
 });
 
+/**
+ * Registrerade röster saknar poäng för kriterier som tillkommer efteråt, och då
+ * kastar poängmotorn — hela resultatsidan går ner. Därför är det spärrat att
+ * lägga till eller återaktivera kriterier så länge röster finns.
+ */
+async function criteriaLocked(db: D1Database): Promise<boolean> {
+  return (await db.prepare("SELECT 1 AS x FROM votes LIMIT 1").first()) !== null;
+}
+
+const CRITERIA_LOCKED_MSG =
+  "Röster är redan registrerade — ett nytt aktivt kriterium skulle sakna poäng i befintliga röster och stoppa resultatberäkningen. Kriterieuppsättningen är låst tills rösterna rensats.";
+
 adminRoutes.post("/criteria", async (c) => {
   const body = (await c.req.json().catch(() => ({}))) as {
     key?: string;
@@ -197,6 +209,9 @@ adminRoutes.post("/criteria", async (c) => {
   const label = (body.label ?? "").trim();
   if (!/^[a-zå-ö0-9_]{1,30}$/.test(key) || !label || typeof body.weight !== "number" || body.weight < 0) {
     return c.json({ ok: false, code: "validation", message: "Ogiltigt kriterium (key, label, weight krävs)." }, 400);
+  }
+  if (await criteriaLocked(c.env.DB)) {
+    return c.json({ ok: false, code: "locked", message: CRITERIA_LOCKED_MSG }, 409);
   }
   try {
     const row = await c.env.DB
@@ -218,10 +233,18 @@ adminRoutes.patch("/criteria/:id", async (c) => {
     sort?: number;
     active?: boolean;
   };
-  const existing = await c.env.DB.prepare("SELECT id FROM criteria WHERE id = ?").bind(id).first();
+  const existing = await c.env.DB.prepare("SELECT id, active FROM criteria WHERE id = ?").bind(id).first<{
+    id: number;
+    active: number;
+  }>();
   if (!existing) return c.json({ ok: false, code: "not_found", message: "Kriteriet finns inte." }, 404);
   if (body.weight !== undefined && (typeof body.weight !== "number" || body.weight < 0)) {
     return c.json({ ok: false, code: "validation", message: "Ogiltig vikt." }, 400);
+  }
+  // Att stänga av ett kriterium är ofarligt (överblivna poäng ignoreras); att slå
+  // på ett gör att alla registrerade röster saknar poäng för det — spärrat.
+  if (body.active === true && existing.active === 0 && (await criteriaLocked(c.env.DB))) {
+    return c.json({ ok: false, code: "locked", message: CRITERIA_LOCKED_MSG }, 409);
   }
   await c.env.DB
     .prepare(
@@ -360,17 +383,22 @@ adminRoutes.post("/judges/merge/:id/undo", async (c) => {
   const clusterIds = [merge.from_id, ...aliasIds];
   const clusterPlaceholders = clusterIds.map(() => "?").join(",");
 
-  // Jämförelsen sker mot judges.name, som är COLLATE NOCASE — samma matchning som
-  // när en röst kommer in och namnet slås upp.
+  // Jämförelsen sker mot judges.name_norm — samma skiftlägesokänsliga matchning
+  // (även Å/Ä/Ö) som när en röst kommer in och namnet slås upp. Loggens namn
+  // gemeneras i SQL med samma replace-kedja som migrationens backfill.
+  const svLower = (col: string) =>
+    `lower(replace(replace(replace(replace(replace(${col}, 'Å', 'å'), 'Ä', 'ä'), 'Ö', 'ö'), 'É', 'é'), 'Ü', 'ü'))`;
   const restore = [
     db
       .prepare(
         `UPDATE votes SET judge_id = ? WHERE judge_id = ? AND EXISTS (
            SELECT 1 FROM judges j
            WHERE j.id IN (${clusterPlaceholders})
-             AND j.name = (SELECT l.judge_name FROM submission_log l
-                           WHERE l.kortid = votes.kortid AND l.accepted = 1
-                           ORDER BY l.id DESC LIMIT 1)
+             AND j.name_norm = ${svLower(
+               `(SELECT l.judge_name FROM submission_log l
+                 WHERE l.kortid = votes.kortid AND l.accepted = 1
+                 ORDER BY l.id DESC LIMIT 1)`,
+             )}
          )`,
       )
       .bind(merge.from_id, merge.to_id, ...clusterIds),
@@ -757,8 +785,33 @@ adminRoutes.post("/cards/import", async (c) => {
   return c.json({ ok: true, rows: pairs.length, imported, skipped: pairs.length - imported, badLines: errors });
 });
 
+const TID_STHLM = new Intl.DateTimeFormat("sv-SE", {
+  timeZone: "Europe/Stockholm",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hourCycle: "h23",
+});
+
+/** D1:s datetime('now') är UTC ("YYYY-MM-DD HH:MM:SS"); exporten visar svensk tid. */
+function svTid(utc: string | null): string {
+  if (!utc) return "";
+  const d = new Date(utc.replace(" ", "T") + "Z");
+  if (Number.isNaN(d.getTime())) return utc;
+  const p: Record<string, string> = {};
+  for (const part of TID_STHLM.formatToParts(d)) p[part.type] = part.value;
+  return `${p.year}-${p.month}-${p.day} ${p.hour}:${p.minute}:${p.second}`;
+}
+
 function csvField(value: unknown): string {
-  const s = value === null || value === undefined ? "" : String(value);
+  let s = value === null || value === undefined ? "" : String(value);
+  // Excel kör fält som börjar med = + - @ (eller tab/CR) som formler — en inledande
+  // apostrof neutraliserar utan att förstöra CSV-parsning. Poängen är alltid 0–10,
+  // så inga riktiga värden börjar med de tecknen.
+  if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
   return /[;"\n\r]/.test(s) ? `"${s.replaceAll('"', '""')}"` : s;
 }
 
@@ -812,8 +865,8 @@ adminRoutes.get("/export.csv", async (c) => {
         v.comment ?? "",
         v.source,
         v.entered_by ?? "",
-        v.created_at,
-        v.edited_at ?? "",
+        svTid(v.created_at),
+        svTid(v.edited_at),
         v.edited_by ?? "",
         v.edited_reason ?? "",
       ]
