@@ -5,7 +5,7 @@
  *   npm i -D playwright && npx playwright install chromium
  * Kör:
  *   npm run dev                      (i ett annat fönster)
- *   node tools/e2e.js
+ *   node tools/e2e.cjs               (.cjs — package.json är "type": "module")
  *
  * Skriptet förutsätter demodata: kort enligt CANDIDATE_CARDS på gruppkod DEMO
  * kopplad till ett lag, plus ADMIN_TOKEN nedan i .dev.vars. Se README.
@@ -104,7 +104,8 @@ async function pickUnusedCard() {
   await admin.waitForSelector("#fJudge-q");
   await admin.fill("#fJudge-q", "Browser");
   await admin.click('#fJudge-list div[data-v]');
-  await admin.waitForSelector("text=Browser-Testare");
+  // Scopa till tabellen — "text=" utan scope matchar den dolda combo-optionen först.
+  await admin.waitForSelector("#rkTable >> text=Browser-Testare");
   await admin.click("#rkTable button[data-edit]");
   await admin.waitForSelector("#edSave");
   await admin.click("#edCancel");

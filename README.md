@@ -74,8 +74,13 @@ utan att korten trycks om. Alternativet är att trycka korten med workers.dev-ad
 
 **Före start**
 - [ ] Kör `npm test` — allt grönt, ingen koddändring efter frysdatum.
+- [ ] Workers-planen är betald: resultatberäkningen överskrider free-planens
+      CPU-tak (10 ms/anrop) vid full datamängd, och admin pollar den var 3:e sekund.
 - [ ] Kortregistret importerat; antal stämmer.
 - [ ] Lag inlagda (fler kan läggas till under dagen), grenar/kriterier/vikter rätt.
+      Kriterieuppsättningen låses av systemet så fort första rösten finns (annars
+      skulle befintliga röster sakna poäng för nya kriterier) — bestäm den före
+      provröstningen. Vikter och etiketter går att ändra hela dagen.
 - [ ] Inställningar: metod = stränghetsjusterad, publika resultat = dolda,
       reservformulärets URL ifylld (Google Form som backup, `{lagkod}`/`{kortid}` ersätts).
 - [ ] Provrösta med ett överblivet testkort; registrera + verifiera i Översikt;
@@ -127,7 +132,7 @@ röstkortsvyn → publicera → publik sida) mot din lokala dev-server:
 
 ```bash
 npm i -D playwright && npx playwright install chromium   # engångs
-node tools/e2e.js                                        # kräver npm run dev + demodata
+node tools/e2e.cjs                                       # kräver npm run dev + demodata
 ```
 
 ## Struktur
