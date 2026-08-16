@@ -24,7 +24,7 @@ Byggt på Cloudflare Workers + D1 med statiska sidor — en deploy, inga servrar
 |---|---|
 | `/?lagkod=XXXX&kortid=<uuid>` | Röstsidan som QR-koderna pekar på (samma URL-format som 2025 års kortgenerator) |
 | `/resultat.html` | Publik resultatsida (dold tills du publicerar; pollar var 5:e sekund) |
-| `/admin.html` | Tävlingsadmin (admin-nyckel krävs) |
+| `/admin.html` | Tävlingsadmin (admin-nyckel krävs). Dagens flikar — Översikt, Tilldela, Röstkort, Resultat — uppdaterar sig själva var 3:e sekund och ritar bara om när något ändrats; ingen omladdning behövs. |
 
 ## Kom igång lokalt
 
@@ -87,7 +87,9 @@ utan att korten trycks om. Alternativet är att trycka korten med workers.dev-ad
   (Röster som kommer in före kopplingen syns under "väntar på koppling" och räknas
   så fort kopplingen finns.)
 - Följ **Översikt**: de tio senast inkomna röstkorten, röster per bidrag och gren,
-  konflikter. Det trycks alltid fler kort än det finns domare, så röstningen är klar
+  konflikter. Vyn uppdaterar sig själv — indikatorn uppe till höger visar **live**
+  med senaste hämtningen, eller **avbrott** om nätet strular (då visas senast
+  hämtade datat tills det kommer tillbaka). Det trycks alltid fler kort än det finns domare, så röstningen är klar
   långt innan alla kort är använda — stapeln jämför med bidraget som fått flest röster
   i grenen, den är ingen målsnöre.
 - Papperskort matas in löpande under **Papper** — dubbletter är ofarliga.
